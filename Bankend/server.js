@@ -15,11 +15,15 @@ const app = express();
 app.use(helmet());
 
 //Allow request from frontend 
-app.use(
-    cors({
-        origin:process.env.CLIENT_URL || "http://localhost:5173",
-    })
-)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://o-health-positive-git-main-khushiporwal98-gmailcoms-projects.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 //middleware 
 app.use(express.json({limit: "10kb"}));
 
