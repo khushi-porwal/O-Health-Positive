@@ -42,6 +42,14 @@ app.get("/api/health", (req,res) => {
     })
 })
 
+// Add this after app initialization
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "O Positive Health API is running"
+  });
+});
+
 //routes 
 app.use("/api/contact", contactRoute);
 app.use("/api/admin", adminRoute)
