@@ -1,0 +1,132 @@
+
+.specialties-section {
+  padding: 85px 7%;
+  background: #fffaf4;
+}
+
+.specialties-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.specialties-heading {
+  max-width: 750px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.specialties-eyebrow {
+  margin-bottom: 14px;
+  color: #e87900;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.specialties-heading h2 {
+  margin: 0 0 18px;
+  color: #173f50;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.2;
+}
+
+.specialties-heading h2 span {
+  color: #e87900;
+}
+
+.specialties-heading > p:last-child {
+  color: #65737a;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.specialty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 245px;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #f0e7dc;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(23, 63, 80, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.specialty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(23, 63, 80, 0.1);
+}
+
+.specialty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  background: #fff0df;
+  border-radius: 14px;
+  font-size: 28px;
+}
+
+.specialty-card h3 {
+  margin: 0 0 12px;
+  color: #173f50;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.specialty-card p {
+  margin: 0 0 20px;
+  color: #65737a;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.specialty-link {
+  margin-top: auto;
+  color: #df7100;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.specialty-link:hover {
+  color: #173f50;
+}
+
+.specialties-note {
+  margin-top: 28px;
+  color: #75828a;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .specialties-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .specialties-section {
+    padding: 60px 6%;
+  }
+
+  .specialties-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .specialty-card {
+    min-height: auto;
+  }
+}

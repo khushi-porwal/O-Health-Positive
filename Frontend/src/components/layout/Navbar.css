@@ -1,0 +1,257 @@
+
+/* ==============================
+   NAVBAR - O POSITIVE HEALTH
+================================= */
+
+.navbar {
+  width: 100%;
+  min-height: 78px;
+  padding: 10px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border-bottom: 1px solid #f2e6dc;
+  box-shadow: 0 3px 14px rgba(22, 53, 75, 0.06);
+}
+
+/* LOGO */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.navbar-logo-image {
+  display: block;
+  width: 245px;
+  height: 58px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* NAVIGATION LINKS */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.navbar-links > a {
+  color: #52676d;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.navbar-links > a:hover {
+  color: #f47b20;
+}
+
+/* RIGHT SIDE ACTIONS */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 11px 17px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-signin {
+  color: #16354b;
+  background: #ffffff;
+  border-color: #f2c49f;
+}
+
+.nav-signin:hover {
+  color: #c85b0b;
+  background: #fff5ec;
+  border-color: #f47b20;
+}
+
+.nav-start {
+  color: #ffffff;
+  background: #f47b20;
+  border-color: #f47b20;
+}
+
+.nav-start:hover {
+  color: #ffffff;
+  background: #d96512;
+  border-color: #d96512;
+  transform: translateY(-1px);
+}
+
+/* MOBILE MENU BUTTON */
+
+.menu-toggle {
+  display: none;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  color: #16354b;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+/* MOBILE ACTIONS: HIDDEN ON DESKTOP */
+
+.navbar-mobile-actions {
+  display: none;
+}
+
+/* TABLET RESPONSIVENESS */
+
+@media (max-width: 1100px) {
+  .navbar {
+    padding-inline: 4%;
+    gap: 16px;
+  }
+
+  .navbar-logo-image {
+    width: 205px;
+    height: 52px;
+  }
+
+  .navbar-links {
+    gap: 15px;
+  }
+
+  .navbar-links > a {
+    font-size: 13px;
+  }
+
+  .nav-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 760px) {
+  .navbar {
+    min-height: 70px;
+    padding: 10px 5%;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navbar-logo-image {
+    width: 190px;
+    height: 46px;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    line-height: 1;
+  }
+
+  .menu-toggle:hover {
+    color: #f47b20;
+  }
+
+  /* Hide desktop action buttons */
+
+  .navbar-actions {
+    display: none;
+  }
+
+  /* Collapsed navigation */
+
+  .navbar-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0 12px;
+  }
+
+  /* Expanded navigation */
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-links > a {
+    padding: 13px 5px;
+    border-bottom: 1px solid #f3ebe4;
+    font-size: 15px;
+  }
+
+  /* Actions inside mobile menu */
+
+  .navbar-mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+  }
+
+  .navbar-mobile-actions .nav-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* SMALL MOBILE SCREENS */
+
+@media (max-width: 380px) {
+  .navbar {
+    padding-inline: 4%;
+  }
+
+  .navbar-logo-image {
+    width: 165px;
+    height: 42px;
+  }
+
+  .menu-toggle {
+    font-size: 24px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+  outline: 2px solid #f47b20;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-links > a,
+  .nav-btn {
+    transition: none;
+  }
+}

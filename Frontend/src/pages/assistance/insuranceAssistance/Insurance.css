@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.ia-page {
+  width: 100%;
+  background: #ffffff;
+  font-family: "Inter", system-ui, sans-serif;
+  color: #14465f;
+}
+
+.ia-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.ia-top {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.ia-back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #b85405;
+  cursor: pointer;
+}
+.ia-back:hover {
+  color: #8f3f03;
+}
+
+.ia-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.ia-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #b85405;
+}
+
+.ia-title {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #14465f;
+}
+
+.ia-accent {
+  color: #d9730d;
+}
+
+.ia-lead {
+  margin: 0;
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.ia-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ia-section-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #14465f;
+  text-align: center;
+}
+
+.ia-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ia-card {
+  flex: 1 1 280px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 24px;
+  border: 1px solid #ece7e2;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(20, 70, 95, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ia-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #fdeee0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ia-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #14465f;
+}
+
+.ia-card-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.ia-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.ia-step {
+  flex: 1 1 240px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ia-step-no {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #14465f;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ia-step-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #14465f;
+}
+
+.ia-box {
+  box-sizing: border-box;
+  padding: 32px 24px;
+  border-radius: 20px;
+  background: #fff6ee;
+  border: 1px solid #f6e0cc;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ia-box-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ia-box-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #14465f;
+}
+
+.ia-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ia-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ia-check-icon {
+  flex: none;
+  margin-top: 1px;
+}
+
+.ia-check-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #14465f;
+}
+
+.ia-divider {
+  height: 1px;
+  background: #f0d9c4;
+}
+
+.ia-reach {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
