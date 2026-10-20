@@ -1,5 +1,6 @@
 
 const Volunteer = require("../../models/volunteer/Volunteer");
+const sendEmail = require("../../utils/sendEmail");
 
 const ALLOWED_STATUSES = ["Pending", "Approved", "Rejected"];
 
@@ -15,6 +16,7 @@ const registerVolunteer = async (req, res) => {
       motivation,
     } = req.body;
 
+    // 1. Validate required fields
     if (
       !fullName?.trim() ||
       !email?.trim() ||
@@ -29,15 +31,67 @@ const registerVolunteer = async (req, res) => {
       });
     }
 
+    // 2. Validate email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email.trim())) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid email address.",
+      });
+    }
+
+    // 3. Save volunteer in MongoDB
     const volunteer = await Volunteer.create({
       fullName: fullName.trim(),
-      email: email.trim(),
+      email: email.trim().toLowerCase(),
       phone: phone.trim(),
       city: city.trim(),
       interest,
       motivation: motivation.trim(),
     });
 
+    // 4. Send email notification to admin
+    try {
+      if (!process.env.ADMIN_EMAIL) {
+        throw new Error("ADMIN_EMAIL is missing in .env");
+      }
+
+      await sendEmail({
+        to: process.env.ADMIN_EMAIL,
+        subject: "New Volunteer Registration - O Positive Health",
+        text: [
+          "A new volunteer application has been submitted.",
+          "",
+          `Name: ${volunteer.fullName}`,
+          `Email: ${volunteer.email}`,
+          `Phone: ${volunteer.phone}`,
+          `City: ${volunteer.city}`,
+          `Area of Interest: ${volunteer.interest}`,
+          "",
+          "Motivation:",
+          volunteer.motivation,
+          "",
+          `Volunteer ID: ${volunteer._id}`,
+          `Status: ${volunteer.status || "Pending"}`,
+          `Submitted: ${volunteer.createdAt || new Date().toISOString()}`,
+          "",
+          "Please review this application in the admin dashboard.",
+        ].join("\n"),
+      });
+
+      console.log(
+        "Volunteer registration notification email sent successfully"
+      );
+    } catch (emailError) {
+      // Email fail hone par bhi registration saved rahega
+      console.error(
+        "Volunteer notification email failed:",
+        emailError.message
+      );
+    }
+
+    // 5. Respond to visitor
     return res.status(201).json({
       success: true,
       message: "Volunteer application submitted successfully!",
@@ -59,6 +113,7 @@ const registerVolunteer = async (req, res) => {
     });
   }
 };
+
 
 // Admin: Get all volunteer applications
 const getVolunteers = async (req, res) => {

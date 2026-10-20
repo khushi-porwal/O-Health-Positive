@@ -1,18 +1,29 @@
-const express = require("express");
+
 const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config({
+  path: path.resolve(__dirname, ".env"),
+});
+
+console.log(
+  "Gemini API key loaded:",
+  Boolean(process.env.GEMINI_API_KEY)
+);
+
+const express = require("express");
 const cors = require("cors");
-const helmet = require("helmet")
+const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+
 const connectionDB = require("./config/db");
+
 const volunteerRoutes = require("./routes/volunteer/VolunteerRoutes");
-const adminRoute = require("./routes/admin/adminRoute")
+const adminRoute = require("./routes/admin/adminRoute");
 const contactRoute = require("./routes/contact/contactRoute");
-dotenv.config();
+const chatbotRoutes = require("./routes/chatbot/chatbotRoutes");
 
-const app = express();
-
-//Basic security headers
-app.use(helmet());
+const app = express()
 
 //Allow request from frontend 
 const allowedOrigins = [
@@ -25,6 +36,7 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true
 }));
+
 //middleware 
 app.use(express.json({limit: "10kb"}));
 
@@ -59,6 +71,7 @@ app.get("/", (req, res) => {
 app.use("/api/contact", contactRoute);
 app.use("/api/admin", adminRoute)
 app.use("/api/volunteers", volunteerRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 //port
 const PORT = process.env.PORT;
 

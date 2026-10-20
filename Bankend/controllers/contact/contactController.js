@@ -1,66 +1,101 @@
 
 const Contact = require("../../models/contact/Contact");
+const sendEmail = require("../../utils/sendEmail");
 
 // 1. Public: Create contact enquiry
+
 const createContact = async (req, res) => {
-    try {
-        const { name, email, phone, subject, message } = req.body;
+  try {
+    const { name, email, phone, subject, message } = req.body;
 
-        if (
-            !name?.trim() ||
-            !email?.trim() ||
-            !phone?.trim() ||
-            !subject?.trim() ||
-            !message?.trim()
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: "Name, email, phone, subject and message are required"
-            });
-        }
-
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailPattern.test(email.trim())) {
-            return res.status(400).json({
-                success: false,
-                message: "Please provide a valid email address"
-            });
-        }
-
-        const contact = await Contact.create({
-            name: name.trim(),
-            email: email.trim().toLowerCase(),
-            phone: phone.trim(),
-            subject: subject.trim(),
-            message: message.trim()
-        });
-
-        return res.status(201).json({
-            success: true,
-            message: "Your enquiry has been submitted successfully",
-            data: {
-                id: contact._id,
-                status: contact.status,
-                createdAt: contact.createdAt
-            }
-        });
-    } catch (error) {
-        if (error.name === "ValidationError") {
-            return res.status(400).json({
-                success: false,
-                message: "Please check the submitted information"
-            });
-        }
-
-        console.error("Contact API error:", error.message);
-
-        return res.status(500).json({
-            success: false,
-            message: "Unable to submit your enquiry right now"
-        });
+    // 1. Validate required fields
+    if (
+      !name?.trim() ||
+      !email?.trim() ||
+      !phone?.trim() ||
+      !subject?.trim() ||
+      !message?.trim()
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Name, email, phone, subject and message are required",
+      });
     }
+
+    // 2. Validate email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email.trim())) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid email address",
+      });
+    }
+
+    // 3. Save enquiry in MongoDB
+    const contact = await Contact.create({
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      phone: phone.trim(),
+      subject: subject.trim(),
+      message: message.trim(),
+    });
+
+    // 4. Send email notification to admin
+    try {
+      if (!process.env.ADMIN_EMAIL) {
+        throw new Error("ADMIN_EMAIL is missing in .env");
+      }
+
+      await sendEmail({
+        to: process.env.ADMIN_EMAIL,
+        subject: "New Contact Enquiry - O Positive Health",
+        text: [
+          "A new contact enquiry has been submitted.",
+          "",
+          `Name: ${contact.name}`,
+          `Email: ${contact.email}`,
+          `Phone: ${contact.phone}`,
+          `Subject: ${contact.subject}`,
+          `Message: ${contact.message}`,
+          "",
+          `Enquiry ID: ${contact._id}`,
+          `Submitted: ${contact.createdAt}`,
+          "",
+          "Please review this enquiry in the admin dashboard.",
+        ].join("\n"),
+      });
+
+      console.log("Admin notification email sent successfully");
+    } catch (emailError) {
+      // Email fail hone par bhi enquiry saved rahegi
+      console.error(
+        "Admin notification email failed:",
+        emailError.message
+      );
+    }
+
+    // 5. Send success response to visitor
+    return res.status(201).json({
+      success: true,
+      message: "Your enquiry has been submitted successfully",
+      data: {
+        id: contact._id,
+        status: contact.status,
+        createdAt: contact.createdAt,
+      },
+    });
+  } catch (error) {
+    console.error("Contact API error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to submit your enquiry right now",
+    });
+  }
 };
+
 
 // 2. Admin: Get all contact enquiries
 const getContacts = async (req, res) => {

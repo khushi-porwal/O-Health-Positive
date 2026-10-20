@@ -4,6 +4,7 @@ import Contact from "./pages/contact/Contact";
 import AdminLogin from "./pages/admin/AdminLogin";
 import Volunteer from "./pages/volunteer/Volunteer";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import Chatbot from "./components/common/chatbot/Chatbot";
 import Insurance from "./pages/assistance/insuranceAssistance/Insurance";
 import Surgical from "./pages/assistance/surgicalCoordination/Surgical";
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/volunteer" element={<Volunteer />} />
       </Routes>
+      <Chatbot/>
     </BrowserRouter>
   );
 }
