@@ -7,6 +7,7 @@ const VendorHero = () => {
   const handleExploreVendors = () => {
     document.getElementById("vendors")?.scrollIntoView({
       behavior: "smooth",
+      block: "start",
     });
   };
 
@@ -20,11 +21,14 @@ const VendorHero = () => {
         />
 
         <button
+          type="button"
           className="vendor-hero-button"
           onClick={handleExploreVendors}
         >
-          Explore Vendors
-          <span className="button-arrow">→</span>
+          <span>Explore Vendors</span>
+          <span className="button-arrow" aria-hidden="true">
+            →
+          </span>
         </button>
       </div>
     </section>

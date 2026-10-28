@@ -69,12 +69,9 @@ const OurVision = () => {
           </h1>
 
           <p>
-            At True Hope Foundation, we envision a world where financial
-            barriers do not hinder individuals from accessing essential
-            resources for social and medical needs. We strive to be a beacon
-            of hope for those who find themselves unable to fund crucial
-            aspects of their lives, whether it be addressing pressing social
-            issues or overcoming medical challenges.
+           To create a society where every individual, regardless of financial or social background, has access to essential healthcare services, medical guidance, and opportunities for a healthier life.
+
+We envision a future where healthcare is not a privilege but an accessible necessity for all.
           </p>
 
           <p>

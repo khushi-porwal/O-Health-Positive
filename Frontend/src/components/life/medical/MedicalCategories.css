@@ -305,3 +305,105 @@
     transition: none;
   }
 }
+
+/* Medical Categories Heading */
+.medical-categories-heading {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto 38px;
+  text-align: center;
+}
+
+/* Eyebrow text */
+.medical-categories-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #168746;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: default;
+
+  transition:
+    color 0.35s ease,
+    letter-spacing 0.35s ease,
+    text-shadow 0.35s ease;
+}
+
+.medical-categories-eyebrow:hover {
+  color: #72259a;
+  letter-spacing: 2.8px;
+  text-shadow: 0 4px 14px rgba(114, 37, 154, 0.18);
+}
+
+/* Eyebrow dot */
+.medical-categories-dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.medical-categories-eyebrow:hover
+.medical-categories-dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(114, 37, 154, 0.35);
+}
+
+/* Main heading */
+.medical-categories-heading h2 {
+  margin: 0;
+  color: #123d83;
+  font-size: clamp(26px, 3vw, 37px);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.7px;
+  cursor: default;
+
+  transition:
+    color 0.35s ease,
+    text-shadow 0.35s ease,
+    letter-spacing 0.35s ease;
+}
+
+.medical-categories-heading h2:hover {
+  color: #087bc1;
+  letter-spacing: -0.4px;
+  text-shadow: 0 5px 20px rgba(8, 123, 193, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .medical-categories-heading {
+    margin-bottom: 28px;
+    padding: 0 8px;
+  }
+
+  .medical-categories-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .medical-categories-heading h2 {
+    font-size: 25px;
+    line-height: 1.35;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .medical-categories-eyebrow,
+  .medical-categories-dot,
+  .medical-categories-heading h2 {
+    transition: none;
+  }
+}

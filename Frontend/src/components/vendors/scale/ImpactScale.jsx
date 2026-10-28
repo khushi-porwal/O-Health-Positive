@@ -2,18 +2,82 @@
 import { useEffect, useRef, useState } from "react";
 import "./ImpactScale.css";
 import impactImage from "../../../assets/impact.png";
+import { getImpactStats } from "../../../services/impactApi";
 
-const impactStats = [
-  { id: 1, value: 100, suffix: "Cr+", label: "Funds Raised", color: "green" },
-  { id: 2, value: 1000, suffix: "+", label: "Successful Campaigns", color: "blue" },
-  { id: 3, value: 2000, suffix: "+", label: "Monthly Donors", color: "purple" },
-  { id: 4, value: 100, suffix: "k+", label: "Lives Impacted", color: "red" },
+const initialStats = [
+  {
+    id: 1,
+    key: "fundsRaised",
+    value: 0,
+    suffix: "Cr+",
+    label: "Funds Raised",
+    color: "green",
+  },
+  {
+    id: 2,
+    key: "successfulCampaigns",
+    value: 0,
+    suffix: "+",
+    label: "Successful Campaigns",
+    color: "blue",
+  },
+  {
+    id: 3,
+    key: "monthlyDonors",
+    value: 0,
+    suffix: "+",
+    label: "Monthly Donors",
+    color: "purple",
+  },
+  {
+    id: 4,
+    key: "livesImpacted",
+    value: 0,
+    suffix: "k+",
+    label: "Lives Impacted",
+    color: "red",
+  },
 ];
 
 function OurImpact() {
   const sectionRef = useRef(null);
   const [startCount, setStartCount] = useState(false);
+  const [impactStats, setImpactStats] = useState(initialStats);
 
+  // Fetch statistics from backend
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchImpactStats = async () => {
+      try {
+        const result = await getImpactStats();
+
+        if (!result?.success || !result?.data || !isMounted) {
+          return;
+        }
+
+        setImpactStats((previousStats) =>
+          previousStats.map((stat) => ({
+            ...stat,
+            value: Math.max(
+              0,
+              Number(result.data[stat.key]) || 0
+            ),
+          }))
+        );
+      } catch (error) {
+        console.error("Failed to fetch impact statistics:", error);
+      }
+    };
+
+    fetchImpactStats();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Start animation when the section enters the viewport
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -29,11 +93,16 @@ function OurImpact() {
     );
 
     observer.observe(section);
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="impact-modern" id="our-impact" ref={sectionRef}>
+    <section
+      className="impact-modern"
+      id="our-impact"
+      ref={sectionRef}
+    >
       <div className="impact-modern-inner">
         <div className="impact-modern-heading">
           <span className="impact-kicker">
@@ -57,10 +126,14 @@ function OurImpact() {
 
         <div className="impact-modern-stats">
           {impactStats.map((stat) => (
-            <article className="impact-modern-card" key={stat.id}>
+            <article
+              className="impact-modern-card"
+              key={stat.id}
+            >
               <div className={`impact-card-accent ${stat.color}`} />
+
               <span className="impact-card-index">
-                0{stat.id}
+                {`0${stat.id}`}
               </span>
 
               <div className={`impact-modern-number ${stat.color}`}>
@@ -72,6 +145,7 @@ function OurImpact() {
               </div>
 
               <p>{stat.label}</p>
+
               <div className="impact-card-bottom">
                 <span />
                 <span />
@@ -88,6 +162,7 @@ function OurImpact() {
               alt="Community members supported by our programs"
               loading="lazy"
             />
+
             <span className="impact-image-tag">
               CARE • COMPASSION • CHANGE
             </span>
@@ -97,10 +172,11 @@ function OurImpact() {
             <span className="impact-story-label">
               OUR PURPOSE
             </span>
+
             <h3>Every life matters.</h3>
-            <p>
-              Together, we make every life count.
-            </p>
+
+            <p>Together, we make every life count.</p>
+
             <div className="impact-story-decoration">
               <span />
               <span />
@@ -133,6 +209,7 @@ function AnimatedNumber({ value, active }) {
       );
 
       const eased = 1 - Math.pow(1 - progress, 3);
+
       setCount(Math.round(eased * value));
 
       if (progress < 1) {

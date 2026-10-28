@@ -25,27 +25,20 @@ const WhoWeAre = () => {
         </div>
 
         <h2>
-          We Are A Purpose-Driven Giving
-          Platform Committed To Turning
-          Compassion Into Meaningful Change
+          A Foundation Built on Care, Compassion & Commitment
         </h2>
 
         <p>
-          Welcome to O Positive Health Foundation, a heartfelt
-          initiative dedicated to transforming lives through
-          timely financial support and community-driven care.
-          Rooted in compassion, our foundation is committed to
-          extending a helping hand to those in need.
+          O Positive Health Foundation is a healthcare-focused non-profit organization 
+          committed to supporting economically disadvantaged individuals and underserved communities.
+          We recognize that thousands of families face difficulties in accessing healthcare due to financial challenges, 
+          limited awareness, and inadequate medical resources
         </p>
 
         <p>
-          At O Positive Health Foundation, we recognize that
-          financial hardships can feel overwhelming — whether
-          it is urgent medical treatment, a child's education,
-          shelter needs, animal welfare, or unexpected
-          emergencies. Our mission is to bridge this gap by
-          bringing compassionate people together and turning
-          collective kindness into real, life-changing support.
+          Our Foundation aims to address these challenges by connecting people with healthcare resources, promoting medical awareness, encouraging community participation, and developing sustainable healthcare support initiatives.
+
+We believe that meaningful change begins when individuals, organizations, and communities come together for a common purpos
         </p>
 
         <a href="/donate" className="who-donate-btn">

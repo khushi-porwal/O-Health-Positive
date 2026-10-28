@@ -337,3 +337,104 @@
     transition: none;
   }
 }
+
+/* Monthly Donation Header */
+.monthly-header {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+/* Eyebrow */
+.monthly-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--footer-green, #168746);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: default;
+
+  transition:
+    color 0.35s ease,
+    letter-spacing 0.35s ease,
+    text-shadow 0.35s ease;
+}
+
+.monthly-eyebrow:hover {
+  color: #72259a;
+  letter-spacing: 2.8px;
+  text-shadow: 0 4px 14px rgba(114, 37, 154, 0.18);
+}
+
+/* Eyebrow dot */
+.monthly-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.monthly-eyebrow:hover .monthly-eyebrow-dot {
+  transform: scale(1.35);
+  box-shadow: 0 0 10px rgba(114, 37, 154, 0.35);
+}
+
+/* Main heading */
+.monthly-header h2 {
+  margin: 0;
+  color: #123d83;
+  font-size: clamp(26px, 3vw, 37px);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.7px;
+  cursor: default;
+
+  transition:
+    color 0.35s ease,
+    text-shadow 0.35s ease,
+    letter-spacing 0.35s ease;
+}
+
+.monthly-header h2:hover {
+  color: #087bc1;
+  letter-spacing: -0.4px;
+  text-shadow: 0 5px 20px rgba(8, 123, 193, 0.15);
+}
+
+/* Description */
+.monthly-header p {
+  max-width: 720px;
+  margin: 12px auto 0;
+  color: #647187;
+  font-size: 14px;
+  line-height: 1.8;
+  cursor: default;
+
+  transition:
+    color 0.35s ease,
+    letter-spacing 0.35s ease;
+}
+
+.monthly-header p:hover {
+  color: #168746;
+  letter-spacing: 0.15px;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .monthly-eyebrow,
+  .monthly-eyebrow-dot,
+  .monthly-header h2,
+  .monthly-header p {
+    transition: none;
+  }
+}

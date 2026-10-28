@@ -21,20 +21,19 @@ const Mission = () => {
           </h2>
 
           <p>
-            O Positive Health Foundation is dedicated to preventing tragedies
-            that result from financial constraints. Whether it’s a life-saving
-            medical treatment or urgent support during a crisis, our mission is
-            to ensure that no one loses their life due to a lack of funds.
-            Every contribution on our platform is a step toward preserving
-            lives and offering hope.
+            Our mission is to reduce barriers to healthcare access by developing meaningful partnerships, supporting vulnerable communities, and promoting awareness about preventive and essential medical care.
+
           </p>
 
           <p>
-            Recognizing the tireless efforts of individuals and NGOs making a
-            positive impact on communities, O Positive Health Foundation
-            stands by those who selflessly serve others. Our mission is to
-            ensure that these changemakers do not face undue hardships due to
-            financial constraints.
+           We strive to:
+
+- Improve access to essential healthcare services.
+- Support financially vulnerable patients in navigating healthcare challenges.
+- Promote preventive healthcare and medical awareness.
+- Build partnerships with hospitals and healthcare professionals.
+- Encourage volunteering, social responsibility, and community participation.
+- Develop sustainable initiatives that create long-term social impact.
           </p>
 
           {/* <button className="donate-btn">

@@ -41,9 +41,9 @@ const informationLinks = [
   { label: "Explore", href: "/explore" },
   { label: "FAQs", href: "/faqs" },
   { label: "Documents", href: "/documents" },
-  { label: "Refund Policy", href: "/refund" },
+  
   { label: "Terms and Conditions", href: "/terms" },
-  { label: "Refund Policy and Cancellation", href: "/refundPolicy" },
+  { label: "Refund Policy & Cancellation", href: "/refundPolicy" },
 ];
   return (
     <footer className="site-footer">
@@ -144,34 +144,37 @@ const informationLinks = [
           </p>
 
           {/* Social Media */}
-          <div className="footer-socials">
-            <a
-              href="https://www.facebook.com/"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noreferrer"
-            >
-              f
-            </a>
+          
+{/* Social Media */}
+<div className="footer-socials">
+  <a
+    href="https://www.facebook.com/"
+    aria-label="Facebook"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    f
+  </a>
 
-            <a
-              href="https://www.linkedin.com/"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noreferrer"
-            >
-              in
-            </a>
+  <a
+    href="https://www.linkedin.com/company/o-positive-health/home/"
+    aria-label="O Positive Health Foundation on LinkedIn"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    in
+  </a>
 
-            <a
-              href="https://www.instagram.com/"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noreferrer"
-            >
-              ◎
-            </a>
-          </div>
+  <a
+    href="https://www.instagram.com/opositive_health_foundation?vrfl=cWo1dno0ZG4zNW9l"
+    aria-label="O Positive Health Foundation on Instagram"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    ◎
+  </a>
+</div>
+
         </div>
 
         {/* Quick Links */}
@@ -214,7 +217,8 @@ const informationLinks = [
               </span>
 
               <span>
-                Add your foundation's verified office address here.
+                O Positive Health foundation , opposite Nirankari Barthan Bhandar, 
+                Mangu Mohalla, Ghitorni, New Delhi, Delhi 110030
               </span>
             </p>
 

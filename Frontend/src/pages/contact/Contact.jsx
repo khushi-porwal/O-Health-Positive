@@ -150,7 +150,7 @@ const Contact = () => {
               <div>
                 <span className="card-label">Our Location</span>
                 <p>
-                  Add your foundation's complete address here.
+                  O Positive Health foundation , opposite Nirankari Barthan Bhandar, Mangu Mohalla, Ghitorni, New Delhi, Delhi 110030
                 </p>
               </div>
             </div>
@@ -185,24 +185,26 @@ const Contact = () => {
             </div>
 
             {/* Google Map */}
-            <div className="contact-map">
-              <iframe
-                title="O Positive Health Foundation Location"
-                src="https://maps.google.com/maps?q=Jodhpur%2C%20Rajasthan&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+            
+<div className="contact-map">
+  <iframe
+    title="O Positive Health Foundation Location"
+    src="https://maps.google.com/maps?q=O%20Positive%20Health%20Foundation%2C%20opposite%20Nirankari%20Barthan%20Bhandar%2C%20Mangu%20Mohalla%2C%20Ghitorni%2C%20New%20Delhi%2C%20Delhi%20110030&t=&z=16&ie=UTF8&iwloc=&output=embed"
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    allowFullScreen
+  />
 
-              <a
-                className="map-link"
-                href="https://www.google.com/maps/search/?api=1&query=Jodhpur%2C%20Rajasthan"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open in Maps <FaExternalLinkAlt />
-              </a>
-            </div>
+  <a
+    className="map-link"
+    href="https://www.google.com/maps/search/?api=1&query=O%20Positive%20Health%20Foundation%2C%20opposite%20Nirankari%20Barthan%20Bhandar%2C%20Mangu%20Mohalla%2C%20Ghitorni%2C%20New%20Delhi%2C%20Delhi%20110030"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Open in Maps <FaExternalLinkAlt />
+  </a>
+</div>
+
           </div>
 
           {/* Right Side: Contact Form */}

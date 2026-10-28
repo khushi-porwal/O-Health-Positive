@@ -1,4 +1,8 @@
 
+/* ================================
+   VENDOR HERO SECTION
+================================ */
+
 .vendor-hero {
   width: calc(100% - 32px);
   margin: 16px auto;
@@ -6,8 +10,9 @@
   border-radius: 24px;
 }
 
+/* Image container */
 .vendor-hero-image-wrap {
- 
+  position: relative;
   width: 100%;
   height: 420px;
   overflow: hidden;
@@ -15,6 +20,7 @@
   background: #f5f7fc;
 }
 
+/* Hero image */
 .vendor-hero-image {
   display: block;
   width: 100%;
@@ -23,39 +29,80 @@
   object-position: center 35%;
 }
 
+/* ================================
+   EXPLORE VENDORS BUTTON
+================================ */
+
 .vendor-hero-button {
- position: absolute;
-  left: 85px;
-  bottom: 130px;
+  position: absolute;
+  left: 50px;
+  bottom: 15px;
+  z-index: 2;
+
   display: inline-flex;
   align-items: center;
-  gap: 18px;
-  padding: 15px 24px;
-  border: none;
-  border-radius: 10px;
+  justify-content: center;
+  gap: 14px;
+
+  min-height: 58px;
+  padding: 15px 28px;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
   background: #f02f4e;
-  color: #fff;
+  color: #ffffff;
+
+  font-family: inherit;
   font-size: 16px;
   font-weight: 700;
+  line-height: 1.3;
+
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(240, 47, 78, 0.2);
-  transition: 0.25s ease;
+  box-shadow: 0 8px 22px rgba(240, 47, 78, 0.22);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
+/* Button hover */
 .vendor-hero-button:hover {
   background: #d92343;
+  border-color: #d92343;
+  box-shadow: 0 12px 26px rgba(240, 47, 78, 0.3);
   transform: translateY(-3px);
 }
 
+/* Keyboard focus */
+.vendor-hero-button:focus-visible {
+  outline: 3px solid #123d83;
+  outline-offset: 4px;
+}
+
+/* Arrow */
 .button-arrow {
+  display: inline-block;
   font-size: 24px;
   line-height: 1;
+  transition: transform 0.25s ease;
 }
+
+.vendor-hero-button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+/* ================================
+   TABLET
+================================ */
 
 @media (max-width: 768px) {
   .vendor-hero {
     width: calc(100% - 20px);
     margin: 10px auto;
+    border-radius: 16px;
   }
 
   .vendor-hero-image-wrap {
@@ -63,16 +110,60 @@
     border-radius: 16px;
   }
 
+  .vendor-hero-image {
+    object-position: center 35%;
+  }
+
   .vendor-hero-button {
-    left: 16px;
-    bottom: 16px;
+    left: 20px;
+    bottom: 20px;
+    gap: 10px;
+    min-height: 46px;
     padding: 12px 18px;
+    border-radius: 9px;
     font-size: 14px;
   }
+
+  .button-arrow {
+    font-size: 21px;
+  }
 }
+
+/* ================================
+   MOBILE
+================================ */
 
 @media (max-width: 480px) {
   .vendor-hero-image-wrap {
     height: 240px;
+  }
+
+  .vendor-hero-image {
+    object-position: center 35%;
+  }
+
+  .vendor-hero-button {
+    left: 14px;
+    bottom: 14px;
+    gap: 9px;
+    min-height: 42px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+
+  .button-arrow {
+    font-size: 20px;
+  }
+}
+
+/* ================================
+   REDUCED MOTION
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .vendor-hero-button,
+  .button-arrow {
+    transition: none;
   }
 }
