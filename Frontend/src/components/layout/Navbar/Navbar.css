@@ -162,3 +162,27 @@
     transition: none;
   }
 }
+/* Contact links: icon and text hover together */
+.top-bar-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.top-bar-contact a svg {
+  flex-shrink: 0;
+  transition: color 0.25s ease;
+}
+
+.top-bar-contact a:hover,
+.top-bar-contact a:focus-visible {
+  color: #087f8c;
+}
+
+/* Keep the contact link accessible with keyboard navigation */
+.top-bar-contact a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}

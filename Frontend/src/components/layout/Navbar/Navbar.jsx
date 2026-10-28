@@ -1,18 +1,18 @@
-
 import "./Navbar.css";
+import { Phone, Mail } from "lucide-react";
 
 function Navbar() {
   return (
     <div className="top-bar">
       <div className="top-bar-contact">
-        <a href="mailto:info@opositivehealth.com">
-          <span aria-hidden="true">✉</span>
-          opositivehealthfoundation@gmail.com
+        <a href="mailto:opositivehealthfoundation@gmail.com">
+          <Mail size={16} aria-hidden="true" />
+          <span>opositivehealthfoundation@gmail.com</span>
         </a>
 
         <a href="tel:+918448534103">
-          <span aria-hidden="true">▤</span>
-          +91 8448534103
+          <Phone size={16} aria-hidden="true" />
+          <span>+91 8448534103</span>
         </a>
       </div>
 
@@ -36,7 +36,7 @@ function Navbar() {
         </a>
 
         <a
-          href="https://www.linkedin.com/"
+          href="https://www.linkedin.com/company/o-positive-health/"
           target="_blank"
           rel="noreferrer"
           aria-label="LinkedIn"
@@ -45,7 +45,7 @@ function Navbar() {
         </a>
 
         <a
-          href="https://www.instagram.com/"
+          href="https://www.instagram.com/opositive_health_foundation?vrfl=cWo1dno0ZG4zNW9l"
           target="_blank"
           rel="noreferrer"
           aria-label="Instagram"
