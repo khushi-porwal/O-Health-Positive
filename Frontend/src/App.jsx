@@ -63,7 +63,7 @@ function App() {
         />
         <Route path="/refund" element={<RefundPolicy/>} />
         <Route path="/faqs" element={<FAQ />} />
-        <Route path="/refunPolicy" element={<RefundCancellation/>}/>
+        <Route path="/refundPolicy" element={<RefundCancellation/>}/>
       </Routes>
 
       <WhatsAppButton />
