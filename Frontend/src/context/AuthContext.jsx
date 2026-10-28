@@ -1,102 +1,89 @@
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
-
+import { createContext, useContext, useState } from "react";
 import {
   loginUser,
   signupUser,
   logoutUser,
-  getMe,
-} from  "../services/authService";
+} from "../services/authService";
 
 const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // Check existing login session on app load
-  const checkAuth = useCallback(async () => {
+  // Login
+  const login = async (credentials) => {
+    setLoading(true);
+
     try {
-      const response = await getMe();
+      const response = await loginUser(credentials);
 
-      const currentUser =
-        response.data?.user ?? response.data ?? null;
+      const userData =
+        response?.user ??
+        response?.data?.user ??
+        null;
 
-      setUser(currentUser);
-    } catch (error) {
-      setUser(null);
+      setUser(userData);
+
+      return response;
     } finally {
       setLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-  // Login user
-  const login = async (credentials) => {
-    const response = await loginUser(credentials);
-
-    const loggedInUser = response.data?.user;
-
-    if (!loggedInUser) {
-      throw new Error(
-        "Login response does not contain user data."
-      );
-    }
-
-    setUser(loggedInUser);
-
-    return response.data;
   };
 
-  // Register new user
+  // Signup
   const signup = async (userData) => {
-    const response = await signupUser(userData);
+    setLoading(true);
 
-    // Update context only if signup also logs the user in
-    if (response.data?.user) {
-      setUser(response.data.user);
+    try {
+      const response = await signupUser(userData);
+
+      const registeredUser =
+        response?.user ??
+        response?.data?.user ??
+        null;
+
+      if (registeredUser) {
+        setUser(registeredUser);
+      }
+
+      return response;
+    } finally {
+      setLoading(false);
     }
-
-    return response.data;
   };
 
-  // Logout user
+  // Logout
   const logout = async () => {
+    setLoading(true);
+
     try {
       await logoutUser();
     } finally {
       setUser(null);
+      setLoading(false);
     }
   };
 
-  const value = {
-    user,
-    loading,
-    isAuthenticated: Boolean(user),
-    login,
-    signup,
-    logout,
-    checkAuth,
-  };
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        loading,
+        login,
+        signup,
+        logout,
+        isAuthenticated: Boolean(user),
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-// Custom hook
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
 
   if (!context) {
@@ -106,4 +93,4 @@ export const useAuth = () => {
   }
 
   return context;
-};
+}
