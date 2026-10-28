@@ -33,7 +33,7 @@ function Footer() {
     { label: "Contact Us", href: "/contact" },
   ];
 
-  // Information and foundation links
+  // Foundation information links
   const informationLinks = [
     { label: "About Us", href: "/about" },
     { label: "Our Life Stories", href: "/life" },
