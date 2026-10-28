@@ -227,7 +227,7 @@ const informationLinks = [
               </span>
 
               <a href="mailto:contact@yourfoundation.org">
-                Add your official email
+                opositivehealthfoundation@gmail.com
               </a>
             </p>
 
@@ -239,7 +239,7 @@ const informationLinks = [
                 ☎
               </span>
 
-              <a href="tel:+910000000000">
+              <a href="tel:+91 8448534103">
                 Add your contact number
               </a>
             </p>

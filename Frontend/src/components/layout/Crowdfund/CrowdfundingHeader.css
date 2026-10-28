@@ -1,21 +1,29 @@
 
+* {
+  box-sizing: border-box;
+}
+
+/* Main Header */
 .crowdfunding-header {
   width: calc(100% - 32px);
   min-height: 94px;
   margin: 14px auto;
   padding: 18px 30px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+
   background: #f7f7f7;
   border: 1px solid #eeeeee;
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+
   font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
 }
 
+/* Left and Right Sections */
 .header-left,
 .header-right {
   display: flex;
@@ -23,6 +31,7 @@
   gap: 18px;
 }
 
+/* Tagline */
 .header-tagline {
   margin: 0;
   color: #202020;
@@ -30,22 +39,26 @@
   white-space: nowrap;
 }
 
-/* Common button styling */
+/* Common Button Styling */
 .header-donate-btn,
 .header-login-btn {
   height: 50px;
   padding: 0 26px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   border: 1px solid transparent;
   border-radius: 12px;
+
   font-family: inherit;
   font-size: 15px;
   font-weight: 600;
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
+
   transition:
     background 0.25s ease,
     color 0.25s ease,
@@ -54,54 +67,69 @@
     box-shadow 0.25s ease;
 }
 
-/* O Positive Health theme */
+/* Donate Button */
 .header-donate-btn {
   color: #ffffff;
-  background: #f04452;
-  border-color: #f04452;
+  background: #176b52;
+  border-color: #176b52;
 }
 
 .header-donate-btn:hover {
-  background: #d93243;
-  border-color: #d93243;
-  box-shadow: 0 5px 14px rgba(240, 68, 82, 0.2);
+  color: #ffffff;
+  background: #125640;
+  border-color: #125640;
+  box-shadow: 0 5px 14px rgba(23, 107, 82, 0.2);
   transform: translateY(-1px);
 }
 
-/* Login/Signup Link */
+/* Login Button - White Text */
 .header-login-btn {
   color: #ffffff;
-  background: #242424;
-  border-color: #242424;
+  background: #176b52;
+  border-color: #176b52;
 }
 
 .header-login-btn:hover {
   color: #ffffff;
-  background: #f04452;
-  border-color: #f04452;
-  box-shadow: 0 5px 14px rgba(240, 68, 82, 0.18);
+  background: #125640;
+  border-color: #125640;
+  box-shadow: 0 5px 14px rgba(23, 107, 82, 0.2);
   transform: translateY(-1px);
 }
 
+/* Ensure Links and Nested Text Stay White */
+.header-login-btn a,
+.header-login-btn span,
+.header-donate-btn a,
+.header-donate-btn span {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Keyboard Focus */
 .header-donate-btn:focus-visible,
 .header-login-btn:focus-visible {
-  outline: 3px solid rgba(240, 68, 82, 0.3);
+  outline: 3px solid rgba(23, 107, 82, 0.3);
   outline-offset: 3px;
 }
 
-/* Search bar */
+/* Search Bar */
 .header-search {
   width: 395px;
   height: 48px;
   padding: 0 16px;
+
   display: flex;
   align-items: center;
   gap: 12px;
+
   background: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 13px;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .search-icon {
@@ -113,9 +141,11 @@
   width: 100%;
   min-width: 0;
   padding: 0;
+
   border: none;
   outline: none;
   background: transparent;
+
   color: #252525;
   font-family: inherit;
   font-size: 15px;
@@ -127,8 +157,8 @@
 }
 
 .header-search:focus-within {
-  border-color: #f04452;
-  box-shadow: 0 0 0 3px rgba(240, 68, 82, 0.1);
+  border-color: #176b52;
+  box-shadow: 0 0 0 3px rgba(23, 107, 82, 0.1);
 }
 
 /* Tablet */
@@ -165,6 +195,7 @@
     width: calc(100% - 20px);
     margin: 10px auto;
     padding: 16px;
+
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
@@ -206,6 +237,7 @@
   }
 }
 
+/* Small Mobile */
 @media (max-width: 380px) {
   .header-left {
     align-items: stretch;

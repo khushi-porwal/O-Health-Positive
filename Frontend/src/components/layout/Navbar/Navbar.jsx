@@ -7,7 +7,7 @@ function Navbar() {
       <div className="top-bar-contact">
         <a href="mailto:info@opositivehealth.com">
           <span aria-hidden="true">✉</span>
-          info@opositivehealth.com
+          opositivehealthfoundation@gmail.com
         </a>
 
         <a href="tel:+918448534103">

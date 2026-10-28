@@ -163,7 +163,7 @@ const Contact = () => {
                 <div>
                   <span className="card-label">Helpline Number</span>
                   <a href="tel:+910000000000">
-                    +91 00000 00000
+                    +91 8448534103
                   </a>
                 </div>
               </div>
@@ -176,7 +176,7 @@ const Contact = () => {
                 <div>
                   <span className="card-label">Email Address</span>
                   <a href="mailto:your-email@example.com">
-                    your-email@example.com
+                    opositivehealthfoundation@gmail.com
                   </a>
                 </div>
               </div>
