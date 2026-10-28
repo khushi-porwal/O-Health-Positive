@@ -240,7 +240,7 @@ const informationLinks = [
               </span>
 
               <a href="tel:+91 8448534103">
-                Add your contact number
+                +91 8448534103
               </a>
             </p>
           </address>
