@@ -42,6 +42,7 @@ const informationLinks = [
   { label: "FAQs", href: "/faqs" },
   { label: "Documents", href: "/documents" },
   { label: "Refund Policy", href: "/refund" },
+  { label: "Refund Policy and Cancellation", href: "/refundPolicy" },
 ];
   return (
     <footer className="site-footer">

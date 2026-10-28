@@ -24,6 +24,7 @@ import WhatsAppButton from "./components/whatsAppButton/WhatsAppButton";
 import AllMonthlyPrograms from "./pages/AllMonthly/AllMonthlyPrograms";
 import FAQ from "./pages/faq/FAQ";
 import RefundPolicy from "./pages/refund/RefundPolicy";
+import RefundCancellation from "./pages/cancellation/RefundCancellation";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
         />
         <Route path="/refund" element={<RefundPolicy/>} />
         <Route path="/faqs" element={<FAQ />} />
+        <Route path="/refunPolicy" element={<RefundCancellation/>}/>
       </Routes>
 
       <WhatsAppButton />
