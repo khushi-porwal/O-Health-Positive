@@ -21,6 +21,7 @@ import Blog from "./pages/blog/Blog";
 import DonationForm from "./pages/donate/DonateForm";
 import WhatsAppButton from "./components/whatsAppButton/WhatsAppButton";
 import AllMonthlyPrograms from "./pages/AllMonthly/AllMonthlyPrograms";
+import FAQ from "./pages/faq/FAQ"
 // import Volunteer from "./pages/volunteer/Volunteer";
 // import Insurance from "./pages/assistance/insuranceAssistance/Insurance";
 // import Surgical from "./pages/assistance/surgicalCoordination/Surgical";
@@ -42,6 +43,7 @@ function App() {
           element={<AdminDashboard />}
         />
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/faq" element={<FAQ/>}/>
 
         <Route path="/donation" element={<Donation />} />
         <Route path="/vendor" element={<Vendors />} />

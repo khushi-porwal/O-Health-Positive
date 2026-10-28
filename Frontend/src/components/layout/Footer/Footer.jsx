@@ -35,7 +35,7 @@ function Footer() {
     { label: "Terms & Conditions", href: "/terms-and-conditions" },
     { label: "Refund and Cancellation Policy", href: "/refund-policy" },
     { label: "Return Policy", href: "/return-policy" },
-    { label: "FAQs", href: "/faqs" },
+    { label: "FAQs", href: "/faq" },
     { label: "Documents", href: "/documents" },
   ];
 
