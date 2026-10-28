@@ -3,7 +3,6 @@ import { createContext, useContext, useState } from "react";
 import {
   loginUser,
   signupUser,
-  logoutUser,
 } from "../services/authService";
 
 const AuthContext = createContext(null);
@@ -54,18 +53,6 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Logout
-  const logout = async () => {
-    setLoading(true);
-
-    try {
-      await logoutUser();
-    } finally {
-      setUser(null);
-      setLoading(false);
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -74,7 +61,6 @@ export function AuthProvider({ children }) {
         loading,
         login,
         signup,
-        logout,
         isAuthenticated: Boolean(user),
       }}
     >
