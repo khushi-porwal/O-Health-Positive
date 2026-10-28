@@ -1,0 +1,900 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eef4ff;
+  color: #102c68;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.campaign-page {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  margin-top: -100px;
+  padding: 20px;
+
+  display: flex;
+  gap: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f3f5ff,
+      #edfaff
+    );
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 205px;
+  flex-shrink: 0;
+
+  padding: 15px 10px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 5px 20px rgba(30, 70, 150, 0.08);
+
+  height: fit-content;
+}
+
+
+/* CATEGORY */
+
+.category {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px 10px;
+
+  margin-bottom: 3px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+
+  color: #17356e;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    transform 0.15s;
+  
+  user-select: none;
+}
+
+
+.category:hover {
+  background: #f0f5ff;
+}
+
+
+.category:active {
+  transform: scale(0.98);
+}
+
+
+/* ICON */
+
+.category-icon {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+
+  color: #1457d9;
+}
+
+
+/* ACTIVE CATEGORY */
+
+.active-category {
+  color: white;
+
+  background:
+    linear-gradient(
+      90deg,
+      #214ed0,
+      #8d20cf
+    );
+
+  box-shadow:
+    0 5px 12px rgba(55, 75, 210, 0.25);
+}
+
+
+.active-category .category-icon {
+  color: white;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.campaign-content {
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.campaign-heading {
+  margin-bottom: 18px;
+}
+
+
+.campaign-heading h1 {
+  margin: 0 0 5px;
+
+  font-size: 24px;
+
+  color: #102c68;
+}
+
+
+.campaign-heading p {
+  margin: 0;
+
+  font-size: 14px;
+
+  color: #71809d;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.campaign-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.campaign-card {
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 14px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 20px rgba(25, 65, 130, 0.08);
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+
+.campaign-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 30px rgba(25, 65, 130, 0.14);
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.campaign-image {
+  position: relative;
+
+  width: 100%;
+
+  height: 205px;
+
+  overflow: hidden;
+
+  border-radius: 15px;
+
+  cursor: pointer;
+}
+
+
+.campaign-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: transform 0.35s;
+}
+
+
+.campaign-image:hover img {
+  transform: scale(1.04);
+}
+
+
+/* =========================
+   IMAGE OVERLAY
+========================= */
+
+.image-overlay {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  background:
+    rgba(0, 0, 0, 0.45);
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  opacity: 0;
+
+  transition: opacity 0.25s;
+}
+
+
+.campaign-image:hover .image-overlay {
+  opacity: 1;
+}
+
+
+.image-overlay span:first-child {
+  font-size: 28px;
+}
+
+
+/* =========================
+   TAX BADGE
+========================= */
+
+.tax-badge {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  padding: 9px 14px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f02665,
+      #9a1ed0
+    );
+
+  color: white;
+
+  border-radius:
+    0 14px 0 14px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  z-index: 2;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.campaign-card h2 {
+  margin: 14px 0 12px;
+
+  font-size: 18px;
+
+  line-height: 1.35;
+
+  color: #102c68;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-area {
+  position: relative;
+
+  margin: 10px 0 18px;
+}
+
+
+.progress-bar {
+  width: 100%;
+
+  height: 10px;
+
+  background: #e9eef7;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+
+.progress-fill {
+  height: 100%;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #20c86b,
+      #27df4f
+    );
+}
+
+
+.percentage {
+  position: absolute;
+
+  top: -9px;
+
+  padding: 5px 9px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #234bd5,
+      #9a21ca
+    );
+
+  color: white;
+
+  border-radius: 6px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  transform: translateX(-50%);
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  border-bottom:
+    1px solid #e4e8ef;
+
+  padding-bottom: 15px;
+
+  margin-bottom: 12px;
+}
+
+
+.stat {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 0 8px;
+
+  border-right:
+    1px solid #e5e8ee;
+}
+
+
+.stat:last-child {
+  border-right: none;
+}
+
+
+.stat-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #edf4ff;
+
+  color: #155bd7;
+
+  border-radius: 9px;
+
+  font-size: 17px;
+}
+
+
+.stat small {
+  display: block;
+
+  color: #7c88a0;
+
+  font-size: 11px;
+
+  margin-bottom: 3px;
+}
+
+
+.stat strong {
+  display: block;
+
+  color: #172f67;
+
+  font-size: 15px;
+}
+
+
+/* =========================
+   DONATE BUTTON
+========================= */
+
+.donate-btn {
+  
+  border: none;
+
+  padding: 3px;
+
+  border-radius: 11px;
+
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  
+}
+.donate-bt {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+}
+
+.donate-btn:hover {
+  transform: translateY(-2px);
+
+  background:
+    linear-gradient(
+      90deg,
+      #e91d35,
+      #d9162c
+    );
+}
+
+
+.donate-btn:active {
+  transform: translateY(1px);
+
+  box-shadow:
+    0 2px 0 #b81425;
+}
+
+
+.donate-heart {
+  font-size: 30px;
+
+  line-height: 1;
+}
+
+
+/* =========================
+   NO CAMPAIGNS
+========================= */
+
+.no-campaigns {
+  grid-column: 1 / -1;
+
+  min-height: 300px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: white;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 5px 20px rgba(25, 65, 130, 0.08);
+
+  text-align: center;
+
+  padding: 30px;
+}
+
+
+.no-campaign-icon {
+  font-size: 50px;
+
+  margin-bottom: 10px;
+}
+
+
+.no-campaigns h2 {
+  margin: 0 0 8px;
+
+  color: #102c68;
+}
+
+
+.no-campaigns p {
+  margin: 0;
+
+  color: #7c88a0;
+}
+
+
+/* =========================
+   IMAGE MODAL
+========================= */
+
+.image-modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 25px;
+
+  background:
+    rgba(5, 15, 35, 0.82);
+
+  backdrop-filter: blur(5px);
+
+  cursor: pointer;
+}
+
+
+/* Modal box */
+
+.modal-content {
+  position: relative;
+
+  max-width: 950px;
+
+  max-height: 90vh;
+
+  background: white;
+
+  padding: 10px;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.35);
+
+  cursor: default;
+}
+
+
+.modal-content img {
+  display: block;
+
+  max-width: 100%;
+
+  max-height: 82vh;
+
+  width: auto;
+
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 12px;
+}
+
+
+/* Close button */
+
+.modal-close {
+  position: absolute;
+
+  top: -15px;
+
+  right: -15px;
+
+  width: 40px;
+
+  height: 40px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #ef263d;
+
+  color: white;
+
+  font-size: 28px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.25);
+
+  z-index: 5;
+}
+
+
+.modal-close:hover {
+  background: #d91d32;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1100px) {
+
+  .campaign-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .sidebar {
+    width: 180px;
+  }
+
+  .campaign-image {
+    height: 190px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .campaign-page {
+    padding: 12px;
+
+    display: block;
+  }
+
+
+  .sidebar {
+    width: 100%;
+
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    padding: 8px;
+
+    margin-bottom: 15px;
+
+    border-radius: 14px;
+  }
+
+
+  .category {
+    flex-shrink: 0;
+
+    margin: 0;
+
+    padding: 9px 13px;
+
+    font-size: 13px;
+  }
+
+
+  .category-icon {
+    display: none;
+  }
+
+
+  .campaign-heading h1 {
+    font-size: 20px;
+  }
+
+
+  .campaign-grid {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+
+  .campaign-image {
+    height: 220px;
+  }
+
+
+  /* Modal mobile */
+
+  .image-modal {
+    padding: 15px;
+  }
+
+
+  .modal-content {
+    width: 100%;
+
+    padding: 7px;
+
+    border-radius: 14px;
+  }
+
+
+  .modal-content img {
+    max-height: 75vh;
+  }
+
+
+  .modal-close {
+    top: -10px;
+
+    right: -7px;
+
+    width: 36px;
+
+    height: 36px;
+
+    font-size: 24px;
+  }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .campaign-page {
+    padding: 8px;
+  }
+
+
+  .campaign-card {
+    padding: 10px;
+
+    border-radius: 15px;
+  }
+
+
+  .campaign-image {
+    height: 185px;
+
+    border-radius: 12px;
+  }
+
+
+  .campaign-card h2 {
+    font-size: 16px;
+  }
+
+
+  .stats {
+    gap: 2px;
+  }
+
+
+  .stat {
+    padding: 0 4px;
+
+    gap: 5px;
+  }
+
+
+  .stat-icon {
+    width: 30px;
+    height: 30px;
+
+    font-size: 14px;
+  }
+
+
+  .stat small {
+    font-size: 9px;
+  }
+
+
+  .stat strong {
+    font-size: 12px;
+  }
+
+
+  .donate-btn {
+    padding: 12px;
+
+    font-size: 14px;
+  }
+
+
+  .donate-heart {
+    font-size: 21px;
+  }
+
+}

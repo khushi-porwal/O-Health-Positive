@@ -1,0 +1,498 @@
+
+:root {
+  --vision-navy: #123d83;
+  --vision-blue: #0876c9;
+  --vision-green: #138443;
+  --vision-purple: #702b91;
+  --vision-red: #ef4651;
+  --vision-text: #172033;
+  --vision-muted: #697586;
+  --vision-border: #e5eaf0;
+}
+
+/* =========================
+   GLOBAL / SECTION
+========================= */
+
+.vision-section,
+.vision-section * {
+  box-sizing: border-box;
+}
+
+.vision-section {
+  width: 100%;
+  padding: 65px 4%;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.vision-container {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(30px, 4vw, 60px);
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+/* =========================
+   LEFT IMAGE AND STATS GRID
+========================= */
+
+.vision-left {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 190px 120px 120px 190px;
+  gap: 16px;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Images */
+
+.vision-image {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f1f5fa;
+}
+
+.vision-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.vision-image:hover img {
+  transform: scale(1.04);
+}
+
+.top-image {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.bottom-image {
+  grid-column: 2;
+  grid-row: 3 / 5;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 20px 18px;
+  overflow: hidden;
+  border: 1px solid var(--vision-border);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 25px rgba(18, 61, 131, 0.06);
+}
+
+.top-stat {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.bottom-stat {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.stat-card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 8px;
+  color: var(--vision-navy);
+  font-size: clamp(27px, 2.5vw, 39px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.stat-card p {
+  position: relative;
+  z-index: 1;
+  max-width: 150px;
+  margin: 0;
+  color: var(--vision-muted);
+  font-size: clamp(11px, 1vw, 14px);
+  line-height: 1.6;
+}
+
+.stat-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 26px;
+}
+
+.green-icon {
+  background: #e9f8ed;
+  color: var(--vision-green);
+}
+
+.purple-icon {
+  background: #f1eaff;
+  color: var(--vision-purple);
+}
+
+/* =========================
+   RIGHT CONTENT
+========================= */
+
+.vision-content {
+  width: 100%;
+  min-width: 0;
+  padding: 5px 0;
+  overflow-wrap: break-word;
+}
+
+.vision-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #7ba72c;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.vision-label-icon {
+  font-size: 23px;
+}
+
+.label-line {
+  width: 68px;
+  height: 4px;
+  margin-top: 14px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #20a957, #72c59b);
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.vision-content h1 {
+  margin: 25px 0 22px;
+  color: #111820;
+  font-size: clamp(27px, 2.65vw, 39px);
+  font-weight: 750;
+  line-height: 1.32;
+  letter-spacing: -0.7px;
+  overflow-wrap: anywhere;
+}
+
+.green-text {
+  color: #19a653;
+}
+
+.blue-text {
+  color: #1555a8;
+}
+
+.purple-text {
+  color: #702b91;
+}
+
+/* =========================
+   PARAGRAPHS
+========================= */
+
+.vision-content p {
+  max-width: 100%;
+  margin: 0 0 18px;
+  color: var(--vision-muted);
+  font-size: 14px;
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+
+/* =========================
+   DONATE NOW BUTTON
+========================= */
+
+.vision-content .donate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-width: 145px;
+  min-height: 44px;
+  margin-top: 5px;
+  padding: 11px 17px;
+
+  border: none;
+  border-radius: 50px;
+  background: var(--vision-red);
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+
+  cursor: pointer;
+  box-shadow: 0 4px 0 #c92d3a;
+
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.vision-content .donate-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.vision-content .donate-btn:hover {
+  background-color: #d93442;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #b9232d;
+}
+
+.vision-content .donate-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #b9232d;
+}
+
+.vision-content .donate-btn:focus-visible {
+  outline: 3px solid rgba(239, 70, 81, 0.35);
+  outline-offset: 4px;
+}
+
+/* =========================
+   MEDIUM DESKTOP / TABLET
+========================= */
+
+@media (max-width: 1100px) {
+  .vision-section {
+    padding: 50px 4%;
+  }
+
+  .vision-container {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
+  }
+
+  .vision-left {
+    grid-template-rows: 160px 105px 105px 160px;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 15px 12px;
+    border-radius: 15px;
+  }
+
+  .stat-icon {
+    width: 38px;
+    height: 38px;
+    top: 9px;
+    right: 9px;
+    font-size: 21px;
+  }
+
+  .vision-content h1 {
+    margin-top: 20px;
+    font-size: clamp(25px, 3vw, 32px);
+    letter-spacing: -0.4px;
+  }
+
+  .vision-content p {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+}
+
+/* =========================
+   MOBILE / NARROW TABLET
+========================= */
+
+@media (max-width: 760px) {
+  .vision-section {
+    padding: 40px 20px;
+  }
+
+  .vision-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 35px;
+  }
+
+  .vision-left {
+    width: 100%;
+    max-width: 500px;
+    grid-template-rows: 175px 105px 105px 175px;
+    gap: 12px;
+  }
+
+  .stat-card h2 {
+    font-size: 30px;
+  }
+
+  .stat-card p {
+    font-size: 12px;
+  }
+
+  .vision-content {
+    padding: 0;
+  }
+
+  .vision-content h1 {
+    font-size: clamp(28px, 5vw, 36px);
+    line-height: 1.3;
+  }
+
+  .vision-content p {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .vision-section {
+    padding: 32px 15px;
+  }
+
+  .vision-container {
+    gap: 28px;
+  }
+
+  .vision-left {
+    grid-template-rows: 135px 90px 90px 135px;
+    gap: 9px;
+  }
+
+  .vision-image {
+    border-radius: 14px;
+  }
+
+  .stat-card {
+    padding: 12px 10px;
+    border-radius: 14px;
+  }
+
+  .stat-card h2 {
+    margin-bottom: 5px;
+    font-size: 25px;
+  }
+
+  .stat-card p {
+    max-width: 110px;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  .stat-icon {
+    top: 7px;
+    right: 7px;
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+
+  .vision-label {
+    font-size: 15px;
+  }
+
+  .vision-content h1 {
+    margin: 20px 0 17px;
+    font-size: 27px;
+    line-height: 1.35;
+    letter-spacing: -0.4px;
+  }
+
+  .vision-content h1 br {
+    display: none;
+  }
+
+  .vision-content p {
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .vision-content .donate-btn {
+    min-width: 140px;
+    min-height: 42px;
+    padding: 10px 16px;
+    gap: 11px;
+    font-size: 14px;
+  }
+
+  .vision-content .donate-btn span {
+    font-size: 19px;
+  }
+}
+
+/* =========================
+   EXTRA SMALL MOBILE
+========================= */
+
+@media (max-width: 360px) {
+  .vision-section {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .vision-left {
+    grid-template-rows: 115px 82px 82px 115px;
+    gap: 7px;
+  }
+
+  .stat-card {
+    padding: 8px;
+  }
+
+  .stat-card h2 {
+    font-size: 22px;
+  }
+
+  .stat-card p {
+    font-size: 9px;
+  }
+
+  .vision-content h1 {
+    font-size: 24px;
+  }
+
+  .vision-content .donate-btn {
+    min-width: 136px;
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}

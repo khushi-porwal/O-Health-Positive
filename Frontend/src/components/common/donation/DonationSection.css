@@ -1,0 +1,221 @@
+
+/* Main donation section */
+.donation-section {
+  max-width: 1150px;
+  margin: 60px auto;
+  padding: 32px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid #f3e5d8;
+  box-shadow: 0 12px 35px rgba(25, 64, 82, 0.08);
+}
+
+/* Heading */
+.donation-intro h2 {
+  color: #194052;
+  font-size: 30px;
+  font-weight: 750;
+  margin: 0 0 10px;
+}
+
+.donation-intro p {
+  color: #52616a;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Soft orange donation panel */
+.donation-panel {
+  background: linear-gradient(135deg, #fff8f0, #ffedda);
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid #f8d8b7;
+}
+
+/* Give Once / Give Monthly */
+.donation-tabs {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.donation-tabs button {
+  flex: 1;
+  padding: 14px;
+  border: 1.5px solid #194052;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #194052;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.donation-tabs button:hover {
+  border-color: #f07800;
+  color: #e66d00;
+}
+
+.donation-tabs button.active {
+  background: #f07800;
+  color: #ffffff;
+  border-color: #f07800;
+  box-shadow: 0 4px 12px rgba(240, 120, 0, 0.18);
+}
+
+/* Amount heading */
+.donation-label {
+  font-weight: 700;
+  font-size: 17px;
+  color: #194052;
+  margin-bottom: 14px;
+}
+
+/* Preset amounts */
+.donation-amounts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 22px;
+}
+
+.donation-amounts button {
+  background: #ffffff;
+  color: #194052;
+  padding: 15px 8px;
+  border: 1.5px solid #eadfd4;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.donation-amounts button:hover {
+  border-color: #f07800;
+  background: #fff8f0;
+}
+
+.donation-amounts button.selected {
+  border: 2px solid #f07800;
+  background: #fff0df;
+  color: #c85e00;
+}
+
+/* Custom amount field */
+.donation-panel label {
+  display: block;
+  margin-bottom: 9px;
+  color: #194052;
+  font-weight: 500;
+}
+
+.donation-panel input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  border: 1.5px solid #d8dfe3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #194052;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.donation-panel input:focus {
+  border-color: #f07800;
+  box-shadow: 0 0 0 3px rgba(240, 120, 0, 0.12);
+}
+
+/* Main Donate button */
+.donate-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px;
+  background: #f07800;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.donate-button:hover:not(:disabled) {
+  background: #d96700;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(240, 120, 0, 0.2);
+}
+
+.donate-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Validation error */
+.donation-error {
+  color: #c62828;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .donation-section {
+    margin: 35px 16px;
+    padding: 20px;
+  }
+
+  .donation-panel {
+    padding: 20px;
+  }
+
+  .donation-intro h2 {
+    font-size: 26px;
+  }
+
+  .donation-amounts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .donation-section {
+    margin: 24px 10px;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .donation-panel {
+    padding: 15px;
+  }
+
+  .donation-intro h2 {
+    font-size: 23px;
+  }
+
+  .donation-intro p {
+    font-size: 14px;
+  }
+
+  .donation-tabs {
+    gap: 8px;
+  }
+
+  .donation-tabs button {
+    padding: 12px 7px;
+    font-size: 13px;
+  }
+
+  .donation-amounts {
+    gap: 9px;
+  }
+
+  .donate-button {
+    font-size: 15px;
+  }
+}

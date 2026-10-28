@@ -2,47 +2,61 @@
 const Contact = require("../../models/contact/Contact");
 const sendEmail = require("../../utils/sendEmail");
 
-// 1. Public: Create contact enquiry
-
+// Public: Create contact enquiry
 const createContact = async (req, res) => {
   try {
     const { name, email, phone, subject, message } = req.body;
 
-    // 1. Validate required fields
+    // Validate required fields
     if (
-      !name?.trim() ||
-      !email?.trim() ||
-      !phone?.trim() ||
-      !subject?.trim() ||
-      !message?.trim()
+      typeof name !== "string" ||
+      typeof email !== "string" ||
+      typeof phone !== "string" ||
+      typeof subject !== "string" ||
+      typeof message !== "string" ||
+      !name.trim() ||
+      !email.trim() ||
+      !phone.trim() ||
+      !subject.trim() ||
+      !message.trim()
     ) {
       return res.status(400).json({
         success: false,
         message:
-          "Name, email, phone, subject and message are required",
+          "Name, email, phone, subject and message are required.",
       });
     }
 
-    // 2. Validate email format
+    // Validate email format
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(email.trim())) {
       return res.status(400).json({
         success: false,
-        message: "Please provide a valid email address",
+        message: "Please provide a valid email address.",
       });
     }
 
-    // 3. Save enquiry in MongoDB
+    // Validate phone number
+    const normalizedPhone = phone.replace(/[\s()-]/g, "");
+
+    if (!/^\+?[0-9]{10,15}$/.test(normalizedPhone)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid phone number.",
+      });
+    }
+
+    // Save enquiry to MongoDB
     const contact = await Contact.create({
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      phone: phone.trim(),
+      phone: normalizedPhone,
       subject: subject.trim(),
       message: message.trim(),
     });
 
-    // 4. Send email notification to admin
+    // Notify admin by email; do not fail the enquiry if email fails
     try {
       if (!process.env.ADMIN_EMAIL) {
         throw new Error("ADMIN_EMAIL is missing in .env");
@@ -69,17 +83,15 @@ const createContact = async (req, res) => {
 
       console.log("Admin notification email sent successfully");
     } catch (emailError) {
-      // Email fail hone par bhi enquiry saved rahegi
       console.error(
         "Admin notification email failed:",
         emailError.message
       );
     }
 
-    // 5. Send success response to visitor
     return res.status(201).json({
       success: true,
-      message: "Your enquiry has been submitted successfully",
+      message: "Your enquiry has been submitted successfully.",
       data: {
         id: contact._id,
         status: contact.status,
@@ -87,14 +99,16 @@ const createContact = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Contact API error:", error.message);
+    console.error("Contact API error:", error);
 
     return res.status(500).json({
       success: false,
-      message: "Unable to submit your enquiry right now",
+      message: "Unable to submit your enquiry right now.",
     });
   }
 };
+
+
 
 
 // 2. Admin: Get all contact enquiries

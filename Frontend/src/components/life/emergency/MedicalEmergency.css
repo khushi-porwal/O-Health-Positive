@@ -1,0 +1,386 @@
+
+:root {
+  --me-navy: #123d83;
+  --me-blue: #087bc1;
+  --me-green: #168746;
+  --me-purple: #72259a;
+  --me-red: #ef4653;
+  --me-bg: #f5f7fa;
+  --me-text: #142b49;
+  --me-muted: #738095;
+}
+
+.medical-emergency {
+  width: calc(100% - 56px);
+  max-width: 1500px;
+  margin: 35px auto;
+  padding: 28px 22px 30px;
+  border: 1px solid #edf0f5;
+  border-radius: 25px;
+  background: var(--me-bg);
+  font-family: inherit;
+  color: var(--me-text);
+}
+
+.medical-emergency-header {
+  margin: 0 2px 24px;
+}
+
+.medical-emergency-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--me-navy);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.emergency-green-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--me-green);
+}
+
+.medical-emergency-header h2 {
+  margin: 0 0 9px;
+  color: var(--me-navy);
+  font-size: clamp(23px, 2.2vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.6px;
+}
+
+.medical-emergency-header p {
+  max-width: 850px;
+  margin: 0;
+  color: var(--me-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Campaign grid */
+
+.medical-campaign-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 30px;
+}
+
+.medical-campaign-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #eef1f5;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(18, 61, 131, 0.045);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.medical-campaign-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(18, 61, 131, 0.1);
+}
+
+/* Campaign images */
+
+.medical-campaign-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.05 / 1;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #e7edf5;
+}
+
+.medical-campaign-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.medical-campaign-card:hover .medical-campaign-image {
+  transform: scale(1.035);
+}
+
+.medical-tax-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 7px 10px;
+  border-radius: 0 0 0 10px;
+  background: var(--me-red);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* Campaign title */
+
+.medical-campaign-title {
+  display: -webkit-box;
+  min-height: 38px;
+  margin: 11px 0 8px;
+  overflow: hidden;
+  color: var(--me-navy);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Progress bar */
+
+.medical-progress {
+  position: relative;
+  height: 7px;
+  margin: 2px 0 20px;
+  border-radius: 20px;
+  background: #edf0f4;
+}
+
+.medical-progress-fill {
+  position: relative;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--me-blue),
+    var(--me-green)
+  );
+}
+
+.medical-progress-label {
+  position: absolute;
+  top: -4px;
+  z-index: 1;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background: var(--me-red);
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* Goal, raised and donors */
+
+.medical-campaign-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e9ef;
+}
+
+.medical-stat {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 0 5px;
+  border-right: 1px solid #e1e6ed;
+}
+
+.medical-stat:first-child {
+  padding-left: 0;
+}
+
+.medical-stat:last-child {
+  padding-right: 0;
+  border-right: none;
+}
+
+.medical-stat-icon {
+  display: grid;
+  flex: 0 0 23px;
+  width: 23px;
+  height: 23px;
+  place-items: center;
+  border-radius: 6px;
+  background: #e9f5ed;
+  color: var(--me-green);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.medical-stat > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.medical-stat-label {
+  color: var(--me-muted);
+  font-size: 9px;
+  line-height: 1.1;
+}
+
+.medical-stat strong {
+  overflow: hidden;
+  color: var(--me-navy);
+  font-size: 10px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Footer buttons */
+
+.medical-campaign-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.medical-social-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.medical-social-links a {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid #dfe5ed;
+  border-radius: 7px;
+  background: #ffffff;
+  color: var(--me-navy);
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.medical-social-links a:hover {
+  border-color: var(--me-navy);
+  background: var(--me-navy);
+  color: #ffffff;
+}
+
+.medical-campaign-donate {
+  display: inline-flex;
+  min-width: 100px;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border: 1px solid var(--me-red);
+  border-radius: 7px;
+  background: var(--me-red);
+  box-shadow: 0 3px 0 #b82d3b;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.medical-campaign-donate:hover {
+  transform: translateY(-1px);
+  background: #d83242;
+}
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+  .medical-emergency {
+    width: calc(100% - 32px);
+    padding: 24px 16px;
+  }
+
+  .medical-campaign-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .medical-campaign-title {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 560px) {
+  .medical-emergency {
+    width: calc(100% - 20px);
+    margin: 22px auto;
+    padding: 20px 12px;
+    border-radius: 18px;
+  }
+
+  .medical-emergency-header {
+    margin-bottom: 20px;
+  }
+
+  .medical-emergency-header h2 {
+    font-size: 25px;
+  }
+
+  .medical-emergency-header p {
+    font-size: 12px;
+  }
+
+  .medical-campaign-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .medical-campaign-card {
+    padding: 10px;
+  }
+
+  .medical-campaign-image-wrap {
+    aspect-ratio: 1.9 / 1;
+  }
+
+  .medical-campaign-title {
+    min-height: auto;
+    font-size: 13px;
+  }
+
+  .medical-stat {
+    gap: 8px;
+    padding: 0 9px;
+  }
+
+  .medical-stat strong {
+    font-size: 11px;
+  }
+
+  .medical-campaign-donate {
+    min-width: 115px;
+    min-height: 36px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medical-campaign-card,
+  .medical-campaign-image,
+  .medical-social-links a,
+  .medical-campaign-donate {
+    transition: none;
+  }
+}

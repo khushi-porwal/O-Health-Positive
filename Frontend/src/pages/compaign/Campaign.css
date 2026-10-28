@@ -1,0 +1,790 @@
+
+:root {
+  --campaign-navy: #123b82;
+  --campaign-blue: #0786d1;
+  --campaign-green: #138443;
+  --campaign-red: #f04450;
+  --campaign-lime: #a8c747;
+  --campaign-text: #182438;
+  --campaign-muted: #8b929d;
+  --campaign-border: #d9dce1;
+  --campaign-bg: #fafafa;
+}
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.campaign-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 20px 45px;
+  background: var(--campaign-bg);
+  color: var(--campaign-text);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.campaign-page *,
+.campaign-page *::before,
+.campaign-page *::after {
+  box-sizing: border-box;
+}
+
+/*
+ If Navbar and MainHeader use position: fixed,
+ add spacing equal to their combined height here.
+ Do not add this if your headers are in normal document flow.
+*/
+
+/* =========================
+   CENTERED CAMPAIGN CARD
+========================= */
+
+.campaign-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: 1050px;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  margin: 0 auto;
+  overflow: visible;
+  border: 1px solid #e6e7eb;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 5px 20px rgba(18, 59, 130, 0.07);
+}
+
+/* =========================
+   LEFT IMAGE SECTION
+========================= */
+
+.campaign-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  padding: 30px 22px;
+  background: #fbfbfb;
+}
+
+.campaign-image-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+  min-height: 350px;
+}
+
+.campaign-image-accent {
+  position: absolute;
+  inset: 17% 9%;
+  border: 9px solid var(--campaign-red);
+  border-radius: 20px;
+}
+
+.campaign-image-accent::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 17%;
+  width: 34%;
+  height: 9px;
+  background: var(--campaign-lime);
+}
+
+.campaign-main-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: 350px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.campaign-image-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.campaign-image-caption svg {
+  flex-shrink: 0;
+  color: var(--campaign-red);
+  font-size: 17px;
+}
+
+.campaign-image-caption p {
+  margin: 0;
+  color: var(--campaign-navy);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* =========================
+   RIGHT FORM CARD
+========================= */
+
+.campaign-form-card {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  padding: 25px;
+  overflow: visible;
+  background: #ffffff;
+  border-left: 1px solid #e2e3e6;
+  border-radius: 0 16px 16px 0;
+}
+
+.campaign-form-card form {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+}
+
+/* =========================
+   FORM HEADING
+========================= */
+
+.campaign-form-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 15px;
+  margin: 0 0 20px;
+  border-bottom: 1px solid #dedede;
+}
+
+.campaign-heading-sparkle {
+  display: inline-block;
+  flex-shrink: 0;
+  color: #93b33e;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.campaign-form-heading h2 {
+  margin: 0;
+  padding: 0;
+  color: #111827;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* =========================
+   FORM GROUPS
+========================= */
+
+.campaign-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 19px;
+}
+
+.campaign-form-group label {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.campaign-form-group input,
+.campaign-form-group select,
+.campaign-form-group textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 11px 12px;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  outline: none;
+  background: #ffffff;
+  color: #243044;
+  font-family: inherit;
+  font-size: 13px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.campaign-form-group input,
+.campaign-form-group select {
+  height: 42px;
+}
+
+.campaign-form-group select {
+  cursor: pointer;
+}
+
+.campaign-form-group input::placeholder,
+.campaign-form-group textarea::placeholder {
+  color: #a6a6a6;
+  opacity: 1;
+}
+
+.campaign-form-group input:focus,
+.campaign-form-group select:focus,
+.campaign-form-group textarea:focus {
+  border-color: var(--campaign-blue);
+  box-shadow: 0 0 0 3px rgba(7, 134, 209, 0.1);
+}
+
+.campaign-form-group textarea {
+  min-height: 105px;
+  height: auto;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+/* =========================
+   EMAIL AND PHONE
+========================= */
+
+.campaign-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  width: 100%;
+  min-width: 0;
+}
+
+.campaign-form-row .campaign-form-group {
+  min-width: 0;
+  margin-bottom: 19px;
+}
+
+/* =========================
+   SOCIAL LINKS
+========================= */
+
+.campaign-social-group {
+  margin-bottom: 19px;
+}
+
+.campaign-social-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.campaign-social-heading label {
+  margin: 0;
+}
+
+.campaign-social-heading label span {
+  color: #737b89;
+  font-weight: 400;
+}
+
+.campaign-add-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 4px 0;
+  border: none;
+  background: transparent;
+  color: #111827;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.campaign-add-link svg {
+  font-size: 10px;
+}
+
+.campaign-add-link:hover {
+  color: var(--campaign-blue);
+}
+
+.campaign-social-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.campaign-social-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.campaign-social-input input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+}
+
+.campaign-remove-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: 1px solid #f0d5d7;
+  border-radius: 5px;
+  background: #fff5f5;
+  color: var(--campaign-red);
+  cursor: pointer;
+}
+
+.campaign-remove-link:hover {
+  background: #ffe5e6;
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.campaign-description-group {
+  margin-bottom: 18px;
+}
+
+/* =========================
+   TERMS AND PRIVACY
+========================= */
+
+.campaign-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin: 20px 0 24px;
+  color: #343434;
+  font-size: 11px;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.campaign-terms input {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  margin: 2px 0 0;
+  padding: 0;
+  accent-color: var(--campaign-green);
+  cursor: pointer;
+}
+
+.campaign-terms span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.campaign-terms a {
+  color: var(--campaign-red);
+  text-decoration: none;
+}
+
+.campaign-terms a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.campaign-submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 133px;
+  max-width: 100%;
+  min-height: 42px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--campaign-red);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #b92631;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.campaign-submit-button:hover {
+  transform: translateY(-2px);
+  background: #d93642;
+}
+
+.campaign-submit-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #b92631;
+}
+
+/* =========================
+   DECORATIVE DETAIL
+========================= */
+
+.campaign-decoration {
+  position: absolute;
+  right: 13px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.campaign-hand {
+  color: #f4a900;
+  font-size: 27px;
+  transform: rotate(-20deg);
+}
+
+.campaign-decoration-line {
+  width: 26px;
+  height: 14px;
+  border-bottom: 1px solid var(--campaign-green);
+  border-radius: 50%;
+  transform: rotate(20deg);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .campaign-page {
+    padding: 22px 18px 35px;
+  }
+
+  .campaign-wrapper {
+    grid-template-columns:
+      minmax(0, 0.85fr)
+      minmax(0, 1.15fr);
+    max-width: 760px;
+  }
+
+  .campaign-visual {
+    padding: 25px 14px;
+  }
+
+  .campaign-image-frame {
+    min-height: 280px;
+  }
+
+  .campaign-main-image {
+    height: 290px;
+  }
+
+  .campaign-image-accent {
+    border-width: 7px;
+  }
+
+  .campaign-image-accent::before {
+    top: -7px;
+    height: 7px;
+  }
+
+  .campaign-form-card {
+    padding: 22px 18px 28px;
+  }
+
+  .campaign-form-heading h2 {
+    font-size: 17px;
+  }
+
+  .campaign-form-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .campaign-page {
+    padding: 18px 12px 30px;
+  }
+
+  .campaign-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 430px;
+  }
+
+  .campaign-visual {
+    min-height: 0;
+    padding: 20px 18px 12px;
+  }
+
+  .campaign-image-frame {
+    max-width: 330px;
+    min-height: 235px;
+  }
+
+  .campaign-main-image {
+    height: 245px;
+  }
+
+  .campaign-image-accent {
+    inset: 17% 8%;
+    border-width: 6px;
+    border-radius: 15px;
+  }
+
+  .campaign-image-accent::before {
+    top: -6px;
+    height: 6px;
+  }
+
+  .campaign-image-caption {
+    margin: 0 0 10px;
+  }
+
+  .campaign-form-card {
+    padding: 22px 17px 32px;
+    border-top: 1px solid #e6e7eb;
+    border-left: none;
+    border-radius: 0 0 13px 13px;
+  }
+
+  .campaign-form-heading {
+    gap: 9px;
+    margin-bottom: 19px;
+  }
+
+  .campaign-form-heading h2 {
+    font-size: 18px;
+  }
+
+  .campaign-form-group {
+    margin-bottom: 18px;
+  }
+
+  .campaign-form-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .campaign-form-row .campaign-form-group {
+    margin-bottom: 18px;
+  }
+
+  .campaign-form-group input,
+  .campaign-form-group select {
+    height: 44px;
+  }
+
+  .campaign-form-group textarea {
+    min-height: 115px;
+  }
+
+  .campaign-terms {
+    margin: 20px 0 24px;
+    font-size: 11px;
+  }
+
+  .campaign-submit-button {
+    width: 100%;
+    min-height: 45px;
+  }
+
+  .campaign-decoration {
+    right: 8px;
+    bottom: 5px;
+    opacity: 0.65;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 360px) {
+  .campaign-page {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .campaign-form-card {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .campaign-social-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .campaign-image-frame {
+    min-height: 205px;
+  }
+
+  .campaign-main-image {
+    height: 215px;
+  }
+}
+
+
+/* Fix campaign content visibility */
+
+.campaign-page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+
+  margin: 0 auto !important;
+  padding: 30px 20px 45px !important;
+
+  overflow: visible !important;
+  box-sizing: border-box;
+}
+
+.campaign-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  width: 100%;
+  max-width: 1050px;
+  height: auto !important;
+  min-height: 0 !important;
+
+  margin: 0 auto !important;
+  overflow: visible !important;
+}
+
+.campaign-form-card {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+
+  padding: 25px;
+  overflow: visible !important;
+  box-sizing: border-box;
+}
+
+.campaign-form-heading {
+  display: flex !important;
+  align-items: center;
+  visibility: visible !important;
+
+  position: relative;
+  width: 100%;
+  height: auto !important;
+
+  margin: 0 0 20px !important;
+  padding: 0 0 15px !important;
+
+  border-bottom: 1px solid #dedede;
+}
+
+.campaign-form-heading h2 {
+  display: block !important;
+  visibility: visible !important;
+
+  margin: 0 !important;
+  color: #111827;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.campaign-form-card form {
+  display: block;
+  width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+@media (max-width: 900px) {
+  .campaign-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 650px;
+  }
+
+  .campaign-form-card {
+    border-left: none;
+    border-top: 1px solid #e2e3e6;
+  }
+}
+
+
+/* Success and Error Messages */
+.campaign-form-message {
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+/* Green success message */
+.campaign-form-message.success {
+  color: #166534;
+  background-color: #dcfce7;
+  border-color: #86efac;
+}
+
+/* Red error message */
+.campaign-form-message.error {
+  color: #991b1b;
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}

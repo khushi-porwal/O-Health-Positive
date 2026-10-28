@@ -1,0 +1,339 @@
+
+:root {
+  --monthly-navy: #123d83;
+  --monthly-blue: #087bc1;
+  --monthly-green: #168746;
+  --monthly-purple: #72259a;
+  --monthly-red: #ef4653;
+  --monthly-text: #172c48;
+  --monthly-muted: #687587;
+  --monthly-bg: #faf9fa;
+}
+
+.monthly-section {
+  position: relative;
+  max-width: 1440px;
+  margin: 35px auto;
+  padding: 42px 34px 36px;
+  overflow: hidden;
+  border: 1px solid #e8e9ed;
+  border-radius: 22px;
+  background: var(--monthly-bg);
+  box-shadow: 0 3px 5px rgba(20, 35, 55, 0.15);
+  color: var(--monthly-text);
+  font-family: inherit;
+}
+
+.monthly-header {
+  max-width: 1000px;
+  margin: 0 auto 46px;
+  text-align: center;
+}
+
+.monthly-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--monthly-navy);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.monthly-eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--monthly-green);
+}
+
+.monthly-header h2 {
+  margin: 19px 0 18px;
+  color: var(--monthly-navy);
+  font-size: clamp(28px, 3.5vw, 38px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+.monthly-header p {
+  max-width: 960px;
+  margin: 0 auto;
+  color: #596b80;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.monthly-decoration {
+  position: absolute;
+  pointer-events: none;
+}
+
+.monthly-decoration-left {
+  top: 70px;
+  left: 5%;
+  color: var(--monthly-blue);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 0.9;
+  transform: rotate(-20deg);
+}
+
+.monthly-decoration-right {
+  top: 70px;
+  right: 13%;
+  color: var(--monthly-red);
+  font-size: 32px;
+}
+
+.monthly-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.monthly-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #f0f1f4;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(18, 61, 131, 0.055);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.monthly-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(18, 61, 131, 0.12);
+}
+
+.monthly-image-wrapper {
+  position: relative;
+  height: 218px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #eaf0f7;
+}
+
+.monthly-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.monthly-card:hover .monthly-image {
+  transform: scale(1.04);
+}
+
+.monthly-tax-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 15px;
+  border-radius: 0 0 0 15px;
+  background: var(--monthly-red);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.monthly-card-content {
+  padding-top: 16px;
+}
+
+.monthly-category {
+  display: none;
+  color: var(--monthly-green);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.monthly-card h3 {
+  min-height: 42px;
+  margin: 0 0 17px;
+  color: var(--monthly-navy);
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.monthly-supporters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 35px;
+  margin-bottom: 18px;
+  color: #34455b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.monthly-supporters-icon {
+  flex-shrink: 0;
+  color: var(--monthly-green);
+  font-size: 27px;
+}
+
+.monthly-supporters strong {
+  color: var(--monthly-navy);
+}
+
+.monthly-subscribe-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 47px;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 10px;
+  background: var(--monthly-red);
+  box-shadow: 0 4px 0 #202020;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.monthly-subscribe-btn:hover {
+  background: var(--monthly-navy);
+  transform: translateY(-2px);
+}
+
+.monthly-view-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+
+.monthly-view-more a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-width: 160px;
+  min-height: 50px;
+  padding: 12px 22px;
+  border: 1px solid var(--monthly-navy);
+  border-radius: 11px;
+  background: var(--monthly-navy);
+  box-shadow: 0 4px 0 rgba(18, 61, 131, 0.2);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.monthly-view-more a:hover {
+  background: #ffffff;
+  color: var(--monthly-navy);
+}
+
+@media (max-width: 1000px) {
+  .monthly-section {
+    padding: 34px 22px;
+  }
+
+  .monthly-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .monthly-image-wrapper {
+    height: 200px;
+  }
+
+  .monthly-decoration-left {
+    left: 3%;
+  }
+
+  .monthly-decoration-right {
+    right: 5%;
+  }
+}
+
+@media (max-width: 600px) {
+  .monthly-section {
+    margin: 20px 10px;
+    padding: 28px 14px;
+    border-radius: 16px;
+  }
+
+  .monthly-header {
+    margin-bottom: 28px;
+  }
+
+  .monthly-header h2 {
+    margin: 14px 0;
+    font-size: 26px;
+    letter-spacing: -0.5px;
+  }
+
+  .monthly-header p {
+    font-size: 13px;
+  }
+
+  .monthly-decoration-left {
+    top: 24px;
+    left: 12px;
+    font-size: 14px;
+    opacity: 0.65;
+  }
+
+  .monthly-decoration-right {
+    top: 24px;
+    right: 14px;
+    font-size: 22px;
+  }
+
+  .monthly-eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .monthly-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .monthly-card {
+    padding: 12px;
+  }
+
+  .monthly-image-wrapper {
+    height: 210px;
+  }
+
+  .monthly-card h3 {
+    min-height: auto;
+    font-size: 15px;
+  }
+
+  .monthly-supporters {
+    margin-bottom: 15px;
+  }
+
+  .monthly-subscribe-btn {
+    min-height: 45px;
+  }
+
+  .monthly-view-more {
+    margin-top: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .monthly-card,
+  .monthly-image,
+  .monthly-subscribe-btn,
+  .monthly-view-more a {
+    transition: none;
+  }
+}

@@ -2,10 +2,18 @@
 import api from "./api";
 
 // Existing registration function ko preserve karo.
-export const registerVolunteer = async (volunteerData) => {
+// export const registerVolunteer = async (volunteerData) => {
+//   const response = await api.post(
+//     "/volunteers/register",
+//     volunteerData
+//   );
+
+//   return response.data;
+// };
+ export const createCampaign = async (campaignData) => {
   const response = await api.post(
     "/volunteers/register",
-    volunteerData
+    campaignData
   );
 
   return response.data;

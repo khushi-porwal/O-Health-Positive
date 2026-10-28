@@ -1,104 +1,135 @@
 
-const Volunteer = require("../../models/volunteer/Volunteer");
+const Campaign = require("../../models/volunteer/Campaign");
 const sendEmail = require("../../utils/sendEmail");
 
 const ALLOWED_STATUSES = ["Pending", "Approved", "Rejected"];
+const ALLOWED_CAUSES = [
+  "healthcare",
+  "education",
+  "hunger",
+  "women",
+  "disability",
+  "community",
+  "other",
+];
 
-// Public: Register a volunteer
 const registerVolunteer = async (req, res) => {
   try {
     const {
-      fullName,
+      campaignerName,
+      cause,
       email,
       phone,
-      city,
-      interest,
-      motivation,
+      socialLinks = [],
+      description,
+      acceptedTerms,
     } = req.body;
 
-    // 1. Validate required fields
+    // Validate required fields
     if (
-      !fullName?.trim() ||
-      !email?.trim() ||
-      !phone?.trim() ||
-      !city?.trim() ||
-      !interest ||
-      !motivation?.trim()
+      typeof campaignerName !== "string" ||
+      !campaignerName.trim() ||
+      typeof cause !== "string" ||
+      !ALLOWED_CAUSES.includes(cause) ||
+      typeof email !== "string" ||
+      !email.trim() ||
+      typeof phone !== "string" ||
+      !phone.trim() ||
+      typeof description !== "string" ||
+      !description.trim() ||
+      acceptedTerms !== true
     ) {
       return res.status(400).json({
         success: false,
-        message: "Please fill in all required fields.",
+        message: "Please fill in all required fields and accept the terms.",
       });
     }
 
-    // 2. Validate email format
+    // Validate email
+    const normalizedEmail = email.trim().toLowerCase();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailPattern.test(email.trim())) {
+    if (!emailPattern.test(normalizedEmail)) {
       return res.status(400).json({
         success: false,
         message: "Please provide a valid email address.",
       });
     }
 
-    // 3. Save volunteer in MongoDB
-    const volunteer = await Volunteer.create({
-      fullName: fullName.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      city: city.trim(),
-      interest,
-      motivation: motivation.trim(),
-    });
+    // Validate phone
+    const normalizedPhone = phone.trim();
 
-    // 4. Send email notification to admin
-    try {
-      if (!process.env.ADMIN_EMAIL) {
-        throw new Error("ADMIN_EMAIL is missing in .env");
-      }
-
-      await sendEmail({
-        to: process.env.ADMIN_EMAIL,
-        subject: "New Volunteer Registration - O Positive Health",
-        text: [
-          "A new volunteer application has been submitted.",
-          "",
-          `Name: ${volunteer.fullName}`,
-          `Email: ${volunteer.email}`,
-          `Phone: ${volunteer.phone}`,
-          `City: ${volunteer.city}`,
-          `Area of Interest: ${volunteer.interest}`,
-          "",
-          "Motivation:",
-          volunteer.motivation,
-          "",
-          `Volunteer ID: ${volunteer._id}`,
-          `Status: ${volunteer.status || "Pending"}`,
-          `Submitted: ${volunteer.createdAt || new Date().toISOString()}`,
-          "",
-          "Please review this application in the admin dashboard.",
-        ].join("\n"),
+    if (!/^\+?[0-9]{10,15}$/.test(normalizedPhone)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid phone number.",
       });
-
-      console.log(
-        "Volunteer registration notification email sent successfully"
-      );
-    } catch (emailError) {
-      // Email fail hone par bhi registration saved rahega
-      console.error(
-        "Volunteer notification email failed:",
-        emailError.message
-      );
     }
 
-    // 5. Respond to visitor
+    // Validate social links
+    if (
+      !Array.isArray(socialLinks) ||
+      socialLinks.length > 10 ||
+      socialLinks.some(
+        (link) =>
+          typeof link !== "string" ||
+          (link.trim() &&
+            !/^https?:\/\/\S+$/i.test(link.trim()))
+      )
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide valid social links (maximum 10).",
+      });
+    }
+
+    // Save campaign using the existing Campaign model
+    const campaign = await Campaign.create({
+      campaignerName: campaignerName.trim(),
+      cause,
+      email: normalizedEmail,
+      phone: normalizedPhone,
+      socialLinks: socialLinks
+        .map((link) => link.trim())
+        .filter(Boolean),
+      description: description.trim(),
+      acceptedTerms,
+    });
+
+    // Email notification is optional; save should remain successful
+    try {
+      if (process.env.ADMIN_EMAIL) {
+        await sendEmail({
+          to: process.env.ADMIN_EMAIL,
+          subject: "New Campaign Request - O Positive Health",
+          text: [
+            "A new campaign request has been submitted.",
+            "",
+            `Campaigner: ${campaign.campaignerName}`,
+            `Cause: ${campaign.cause}`,
+            `Email: ${campaign.email}`,
+            `Phone: ${campaign.phone}`,
+            `Social links: ${campaign.socialLinks.join(", ") || "None"}`,
+            "",
+            "Description:",
+            campaign.description,
+            "",
+            `Campaign ID: ${campaign._id}`,
+            `Status: ${campaign.status}`,
+          ].join("\n"),
+        });
+      }
+    } catch (emailError) {
+      console.error("Campaign notification email failed:", emailError.message);
+    }
+
     return res.status(201).json({
       success: true,
-      message: "Volunteer application submitted successfully!",
-      data: volunteer,
+      message: "Campaign request submitted successfully!",
+      data: campaign,
     });
   } catch (error) {
-    console.error("Volunteer registration error:", error);
+    console.error("Campaign registration error:", error);
 
     if (error.name === "ValidationError") {
       return res.status(400).json({
@@ -107,38 +138,42 @@ const registerVolunteer = async (req, res) => {
       });
     }
 
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: "This campaign request already exists.",
+      });
+    }
+
     return res.status(500).json({
       success: false,
-      message: "Unable to submit your application. Please try again.",
+      message: "Unable to submit your campaign request. Please try again.",
     });
   }
 };
 
-
-// Admin: Get all volunteer applications
+// Admin: Get all campaigns
 const getVolunteers = async (req, res) => {
   try {
-    const volunteers = await Volunteer.find().sort({ createdAt: -1 });
+    const campaigns = await Campaign.find().sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
-      count: volunteers.length,
-      data: volunteers,
+      count: campaigns.length,
+      data: campaigns,
     });
   } catch (error) {
-    console.error("Get volunteers error:", error);
-
+    console.error("Get campaigns error:", error);
     return res.status(500).json({
       success: false,
-      message: "Unable to fetch volunteer applications.",
+      message: "Unable to fetch campaign requests.",
     });
   }
 };
 
-// Admin: Update application status
+// Admin: Update campaign status
 const updateVolunteerStatus = async (req, res) => {
   try {
-    const id = req.params.id;
     const { status } = req.body;
 
     if (!ALLOWED_STATUSES.includes(status)) {
@@ -148,61 +183,70 @@ const updateVolunteerStatus = async (req, res) => {
       });
     }
 
-    const volunteer = await Volunteer.findByIdAndUpdate(
-      id,
+    const campaign = await Campaign.findByIdAndUpdate(
+      req.params.id,
       { $set: { status } },
       { new: true, runValidators: true }
     );
 
-    if (!volunteer) {
+    if (!campaign) {
       return res.status(404).json({
         success: false,
-        message: "Volunteer application not found.",
+        message: "Campaign request not found.",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Volunteer status updated successfully.",
-      data: volunteer,
+      message: "Campaign status updated successfully.",
+      data: campaign,
     });
   } catch (error) {
-   
-    console.error("Update volunteer status error:", error);
+    console.error("Update campaign status error:", error);
+
+    if (error.name === "CastError") {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid campaign ID.",
+      });
+    }
 
     return res.status(500).json({
       success: false,
-      message: "Unable to update volunteer status.",
+      message: "Unable to update campaign status.",
     });
   }
 };
 
-// Admin: Delete a volunteer application
+// Admin: Delete a campaign
 const deleteVolunteer = async (req, res) => {
   try {
-    const id = req.params.id;
-    const volunteer = await Volunteer.findByIdAndDelete(
-      id
-    );
+    const campaign = await Campaign.findByIdAndDelete(req.params.id);
 
-    if (!volunteer) {
+    if (!campaign) {
       return res.status(404).json({
         success: false,
-        message: "Volunteer application not found.",
+        message: "Campaign request not found.",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Volunteer application deleted successfully.",
+      message: "Campaign request deleted successfully.",
     });
   } catch (error) {
+    console.error("Delete campaign error:", error);
 
-    console.error("Delete volunteer error:", error);
+    if (error.name === "CastError") {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid campaign ID.",
+      });
+    }
 
     return res.status(500).json({
       success: false,
-      message: "Unable to delete volunteer application.",
+      message: "Unable to delete campaign request.",
     });
   }
 };

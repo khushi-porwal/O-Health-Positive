@@ -1,17 +1,16 @@
-
 /* O Positive Health - Branded Chatbot */
 
 .ngo-chatbot {
   font-family: inherit;
-  --chat-navy: #06416b;
-  --chat-blue: #0757a6;
-  --chat-orange: #f58200;
-  --chat-cream: #fffaf5;
-  --chat-border: #f1dfce;
+  --chat-navy: #123d83;
+  --chat-blue: #0878d1;
+  --chat-blue-light: #eaf3ff;
+  --chat-border: #d8e5f5;
   --chat-text: #354b5a;
+  --chat-white: #ffffff;
 }
 
-/* Floating chatbot button */
+/* Floating Chatbot Button */
 
 .ngo-chat-toggle {
   position: fixed;
@@ -25,22 +24,22 @@
 
   border: 3px solid white;
   border-radius: 50%;
-  background: linear-gradient(145deg, #ff950b, #f07800);
+  background: linear-gradient(145deg, #0878d1, #123d83);
   color: white;
 
   font-size: 30px;
   cursor: pointer;
-  box-shadow: 0 6px 24px rgba(6, 65, 107, 0.22);
+  box-shadow: 0 6px 24px rgba(18, 61, 131, 0.25);
   z-index: 9999;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .ngo-chat-toggle:hover {
   transform: translateY(-3px);
-  box-shadow: 0 9px 28px rgba(245, 130, 0, 0.3);
+  box-shadow: 0 9px 28px rgba(18, 61, 131, 0.32);
 }
 
-/* Chat window */
+/* Chat Window */
 
 .ngo-chat-window {
   position: fixed;
@@ -56,7 +55,7 @@
   background: #ffffff;
   border: 1px solid var(--chat-border);
   border-radius: 20px;
-  box-shadow: 0 15px 50px rgba(6, 65, 107, 0.17);
+  box-shadow: 0 15px 50px rgba(18, 61, 131, 0.17);
 
   z-index: 9998;
   animation: ngoChatAppear 0.22s ease-out;
@@ -74,7 +73,7 @@
   }
 }
 
-/* Branded header */
+/* Branded Header */
 
 .ngo-chat-header {
   display: flex;
@@ -82,9 +81,9 @@
   gap: 12px;
   padding: 17px 16px;
 
-  background: linear-gradient(110deg, #06416b, #0757a6);
+  background: linear-gradient(110deg, #123d83, #0878d1);
   color: white;
-  border-bottom: 3px solid #f58200;
+  border-bottom: 3px solid #b9d9fa;
 }
 
 .ngo-chat-avatar {
@@ -94,10 +93,10 @@
   width: 46px;
   height: 46px;
 
-  border: 2px solid #ffab45;
+  border: 2px solid #c6e2ff;
   border-radius: 50%;
   background: white;
-  color: #0757a6;
+  color: #123d83;
 
   font-size: 17px;
   font-weight: 800;
@@ -117,7 +116,7 @@
 
 .ngo-chat-heading p {
   margin: 5px 0 0;
-  color: #e8f0f8;
+  color: #e5f1ff;
   font-size: 12px;
 }
 
@@ -142,7 +141,7 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Conversation area */
+/* Conversation Area */
 
 .ngo-chat-messages {
   flex: 1;
@@ -154,7 +153,7 @@
 
   background: linear-gradient(
     180deg,
-    #fffaf5 0%,
+    #f4f8ff 0%,
     #ffffff 100%
   );
 }
@@ -171,44 +170,44 @@
   overflow-wrap: anywhere;
 }
 
-/* AI messages */
+/* AI Messages */
 
 .ngo-chat-message.bot {
   align-self: flex-start;
 
-  background: #fff0df;
-  color: #354b5a;
+  background: #eaf3ff;
+  color: #263e58;
 
-  border: 1px solid #f7dfc5;
+  border: 1px solid #d5e6fb;
   border-bottom-left-radius: 4px;
 }
 
-/* Visitor messages */
+/* Visitor Messages */
 
 .ngo-chat-message.user {
   align-self: flex-end;
 
-  background: #0757a6;
+  background: #123d83;
   color: #ffffff;
 
-  border: 1px solid #0757a6;
+  border: 1px solid #123d83;
   border-bottom-right-radius: 4px;
 }
 
-/* Error message */
+/* Error Message */
 
 .ngo-chat-error {
   padding: 9px 11px;
   border-radius: 9px;
 
-  background: #fff0ed;
+  background: #fff0f0;
   color: #a52a2a;
 
   font-size: 12px;
   line-height: 1.5;
 }
 
-/* Message input */
+/* Message Input */
 
 .ngo-chat-form {
   display: flex;
@@ -217,7 +216,7 @@
 
   padding: 13px;
   background: white;
-  border-top: 1px solid #f0e5db;
+  border-top: 1px solid #e1eaf5;
 }
 
 .ngo-chat-form input {
@@ -226,9 +225,9 @@
   min-width: 0;
   padding: 12px 13px;
 
-  border: 1px solid #dce2e8;
+  border: 1px solid #d6e0ed;
   border-radius: 12px;
-  background: #fffdfb;
+  background: #fafdff;
   color: #263e50;
 
   font-family: inherit;
@@ -239,8 +238,8 @@
 }
 
 .ngo-chat-form input:focus {
-  border-color: #f58200;
-  box-shadow: 0 0 0 3px rgba(245, 130, 0, 0.12);
+  border-color: #0878d1;
+  box-shadow: 0 0 0 3px rgba(8, 120, 209, 0.12);
 }
 
 .ngo-chat-form input::placeholder {
@@ -253,7 +252,7 @@
 
   border: none;
   border-radius: 11px;
-  background: #f58200;
+  background: #0878d1;
   color: white;
 
   font-family: inherit;
@@ -265,7 +264,7 @@
 }
 
 .ngo-chat-form button:hover:not(:disabled) {
-  background: #df7000;
+  background: #123d83;
   transform: translateY(-1px);
 }
 
@@ -274,14 +273,14 @@
   cursor: not-allowed;
 }
 
-/* Footer disclaimer */
+/* Footer Disclaimer */
 
 .ngo-chat-disclaimer {
   margin: 0;
   padding: 0 12px 11px;
 
   background: white;
-  color: #78838c;
+  color: #788899;
 
   font-size: 10px;
   line-height: 1.5;
@@ -295,11 +294,24 @@
 }
 
 .ngo-chat-messages::-webkit-scrollbar-thumb {
-  background: #e5d5c6;
+  background: #c5d8ef;
   border-radius: 10px;
 }
 
-/* Mobile responsive */
+.ngo-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #0878d1;
+}
+
+/* Keyboard Focus Accessibility */
+
+.ngo-chat-toggle:focus-visible,
+.ngo-chat-close:focus-visible,
+.ngo-chat-form button:focus-visible {
+  outline: 3px solid #75baff;
+  outline-offset: 3px;
+}
+
+/* Mobile Responsive */
 
 @media (max-width: 480px) {
   .ngo-chat-toggle {
@@ -326,12 +338,15 @@
   }
 }
 
+/* Reduced Motion */
+
 @media (prefers-reduced-motion: reduce) {
   .ngo-chat-window {
     animation: none;
   }
 
   .ngo-chat-toggle,
+  .ngo-chat-close,
   .ngo-chat-form button {
     transition: none;
   }

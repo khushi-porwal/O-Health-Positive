@@ -1,0 +1,368 @@
+
+:root {
+  --cb-navy: #123d83;
+  --cb-blue: #087bc1;
+  --cb-green: #a5c83c;
+  --cb-red: #ef4653;
+  --cb-purple: #72259a;
+  --cb-text: #142b49;
+  --cb-muted: #788394;
+  --cb-background: #f6f6f6;
+  --cb-border: #e4e4e4;
+}
+
+/* Main section */
+.crowdfunding-benefits {
+  box-sizing: border-box;
+  width: calc(100% - 36px);
+  max-width: 1800px;
+  margin: 35px auto;
+  padding: 34px 50px 48px;
+  overflow: hidden;
+  border-radius: 38px;
+  background: var(--cb-background);
+  font-family: inherit;
+  color: var(--cb-text);
+}
+
+/* Heading */
+.crowdfunding-benefits-header {
+  margin-bottom: 76px;
+}
+
+.crowdfunding-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  color: var(--cb-navy);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.crowdfunding-dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--cb-green);
+}
+
+.crowdfunding-benefits-header h2 {
+  margin: 0 0 18px;
+  color: var(--cb-navy);
+  font-size: clamp(30px, 3vw, 44px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -1px;
+}
+
+.crowdfunding-benefits-header > p {
+  max-width: 1250px;
+  margin: 0;
+  color: var(--cb-muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* Benefits grid */
+.crowdfunding-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+}
+
+/* Individual cells */
+.crowdfunding-benefit-item {
+  box-sizing: border-box;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.crowdfunding-stat-item {
+  min-height: 182px;
+  padding: 20px 14px 34px;
+  border-bottom: 1px solid var(--cb-border);
+}
+
+.crowdfunding-stat-item:not(:nth-child(3n)) {
+  border-right: 1px solid var(--cb-border);
+}
+
+/* Large figures */
+.crowdfunding-stat-value {
+  margin: 0 0 15px;
+  color: var(--cb-green);
+  font-size: clamp(38px, 4vw, 54px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.crowdfunding-stat-item p {
+  margin: 0;
+  color: var(--cb-text);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Feature cells */
+.crowdfunding-feature-item {
+  min-height: 194px;
+  padding: 28px 14px 12px;
+}
+
+.crowdfunding-feature-item:not(:nth-child(3n)) {
+  border-right: 1px solid var(--cb-border);
+}
+
+.crowdfunding-feature-item p {
+  margin: 17px 0 0;
+  color: var(--cb-text);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Green feature icon area */
+.crowdfunding-feature-icon {
+  display: flex;
+  height: 55px;
+  align-items: center;
+  justify-content: center;
+  color: var(--cb-green);
+}
+
+.crowdfunding-feature-icon svg {
+  display: block;
+}
+
+/* Review stars and message icon */
+.review-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+}
+
+.review-stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  margin-bottom: -2px;
+  font-size: 22px;
+}
+
+.review-icon > svg {
+  width: 58px;
+  height: 31px;
+  stroke: var(--cb-green);
+  stroke-width: 1px;
+}
+
+/* Tax benefit icon */
+.tax-icon {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tax-icon > svg {
+  width: 57px;
+  height: 57px;
+}
+
+.tax-icon span {
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transform: translateX(-50%);
+}
+
+/* Transparency symbol */
+.transparency-icon {
+  position: relative;
+  width: 66px;
+  height: 60px;
+}
+
+.transparency-circle-one {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 45px;
+  height: 45px;
+  color: var(--cb-green);
+}
+
+.transparency-circle-two {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+  width: 47px;
+  height: 47px;
+  color: var(--cb-green);
+  fill: none;
+  stroke: var(--cb-green);
+  stroke-width: 2.5px;
+}
+
+/* Laptop and tablet */
+@media (max-width: 1000px) {
+  .crowdfunding-benefits {
+    width: calc(100% - 32px);
+    padding: 30px 28px 35px;
+    border-radius: 28px;
+  }
+
+  .crowdfunding-benefits-header {
+    margin-bottom: 45px;
+  }
+
+  .crowdfunding-eyebrow {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+  }
+
+  .crowdfunding-benefits-header > p {
+    font-size: 15px;
+  }
+
+  .crowdfunding-stat-item {
+    min-height: 155px;
+    padding-bottom: 25px;
+  }
+
+  .crowdfunding-stat-item p,
+  .crowdfunding-feature-item p {
+    font-size: 15px;
+  }
+
+  .crowdfunding-feature-item {
+    min-height: 165px;
+  }
+}
+
+/* Mobile and small tablets */
+@media (max-width: 650px) {
+  .crowdfunding-benefits {
+    width: calc(100% - 20px);
+    margin: 22px auto;
+    padding: 25px 16px;
+    border-radius: 22px;
+  }
+
+  .crowdfunding-benefits-header {
+    margin-bottom: 30px;
+  }
+
+  .crowdfunding-eyebrow {
+    gap: 8px;
+    margin-bottom: 17px;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  .crowdfunding-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .crowdfunding-benefits-header h2 {
+    margin-bottom: 12px;
+    font-size: 27px;
+    letter-spacing: -0.5px;
+  }
+
+  .crowdfunding-benefits-header > p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .crowdfunding-benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crowdfunding-stat-item {
+    min-height: 135px;
+    padding: 18px 8px;
+    border-bottom: 1px solid var(--cb-border);
+  }
+
+  .crowdfunding-stat-item:not(:nth-child(3n)) {
+    border-right: none;
+  }
+
+  .crowdfunding-stat-item:nth-child(odd),
+  .crowdfunding-feature-item:nth-child(odd) {
+    border-right: 1px solid var(--cb-border);
+  }
+
+  .crowdfunding-stat-value {
+    margin-bottom: 10px;
+    font-size: clamp(30px, 7vw, 40px);
+  }
+
+  .crowdfunding-stat-item p,
+  .crowdfunding-feature-item p {
+    font-size: 13px;
+  }
+
+  .crowdfunding-feature-item {
+    min-height: 140px;
+    padding: 20px 8px;
+  }
+
+  .crowdfunding-feature-item:not(:nth-child(3n)) {
+    border-right: none;
+  }
+
+  .crowdfunding-feature-item p {
+    margin-top: 12px;
+  }
+
+  .crowdfunding-feature-icon {
+    transform: scale(0.85);
+  }
+}
+
+/* Extra-small mobile */
+@media (max-width: 360px) {
+  .crowdfunding-benefits {
+    padding: 22px 10px;
+  }
+
+  .crowdfunding-benefits-header h2 {
+    font-size: 23px;
+  }
+
+  .crowdfunding-stat-value {
+    font-size: 28px;
+  }
+
+  .crowdfunding-stat-item p,
+  .crowdfunding-feature-item p {
+    font-size: 12px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .crowdfunding-benefits * {
+    scroll-behavior: auto;
+  }
+}

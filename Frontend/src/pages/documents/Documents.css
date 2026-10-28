@@ -1,0 +1,299 @@
+
+/* =========================================
+   O POSITIVE HEALTH — DOCUMENTS PAGE
+========================================= */
+
+:root {
+  --documents-navy: #123d83;
+  --documents-blue: #0876c9;
+  --documents-light-blue: #edf5ff;
+  --documents-text: #182943;
+  --documents-muted: #6c7b91;
+  --documents-border: #e0e8f2;
+  --documents-background: #f5f8fd;
+  --documents-white: #ffffff;
+}
+
+.documents-page,
+.documents-page * {
+  box-sizing: border-box;
+}
+
+.documents-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 75px 28px 95px;
+  background:
+    radial-gradient(
+      circle at 5% 5%,
+      rgba(8, 118, 201, 0.07),
+      transparent 27%
+    ),
+    var(--documents-background);
+  color: var(--documents-text);
+  font-family: inherit;
+}
+
+.documents-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.documents-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 15px;
+  border: 1px solid #d8e7fa;
+  border-radius: 50px;
+  background: var(--documents-white);
+  color: var(--documents-navy);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.documents-label-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--documents-blue);
+  box-shadow: 0 0 0 4px rgba(8, 118, 201, 0.11);
+}
+
+.documents-container > h1 {
+  margin: 23px 0 14px;
+  color: var(--documents-navy);
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1.3px;
+}
+
+.documents-description {
+  max-width: 620px;
+  margin: 0;
+  color: var(--documents-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* =========================================
+   DOCUMENT GRID
+========================================= */
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+  margin-top: 43px;
+}
+
+/* =========================================
+   DOCUMENT CARD
+========================================= */
+
+.document-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--documents-border);
+  border-radius: 17px;
+  background: var(--documents-white);
+  box-shadow: 0 5px 22px rgba(18, 61, 131, 0.045);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.document-card:hover {
+  transform: translateY(-5px);
+  border-color: #bfd6f5;
+  box-shadow: 0 15px 38px rgba(18, 61, 131, 0.11);
+}
+
+/* =========================================
+   DOCUMENT TITLE
+========================================= */
+
+.document-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 83px;
+  padding: 19px 20px;
+  border-bottom: 1px solid var(--documents-border);
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f6f9ff 100%
+  );
+  color: var(--documents-navy);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.document-title::before {
+  content: "";
+  display: block;
+  flex: 0 0 39px;
+  width: 39px;
+  height: 43px;
+  border: 1px solid #d5e5fb;
+  border-radius: 9px;
+  background-color: var(--documents-light-blue);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23123d83' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 23px;
+}
+
+/* =========================================
+   PDF PREVIEW
+========================================= */
+
+.document-preview {
+  position: relative;
+  height: 300px;
+  min-height: 250px;
+  overflow: hidden;
+  background: #eaf0f8;
+}
+
+.document-pdf-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #eaf0f8;
+}
+
+/* =========================================
+   VIEW / DOWNLOAD ACTIONS
+========================================= */
+
+.document-actions {
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  display: flex;
+  gap: 9px;
+}
+
+.document-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  background: var(--documents-navy);
+  box-shadow: 0 5px 16px rgba(18, 61, 131, 0.2);
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.document-actions a:hover {
+  transform: translateY(-2px);
+  background: var(--documents-blue);
+}
+
+.document-actions a:focus-visible {
+  outline: 3px solid #8ec5ff;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .documents-page {
+    padding: 60px 22px 75px;
+  }
+
+  .documents-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 21px;
+  }
+
+  .document-preview {
+    height: 310px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .documents-page {
+    padding: 43px 15px 60px;
+  }
+
+  .documents-container > h1 {
+    margin-top: 19px;
+    font-size: 34px;
+    letter-spacing: -0.8px;
+  }
+
+  .documents-description {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .documents-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 19px;
+    margin-top: 29px;
+  }
+
+  .document-card {
+    border-radius: 14px;
+  }
+
+  .document-title {
+    min-height: 75px;
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .document-preview {
+    height: 330px;
+  }
+
+  .document-actions a {
+    width: 41px;
+    height: 41px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .document-card,
+  .document-actions a {
+    transition: none;
+  }
+
+  .document-card:hover,
+  .document-actions a:hover {
+    transform: none;
+  }
+}

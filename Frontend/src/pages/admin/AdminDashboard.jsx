@@ -1,14 +1,17 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import BlogManagement from "../../components/admin/Blog/BlogManagement";
 import {
     getContacts,
     updateContactStatus,
     deleteContact,
 } from "../../services/contactService";
-
+import MonthyPrograms from "./monthly/MonthlyPrograms"
+import VendorNominations from "./vendor/vendorNomination/VendorNomination"
+import AdminCampaigns from "./campaign/AdminCampaign";
 import VolunteersSection from "./Voluenteer/Voluenteer";
+import ManageVendors from "./vendor/ManageVendors";
 
 import "./AdminDashboard.css";
 
@@ -280,6 +283,57 @@ function AdminDashboard() {
                     <span aria-hidden="true">♧</span>
                     Volunteers
                 </button>
+                <button
+  type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "blogs" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("blogs")}
+>
+  <span aria-hidden="true">✎</span>
+  Blogs
+</button>
+<button
+  type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "campaigns" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("campaigns")}
+>
+  <span aria-hidden="true">♡</span>
+  Campaigns
+</button>
+<button
+  type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "vendors" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("vendors")}
+>
+  <span aria-hidden="true">♧</span>
+  Manage Vendors
+</button>
+<button
+  type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "vendor-nominations" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("vendor-nominations")}
+>
+  <span aria-hidden="true">▤</span>
+  Vendor Nominations
+</button>
+<button
+  type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "monthly-programs" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("monthly-programs")}
+>
+  <span aria-hidden="true">♡</span>
+  Monthly Programs
+</button>
+
 
                 <div className="dashboard-sidebar-bottom">
                     <div className="dashboard-admin-avatar">
@@ -310,6 +364,19 @@ function AdminDashboard() {
             {/* Main content */}
             <section className="admin-dashboard-main">
                 {/* ENQUIRIES SECTION */}
+                {/* CAMPAIGNS SECTION */}
+{activeSection === "campaigns" && (
+  <AdminCampaigns />
+)}
+{activeSection === "vendors" && <ManageVendors />}
+{activeSection === "vendor-nominations" && (
+  <VendorNominations />
+)}
+{activeSection === "monthly-programs" && (
+  <MonthyPrograms />
+)}
+
+                {activeSection === "blogs" && <BlogManagement />}
                 {activeSection === "enquiries" && (
                     <>
                         <header className="dashboard-topbar">

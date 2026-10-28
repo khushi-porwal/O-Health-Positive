@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+.campaign-banner {
+    margin-top: -100px;
+  width: 100%;
+  padding: 10px;
+}
+
+.banner-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.banner-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .campaign-banner {
+    padding: 15px;
+  }
+
+  .banner-container {
+    border-radius: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .campaign-banner {
+    padding: 8px;
+  }
+
+  .banner-container {
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,179 @@
+
+.medical-hero {
+  position: relative;
+  width: calc(100% - 48px);
+  max-width: 1800px;
+  min-height: 520px;
+  margin: 28px auto;
+  overflow: hidden;
+  border-radius: 38px;
+  background: #073b79;
+  isolation: isolate;
+}
+
+.medical-hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.medical-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(5, 38, 83, 0.98) 0%,
+    rgba(7, 55, 112, 0.94) 25%,
+    rgba(8, 61, 120, 0.75) 38%,
+    rgba(8, 61, 120, 0.18) 58%,
+    transparent 75%
+  );
+}
+
+.medical-hero-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 520px;
+  padding: 55px 4.5%;
+  color: #ffffff;
+}
+
+.medical-hero-overlay h1 {
+  max-width: 780px;
+  margin: 0 0 24px;
+  font-size: clamp(32px, 3.4vw, 62px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -1.5px;
+}
+
+.medical-hero-overlay p {
+  max-width: 540px;
+  margin: 0 0 28px;
+  color: #f0f5ff;
+  font-size: clamp(14px, 1.15vw, 19px);
+  line-height: 1.8;
+}
+
+/* Donate button */
+
+.medical-donate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  min-height: 58px;
+  padding: 15px 28px;
+  border: 2px solid #ef4653;
+  border-radius: 8px;
+  background: #ef4653;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 750;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.medical-donate-btn:hover {
+  background: #d83242;
+  border-color: #d83242;
+  transform: translateY(-2px);
+}
+
+.medical-donate-btn:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .medical-hero {
+    width: calc(100% - 32px);
+    min-height: 460px;
+    border-radius: 26px;
+  }
+
+  .medical-hero-overlay {
+    min-height: 460px;
+    padding: 42px 5%;
+  }
+
+  .medical-hero-overlay h1 {
+    max-width: 590px;
+    font-size: clamp(30px, 5vw, 46px);
+  }
+
+  .medical-hero::before {
+    background: linear-gradient(
+      90deg,
+      rgba(5, 38, 83, 0.98) 0%,
+      rgba(7, 55, 112, 0.88) 48%,
+      rgba(8, 61, 120, 0.25) 100%
+    );
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 560px) {
+  .medical-hero {
+    width: calc(100% - 24px);
+    min-height: 480px;
+    margin: 16px auto;
+    border-radius: 20px;
+  }
+
+  .medical-hero-image {
+    object-position: 57% center;
+  }
+
+  .medical-hero::before {
+    background: linear-gradient(
+      90deg,
+      rgba(5, 38, 83, 0.94),
+      rgba(7, 55, 112, 0.75)
+    );
+  }
+
+  .medical-hero-overlay {
+    min-height: 480px;
+    padding: 30px 24px;
+  }
+
+  .medical-hero-overlay h1 {
+    margin-bottom: 18px;
+    font-size: clamp(28px, 7.5vw, 38px);
+    line-height: 1.2;
+    letter-spacing: -0.7px;
+  }
+
+  .medical-hero-overlay p {
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .desktop-break {
+    display: none;
+  }
+
+  .medical-donate-btn {
+    min-width: 170px;
+    min-height: 50px;
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+}

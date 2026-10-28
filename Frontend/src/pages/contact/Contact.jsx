@@ -1,315 +1,350 @@
 
-import { useState } from "react";
-import Navbar from "../../components/layout/Navbar";
-import Footer from "../../components/layout/Footer";
+import React, { useState } from "react";
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaExternalLinkAlt,
+  FaHeart,
+} from "react-icons/fa";
+
 import "./Contact.css";
-import { createContact } from "../../services/contactService"
-function Contact() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-    });
+import MainHeader from "../../components/layout/Header/Header";
+import Footer from "../../components/layout/Footer/Footer";
+import Navbar from "../../components/layout/Navbar/Navbar";
 
-    const [status, setStatus] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
+import { createContact } from "../../services/contactService";
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+const Contact = () => {
+  const [loading, setLoading] = useState(false);
+  const [formMessage, setFormMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (status) setStatus("");
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // IMPORTANT: Backend expects "name", not "fullName"
+    const data = {
+      name: formData.get("fullName")?.trim(),
+      phone: formData.get("phone")?.trim(),
+      email: formData.get("email")?.trim(),
+      subject: formData.get("subject")?.trim(),
+      message: formData.get("message")?.trim(),
     };
 
+    setFormMessage("");
+    setIsError(false);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    if (
+      !data.name ||
+      !data.phone ||
+      !data.email ||
+      !data.subject ||
+      !data.message
+    ) {
+      setIsError(true);
+      setFormMessage("Please fill in all required fields.");
+      return;
+    }
 
-        setIsSubmitting(true);
-        setStatus("");
+    // Accept digits, spaces, parentheses, hyphens and an optional +
+    const normalizedPhone = data.phone.replace(/[\s()-]/g, "");
+    const phonePattern = /^\+?[0-9]{10,15}$/;
 
-        try {
-            const response = await createContact(formData);
+    if (!phonePattern.test(normalizedPhone)) {
+      setIsError(true);
+      setFormMessage(
+        "Please enter a valid phone number with 10–15 digits."
+      );
+      return;
+    }
 
-            setStatus({
-                type: "success",
-                message: response.message || "Enquiry submitted successfully!",
-            });
+    data.phone = normalizedPhone;
 
-            // Form clear only after successful submission
-            setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                subject: "",
-                message: "",
-            });
-        } catch (error) {
-            setStatus({
-                type: "error",
-                message:
-                    error.response?.data?.message ||
-                    "Unable to submit your enquiry. Please try again.",
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    try {
+      setLoading(true);
 
+      const response = await createContact(data);
 
-    return (
-        <>
-            <Navbar />
+      if (response?.success === false) {
+        throw new Error(
+          response.message || "Unable to submit your enquiry."
+        );
+      }
 
-            <main className="contact-page">
-                {/* HERO */}
-                <section className="contact-hero">
-                    <div className="contact-hero-decoration contact-decoration-one" />
-                    <div className="contact-hero-decoration contact-decoration-two" />
+      setFormMessage(
+        response?.message ||
+          "Thank you! Your enquiry has been submitted successfully."
+      );
 
-                    <div className="contact-hero-content">
-                        <span className="contact-eyebrow">
-                            O POSITIVE HEALTH <span>•</span> CARE BEFORE CURE
-                        </span>
+      form.reset();
+    } catch (error) {
+      console.error("Contact submission failed:", error);
+      console.error(
+        "Backend response:",
+        JSON.stringify(error.response?.data, null, 2)
+      );
 
-                        <h1>
-                            Every conversation
-                            <br />
-                            begins with <span>care.</span>
-                        </h1>
+      setIsError(true);
 
-                        <p>
-                            We're here to listen, guide, and support you.
-                            Whatever your healthcare journey looks like,
-                            you don't have to navigate it alone.
-                        </p>
+      setFormMessage(
+        error.response?.data?.message ||
+          error.message ||
+          "Unable to submit your enquiry. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                        <div className="contact-hero-badge">
-                            <span className="contact-badge-heart">♡</span>
-                            Compassion in every connection
-                        </div>
-                    </div>
+  return (
+    <>
+      <Navbar />
+      <MainHeader />
 
-                    <div className="contact-hero-art" aria-hidden="true">
-                        <div className="hero-art-ring hero-ring-one" />
-                        <div className="hero-art-ring hero-ring-two" />
+      <main className="contact-page">
+        {/* Header Banner */}
+        <section className="contact-banner">
+          <div className="banner-decoration banner-left">
+            <FaHeart />
+          </div>
 
-                        <div className="hero-art-heart">
-                            <span>♡</span>
-                            <i>+</i>
-                        </div>
+          <div className="banner-content">
+            <span className="banner-label">
+              O POSITIVE HEALTH FOUNDATION
+            </span>
+            <h1>Contact Us</h1>
+            <p>Your enquiry is valuable to us</p>
+          </div>
 
-                        <div className="hero-art-spark hero-spark-one">✦</div>
-                        <div className="hero-art-spark hero-spark-two">✧</div>
+          <div className="banner-decoration banner-right">
+            <FaHeart />
+          </div>
+        </section>
 
-                        <div className="hero-art-card">
-                            <span className="hero-art-card-icon">✓</span>
-                            <div>
-                                <strong>You matter.</strong>
-                                <small>Your wellbeing comes first.</small>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        {/* Contact Section */}
+        <section className="contact-wrapper">
+          {/* Left Side */}
+          <div className="contact-info">
+            <div className="section-heading">
+              <span className="heading-line"></span>
+              <h2>Get in touch</h2>
+            </div>
 
-                {/* CONTACT CONTENT */}
-                <section className="contact-content">
-                    {/* LEFT SIDE */}
-                    <div className="contact-info">
-                        <span className="contact-section-label">
-                            LET'S CONNECT
-                        </span>
+            <p className="contact-description">
+              Access our support team for healthcare assistance,
+              guidance, and any questions you may have.
+            </p>
 
-                        <h2>
-                            A little conversation can make a
-                            <span> big difference.</span>
-                        </h2>
+            {/* Address Card */}
+            <div className="contact-card address-card">
+              <div className="contact-icon blue-icon">
+                <FaMapMarkerAlt />
+              </div>
 
-                        <p className="contact-description">
-                            Have a question, need guidance, or want to
-                            support our mission? Reach out to us. Our
-                            team is here to help you take the next step.
-                        </p>
+              <div>
+                <span className="card-label">Our Location</span>
+                <p>
+                  Add your foundation's complete address here.
+                </p>
+              </div>
+            </div>
 
-                        {/* Healthcare illustration */}
-                        <div className="contact-illustration" aria-hidden="true">
-                            <div className="illustration-orbit orbit-one" />
-                            <div className="illustration-orbit orbit-two" />
+            {/* Phone and Email */}
+            <div className="contact-details-grid">
+              <div className="contact-card">
+                <div className="contact-icon green-icon">
+                  <FaPhoneAlt />
+                </div>
 
-                            <div className="illustration-heart">
-                                <span>♡</span>
-                                <i>+</i>
-                            </div>
+                <div>
+                  <span className="card-label">Helpline Number</span>
+                  <a href="tel:+910000000000">
+                    +91 00000 00000
+                  </a>
+                </div>
+              </div>
 
-                            <div className="illustration-spark spark-left">✦</div>
-                            <div className="illustration-spark spark-right">✧</div>
+              <div className="contact-card">
+                <div className="contact-icon purple-icon">
+                  <FaEnvelope />
+                </div>
 
-                            <div className="floating-card floating-card-top">
-                                <span className="floating-icon">♡</span>
-                                <div>
-                                    <strong>Care with heart</strong>
-                                    <small>Every person matters</small>
-                                </div>
-                            </div>
+                <div>
+                  <span className="card-label">Email Address</span>
+                  <a href="mailto:your-email@example.com">
+                    your-email@example.com
+                  </a>
+                </div>
+              </div>
+            </div>
 
-                            <div className="floating-card floating-card-bottom">
-                                <span className="floating-icon floating-icon-green">
-                                    ✓
-                                </span>
-                                <div>
-                                    <strong>We're here for you</strong>
-                                    <small>One step at a time</small>
-                                </div>
-                            </div>
-                        </div>
+            {/* Google Map */}
+            <div className="contact-map">
+              <iframe
+                title="O Positive Health Foundation Location"
+                src="https://maps.google.com/maps?q=Jodhpur%2C%20Rajasthan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
 
-                        <div className="contact-promise">
-                            <span className="promise-heart">♡</span>
-                            <div>
-                                <strong>Care before cure, always.</strong>
-                                <p>Your voice deserves to be heard.</p>
-                            </div>
-                        </div>
-                    </div>
+              <a
+                className="map-link"
+                href="https://www.google.com/maps/search/?api=1&query=Jodhpur%2C%20Rajasthan"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open in Maps <FaExternalLinkAlt />
+              </a>
+            </div>
+          </div>
 
-                    {/* RIGHT SIDE FORM */}
-                    <div className="contact-form-card">
-                        <div className="contact-form-heading">
-                            <span className="form-heading-icon">✉</span>
+          {/* Right Side: Contact Form */}
+          <div className="contact-form-card">
+            <div className="form-heading">
+              <span className="form-heading-icon">
+                <FaHeart />
+              </span>
+              <h2>Fill the details</h2>
+            </div>
 
-                            <div>
-                                <h2>Send us a message</h2>
-                                <p>We'd love to hear from you.</p>
-                            </div>
-                        </div>
+            <p className="form-description">
+              Tell us how we can help you.
+            </p>
 
-                        <form className="contact-form" onSubmit={handleSubmit}>
-                            <div className="contact-field">
-                                <label htmlFor="name">Full name</label>
-                                <input
-                                    id="name"
-                                    name="name"
-                                    type="text"
-                                    autoComplete="name"
-                                    placeholder="Enter your full name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength={100}
-                                />
-                            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="form-grid">
+                {/* Full Name */}
+                <div className="form-group">
+                  <label htmlFor="fullName">
+                    Full Name <span>*</span>
+                  </label>
 
-                            <div className="contact-field">
-                                <label htmlFor="email">Email address</label>
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    placeholder="you@example.com"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength={254}
-                                />
-                            </div>
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    placeholder="Enter Full Name"
+                    autoComplete="name"
+                    minLength={2}
+                    maxLength={100}
+                    required
+                  />
+                </div>
 
-                            <div className="contact-field">
-                                <label htmlFor="phone">Phone number</label>
-                                <input
-                                    id="phone"
-                                    name="phone"
-                                    type="tel"
-                                    autoComplete="tel"
-                                    placeholder="Enter your phone number"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength={20}
-                                />
-                            </div>
+                {/* Phone */}
+                <div className="form-group">
+                  <label htmlFor="phone">
+                    Contact number <span>*</span>
+                  </label>
 
-                            <div className="contact-field">
-                                <label htmlFor="subject">Subject</label>
-                                <input
-                                    id="subject"
-                                    name="subject"
-                                    type="text"
-                                    placeholder="How can we help?"
-                                    value={formData.subject}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength={150}
-                                />
-                            </div>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="Enter Contact number"
+                    autoComplete="tel"
+                    maxLength={18}
+                    required
+                  />
+                </div>
 
-                            <div className="contact-field">
-                                <label htmlFor="message">Your message</label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    rows={4}
-                                    placeholder="Tell us a little about your enquiry..."
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    required
-                                    maxLength={3000}
-                                />
-                            </div>
+                {/* Email */}
+                <div className="form-group">
+                  <label htmlFor="email">
+                    Email ID <span>*</span>
+                  </label>
 
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter Email ID"
+                    autoComplete="email"
+                    required
+                  />
+                </div>
 
-                            {status && (
-                                <div
-                                    className={`contact-status contact-status-${status.type}`}
-                                    role="status"
-                                >
-                                    {status.message}
-                                </div>
-                            )}
+                {/* Subject */}
+                <div className="form-group">
+                  <label htmlFor="subject">
+                    Subject <span>*</span>
+                  </label>
 
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    placeholder="Enter Subject"
+                    maxLength={200}
+                    required
+                  />
+                </div>
+              </div>
 
+              {/* Message */}
+              <div className="form-group message-group">
+                <label htmlFor="message">
+                  Message <span>*</span>
+                </label>
 
-                            <button
-                                className="contact-submit"
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                <span>
-                                    {isSubmitting ? "Sending..." : "Send your enquiry"}
-                                </span>
-                                <span className="submit-arrow">
-                                    {isSubmitting ? "…" : "→"}
-                                </span>
-                            </button>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Enter Your Message"
+                  rows="4"
+                  maxLength={5000}
+                  required
+                />
+              </div>
 
+              {/* Submit Button */}
+              <div className="form-bottom">
+                <p className="required-note">
+                  <span>*</span> Required fields
+                </p>
 
-                            <p className="contact-form-footnote">
-                                <span>♡</span>
-                                Your message matters to us.
-                            </p>
-                        </form>
-                    </div>
-                </section>
+                <button
+                  type="submit"
+                  className="submit-button"
+                  disabled={loading}
+                >
+                  {loading ? "Submitting..." : "Submit Enquiry"}
+                  {!loading && <span>→</span>}
+                </button>
+              </div>
 
-                {/* BOTTOM MESSAGE */}
-                <section className="contact-bottom">
-                    <span className="contact-bottom-heart">♡</span>
-                    <p>
-                        Sometimes, the first step towards care is simply
-                        <strong> reaching out.</strong>
-                    </p>
-                </section>
-            </main>
+              {/* Success/Error Message */}
+              {formMessage && (
+                <div
+                  className={`contact-form-message ${
+                    isError
+                      ? "contact-form-error"
+                      : "contact-form-success"
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {formMessage}
+                </div>
+              )}
+            </form>
 
-            <Footer />
-        </>
-    );
-}
+            <div className="form-decoration" aria-hidden="true">
+              <FaHeart />
+              <span>Care before cure</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  );
+};
 
 export default Contact;

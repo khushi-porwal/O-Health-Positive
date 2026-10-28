@@ -1,0 +1,377 @@
+
+:root {
+  --cb-navy: #123d83;
+  --cb-blue: #087bc1;
+  --cb-green: #a5c83c;
+  --cb-red: #ef4653;
+  --cb-purple: #72259a;
+  --cb-text: #ffffff;
+  --cb-muted: #e0e3e9;
+  --cb-dark: #1d1d1b;
+}
+
+/* Main section */
+.who-we-are {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  align-items: center;
+  gap: 45px;
+
+  width: calc(100% - 36px);
+  max-width: 1800px;
+  min-height: 650px;
+  margin: 30px auto;
+  padding: 65px clamp(30px, 6vw, 100px);
+
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 38px;
+  background: var(--cb-dark);
+  color: var(--cb-text);
+  font-family: inherit;
+}
+
+/* Left content */
+.who-content {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+}
+
+.who-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+
+  color: var(--cb-green);
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.who-label svg {
+  flex-shrink: 0;
+}
+
+.who-content h2 {
+  max-width: 850px;
+  margin: 0 0 27px;
+
+  color: #fff;
+  font-size: clamp(30px, 2.7vw, 45px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -1.2px;
+}
+
+.who-content p {
+  max-width: 850px;
+  margin: 0 0 25px;
+
+  color: var(--cb-muted);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+/* Donate button */
+.who-donate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  margin-top: 12px;
+  padding: 17px 30px;
+
+  border: 1px solid var(--cb-red);
+  border-radius: 13px;
+  background: var(--cb-red);
+  color: #fff;
+
+  font-size: 19px;
+  font-weight: 700;
+  text-decoration: none;
+
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.who-donate-btn:hover {
+  background: var(--cb-purple);
+  border-color: var(--cb-purple);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 18px rgba(114, 37, 154, 0.25);
+}
+
+.who-donate-btn span {
+  font-size: 25px;
+  line-height: 1;
+}
+
+/* Right image composition */
+.who-visual {
+  position: relative;
+  width: 100%;
+  max-width: 570px;
+  min-height: 470px;
+  margin: 0 auto;
+}
+
+/* Brush-style accent */
+.who-brush {
+  position: absolute;
+  top: 8%;
+  left: 1%;
+  width: 75%;
+  height: 70%;
+
+  background: var(--cb-red);
+  opacity: 0.95;
+
+  clip-path: polygon(
+    0 12%, 10% 16%, 7% 7%, 23% 17%,
+    18% 0, 36% 16%, 44% 8%, 53% 24%,
+    75% 17%, 66% 34%, 100% 31%,
+    83% 48%, 95% 58%, 69% 61%,
+    75% 82%, 53% 69%, 41% 100%,
+    33% 75%, 17% 82%, 21% 63%,
+    0 60%, 15% 43%, 4% 33%, 17% 28%
+  );
+}
+
+/* Image cards */
+.who-photo {
+  position: absolute;
+  overflow: hidden;
+  background: #292929;
+  border: 2px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.who-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.who-photo:hover img {
+  transform: scale(1.045);
+}
+
+/* Large central image */
+.who-photo-main {
+  z-index: 1;
+  top: 12%;
+  left: 24%;
+  width: 55%;
+  height: 78%;
+
+  border-radius: 22px 8px 22px 8px;
+}
+
+/* Top-right image */
+.who-photo-top {
+  z-index: 2;
+  top: 21%;
+  right: 0;
+  width: 43%;
+  height: 37%;
+
+  border: 3px solid var(--cb-dark);
+  border-radius: 24px;
+}
+
+/* Bottom-right image */
+.who-photo-bottom {
+  z-index: 3;
+  right: 3%;
+  bottom: 0;
+  width: 54%;
+  height: 41%;
+
+  border: 3px solid var(--cb-dark);
+  border-radius: 24px;
+}
+
+/* Decorative purple and green details */
+.who-decoration {
+  position: absolute;
+  z-index: 4;
+  bottom: 6%;
+  left: 13%;
+  display: flex;
+  gap: 8px;
+  transform: rotate(-18deg);
+}
+
+.who-decoration span {
+  display: block;
+  width: 12px;
+  height: 38px;
+  border: 4px solid var(--cb-red);
+  border-radius: 10px;
+}
+
+.who-decoration span:nth-child(even) {
+  border-color: var(--cb-purple);
+  transform: translateY(8px);
+}
+
+/* Large laptop */
+@media (min-width: 1500px) {
+  .who-we-are {
+    min-height: 700px;
+  }
+
+  .who-visual {
+    max-width: 650px;
+    min-height: 520px;
+  }
+
+  .who-content p {
+    font-size: 18px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+  .who-we-are {
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 0.8fr);
+    gap: 25px;
+    padding: 45px 35px;
+    min-height: 570px;
+    border-radius: 28px;
+  }
+
+  .who-label {
+    font-size: 19px;
+    margin-bottom: 23px;
+  }
+
+  .who-content h2 {
+    font-size: clamp(27px, 3.2vw, 36px);
+    line-height: 1.35;
+  }
+
+  .who-content p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .who-visual {
+    min-height: 390px;
+  }
+
+  .who-donate-btn {
+    padding: 14px 24px;
+    font-size: 17px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .who-we-are {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+
+    width: calc(100% - 20px);
+    min-height: auto;
+    margin: 20px auto;
+    padding: 30px 22px 35px;
+    border-radius: 23px;
+  }
+
+  .who-label {
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  .who-label svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .who-content h2 {
+    margin-bottom: 20px;
+    font-size: clamp(27px, 7vw, 36px);
+    line-height: 1.3;
+    letter-spacing: -0.6px;
+  }
+
+  .who-content p {
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .who-donate-btn {
+    margin-top: 5px;
+    padding: 14px 23px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  .who-visual {
+    width: 100%;
+    max-width: 500px;
+    min-height: 350px;
+    margin-top: 5px;
+  }
+
+  .who-photo-main {
+    left: 12%;
+    width: 58%;
+    height: 78%;
+  }
+
+  .who-photo-top {
+    width: 45%;
+    height: 36%;
+  }
+
+  .who-photo-bottom {
+    right: 1%;
+    width: 54%;
+    height: 39%;
+  }
+
+  .who-decoration {
+    left: 3%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .who-we-are {
+    padding: 25px 17px;
+  }
+
+  .who-content h2 {
+    font-size: 26px;
+  }
+
+  .who-visual {
+    min-height: 285px;
+  }
+
+  .who-content p {
+    font-size: 13px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .who-we-are *,
+  .who-we-are *::before,
+  .who-we-are *::after {
+    transition: none !important;
+  }
+}

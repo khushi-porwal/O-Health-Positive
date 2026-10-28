@@ -1,0 +1,349 @@
+
+/* ============================
+   DONATION POPUP OVERLAY
+============================ */
+
+.donate-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  z-index: 999999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(10, 28, 57, 0.72);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  animation: donateFade 0.25s ease;
+}
+
+/* ============================
+   DONATION POPUP CARD
+============================ */
+
+.donate-popup {
+  position: relative;
+
+  flex: 0 1 420px;
+  width: 100%;
+  max-width: 420px;
+
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+
+  padding: 34px 28px 26px;
+
+  border: 1px solid #e7edf6;
+  border-radius: 24px;
+
+  background: #ffffff;
+  text-align: center;
+
+  box-shadow: 0 24px 80px rgba(0, 24, 65, 0.3);
+
+  animation: donateRise 0.3s ease;
+}
+
+/* ============================
+   CLOSE BUTTON
+============================ */
+
+.donate-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f0f4fa;
+  color: #123d83;
+
+  font-size: 26px;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.donate-close:hover {
+  background: #dcecff;
+}
+
+/* ============================
+   HEART ICON
+============================ */
+
+.donate-heart {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+}
+
+/* ============================
+   BRAND NAME
+============================ */
+
+.donate-brand {
+  margin: 0;
+
+  color: #123d83;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.donate-tagline {
+  margin: 6px 0 20px;
+
+  color: #087db5;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* ============================
+   HEADING
+============================ */
+
+.donate-popup h2 {
+  margin: 0 0 12px;
+
+  color: #123d83;
+
+  font-size: 27px;
+  line-height: 1.3;
+}
+
+/* ============================
+   DESCRIPTION
+============================ */
+
+.donate-description {
+  margin: 0 auto 22px;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ============================
+   DONATION AMOUNT BOX
+============================ */
+
+.donate-amount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 10px;
+  padding: 22px 14px;
+
+  border: 1px solid #dce8f8;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    135deg,
+    #f3f7ff,
+    #edf8ff
+  );
+}
+
+.donate-amount span {
+  color: #64748b;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.donate-amount strong {
+  color: #123d83;
+
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.donate-amount small {
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #dcecff;
+  color: #123d83;
+
+  font-size: 12px;
+}
+
+/* ============================
+   PAYMENT NOTE
+============================ */
+
+.donate-note {
+  margin: 18px 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ============================
+   CONTINUE BUTTON
+============================ */
+
+.donate-continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #123d83;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.donate-continue:hover {
+  background: #087db5;
+  transform: translateY(-1px);
+}
+
+/* ============================
+   CANCEL BUTTON
+============================ */
+
+.donate-cancel {
+  margin-top: 10px;
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #64748b;
+
+  font-size: 13px;
+
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.donate-cancel:hover {
+  color: #123d83;
+}
+
+/* ============================
+   ANIMATIONS
+============================ */
+
+@keyframes donateFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes donateRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================
+   MOBILE RESPONSIVE
+============================ */
+
+@media (max-width: 480px) {
+  .donate-overlay {
+    padding: 14px;
+  }
+
+  .donate-popup {
+    max-height: calc(100vh - 28px);
+    max-height: calc(100dvh - 28px);
+
+    padding: 32px 20px 22px;
+
+    border-radius: 20px;
+  }
+
+  .donate-popup h2 {
+    font-size: 24px;
+  }
+
+  .donate-amount strong {
+    font-size: 34px;
+  }
+
+  .donate-continue {
+    font-size: 13px;
+  }
+}
+
+/* ============================
+   REDUCED MOTION ACCESSIBILITY
+============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .donate-overlay,
+  .donate-popup {
+    animation: none;
+  }
+
+  .donate-continue,
+  .donate-close,
+  .donate-cancel {
+    transition: none;
+  }
+}

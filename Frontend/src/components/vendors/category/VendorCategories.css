@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+
+.vendor-section {
+  width: 100%;
+  padding: 55px 5%;
+  background: #ffffff;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.vendor-heading {
+  max-width: 1300px;
+  margin: 0 auto 35px;
+}
+
+.small-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #173f7a;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+
+  margin-bottom: 18px;
+}
+
+.heading-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #78b82a;
+}
+
+.vendor-heading h2 {
+  margin: 0;
+
+  color: #102c68;
+
+  font-size: 38px;
+  line-height: 1.2;
+
+  font-weight: 700;
+}
+
+.vendor-heading h2 span {
+  color: #1b9b5a;
+}
+
+.vendor-heading p {
+  max-width: 1050px;
+
+  margin-top: 15px;
+
+  color: #737b89;
+
+  font-size: 16px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.vendor-grid {
+  max-width: 1400px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 22px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.vendor-card {
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  border: 1px solid #edf0f3;
+
+  box-shadow:
+    0 5px 18px rgba(20, 50, 100, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.vendor-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 25px rgba(20, 50, 100, 0.12);
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.vendor-image-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  height: 330px;
+
+  overflow: hidden;
+}
+
+.vendor-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.3s ease;
+}
+
+.vendor-card:hover .vendor-image {
+  transform: scale(1.02);
+}
+
+
+/* =========================
+   SIMPLE LABEL
+========================= */
+
+.vendor-label {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: 0;
+
+  padding: 16px 12px;
+
+  text-align: center;
+
+  color: #ffffff;
+
+  font-size: 17px;
+
+  font-weight: 600;
+}
+
+
+/* O Positive theme colors */
+
+.vendor-label.blue {
+  background: #1457a6;
+}
+
+.vendor-label.green {
+  background: #1c9b5a;
+}
+
+.vendor-label.purple {
+  background: #7042a8;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1100px) {
+
+  .vendor-section {
+    padding: 45px 4%;
+  }
+
+  .vendor-heading h2 {
+    font-size: 32px;
+  }
+
+  .vendor-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .vendor-image-wrapper {
+    height: 300px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .vendor-section {
+    padding: 35px 18px;
+  }
+
+  .vendor-heading {
+    margin-bottom: 25px;
+  }
+
+  .small-heading {
+    font-size: 12px;
+  }
+
+  .vendor-heading h2 {
+    font-size: 27px;
+  }
+
+  .vendor-heading p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .vendor-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .vendor-image-wrapper {
+    height: 250px;
+  }
+
+  .vendor-label {
+    font-size: 16px;
+
+    padding: 14px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .vendor-section {
+    padding: 28px 12px;
+  }
+
+  .vendor-heading h2 {
+    font-size: 23px;
+  }
+
+  .vendor-heading p {
+    font-size: 13px;
+  }
+
+  .vendor-image-wrapper {
+    height: 220px;
+  }
+
+  .vendor-label {
+    font-size: 15px;
+
+    padding: 12px;
+  }
+}

@@ -1,0 +1,462 @@
+/* ================================
+   ADMIN CAMPAIGNS - MAIN CONTAINER
+================================ */
+
+.admin-campaigns {
+  width: 100%;
+  padding: 30px;
+  color: #173b32;
+  box-sizing: border-box;
+  animation: campaignFadeIn 0.4s ease;
+}
+
+.admin-campaigns h1,
+.admin-campaigns h2,
+.admin-campaigns h3 {
+  margin-top: 0;
+  color: #173b32;
+}
+
+.admin-campaigns h2 {
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+.admin-campaigns p {
+  line-height: 1.65;
+}
+
+/* ================================
+   CAMPAIGN FORM
+================================ */
+
+.admin-campaign-form {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 760px;
+  margin: 26px 0 42px;
+  padding: 30px;
+  border: 1px solid #e0ebe4;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fcf9 100%);
+  box-shadow: 0 8px 28px rgba(23, 59, 50, 0.07);
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+}
+
+.admin-campaign-form:hover {
+  box-shadow: 0 12px 34px rgba(23, 59, 50, 0.1);
+}
+
+.admin-campaign-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #254d40;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.admin-campaign-form input,
+.admin-campaign-form textarea,
+.admin-campaign-form select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d4e1d9;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #173b32;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.admin-campaign-form input::placeholder,
+.admin-campaign-form textarea::placeholder {
+  color: #9aaba2;
+}
+
+.admin-campaign-form input:hover,
+.admin-campaign-form textarea:hover,
+.admin-campaign-form select:hover {
+  border-color: #9bbcab;
+}
+
+.admin-campaign-form input:focus,
+.admin-campaign-form textarea:focus,
+.admin-campaign-form select:focus {
+  border-color: #23845e;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(35, 132, 94, 0.1);
+}
+
+.admin-campaign-form textarea {
+  min-height: 125px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.admin-campaign-form select {
+  cursor: pointer;
+}
+
+.admin-campaign-form input[type="file"] {
+  padding: 10px;
+  background: #f5faf6;
+  cursor: pointer;
+}
+
+.admin-campaign-form input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 9px 13px;
+  border: none;
+  border-radius: 7px;
+  background: #e1f1e7;
+  color: #176b4d;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.admin-campaign-form input[type="file"]::file-selector-button:hover {
+  background: #cce8d6;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.admin-campaign-form button,
+.admin-campaign-list-header button,
+.admin-campaign-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 11px 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #176b4d;
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.admin-campaign-form button:hover,
+.admin-campaign-list-header button:hover,
+.admin-campaign-actions button:hover {
+  background: #10563c;
+  box-shadow: 0 5px 14px rgba(23, 107, 77, 0.2);
+  transform: translateY(-2px);
+}
+
+.admin-campaign-form button:active,
+.admin-campaign-list-header button:active,
+.admin-campaign-actions button:active {
+  transform: translateY(0);
+}
+
+.admin-campaign-form button:disabled,
+.admin-campaign-list-header button:disabled,
+.admin-campaign-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ================================
+   CAMPAIGN LIST HEADER
+================================ */
+
+.admin-campaign-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 36px 0 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0ebe4;
+}
+
+.admin-campaign-list-header h2 {
+  margin: 0;
+}
+
+/* ================================
+   CAMPAIGN CARDS
+================================ */
+
+.admin-campaign-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 16px;
+  padding: 22px;
+  border: 1px solid #e0ebe4;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(23, 59, 50, 0.035);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.admin-campaign-item:hover {
+  border-color: #b9d8c5;
+  box-shadow: 0 10px 25px rgba(23, 59, 50, 0.08);
+  transform: translateY(-2px);
+}
+
+.admin-campaign-item h3 {
+  margin: 0 0 9px;
+  font-size: 18px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.admin-campaign-item p {
+  margin: 6px 0;
+  color: #667d72;
+  font-size: 14px;
+}
+
+/* Optional campaign image, if rendered by your JSX */
+
+.admin-campaign-item img {
+  width: 110px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #edf5ef;
+}
+
+/* ================================
+   CAMPAIGN ACTIONS
+================================ */
+
+.admin-campaign-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.admin-campaign-actions button {
+  padding: 9px 14px;
+  min-height: 38px;
+  font-size: 13px;
+}
+
+/* Delete button: applies to buttons using this class */
+
+.admin-campaign-actions .delete-btn {
+  background: #fff0f0;
+  color: #bd3030;
+  border-color: #f4d0d0;
+}
+
+.admin-campaign-actions .delete-btn:hover {
+  background: #bd3030;
+  color: #ffffff;
+  box-shadow: 0 5px 14px rgba(189, 48, 48, 0.15);
+}
+
+/* Secondary / cancel button */
+
+.admin-campaign-actions .cancel-btn {
+  background: #f0f5f1;
+  color: #355b4b;
+  border-color: #dce8e0;
+}
+
+.admin-campaign-actions .cancel-btn:hover {
+  background: #dfece3;
+  color: #173b32;
+  box-shadow: none;
+}
+
+/* ================================
+   STATUS BADGES
+================================ */
+
+.admin-campaigns .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 6px 11px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.admin-campaigns .status-active {
+  background: #e3f6e9;
+  color: #167344;
+}
+
+.admin-campaigns .status-paused {
+  background: #fff3d8;
+  color: #96620b;
+}
+
+.admin-campaigns .status-completed {
+  background: #e8eefc;
+  color: #3455a4;
+}
+
+/* ================================
+   SUCCESS & ERROR MESSAGES
+================================ */
+
+.campaign-success,
+.campaign-error {
+  margin: 14px 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.5;
+}
+
+.campaign-success {
+  border: 1px solid #bfe5cb;
+  background: #effaf2;
+  color: #167344;
+}
+
+.campaign-error {
+  border: 1px solid #f1caca;
+  background: #fff3f3;
+  color: #b42323;
+}
+
+/* ================================
+   EMPTY STATE / LOADING
+================================ */
+
+.admin-campaigns .campaign-empty,
+.admin-campaigns .campaign-loading {
+  padding: 35px 20px;
+  border: 1px dashed #cbded1;
+  border-radius: 14px;
+  background: #f8fcf9;
+  color: #668073;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ================================
+   ANIMATION
+================================ */
+
+@keyframes campaignFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 900px) {
+  .admin-campaigns {
+    padding: 22px;
+  }
+
+  .admin-campaign-form {
+    padding: 24px;
+  }
+
+  .admin-campaign-item {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-campaigns {
+    padding: 14px;
+  }
+
+  .admin-campaigns h2 {
+    font-size: 21px;
+  }
+
+  .admin-campaign-form {
+    padding: 18px;
+    gap: 14px;
+    border-radius: 14px;
+  }
+
+  .admin-campaign-list-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-campaign-list-header button {
+    width: 100%;
+  }
+
+  .admin-campaign-item {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 17px;
+  }
+
+  .admin-campaign-item img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .admin-campaign-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .admin-campaign-actions button {
+    flex: 1;
+  }
+
+  .admin-campaign-form button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-campaigns,
+  .admin-campaign-item,
+  .admin-campaign-form,
+  .admin-campaign-form button,
+  .admin-campaign-actions button {
+    animation: none;
+    transition: none;
+  }
+}

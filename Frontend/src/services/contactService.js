@@ -1,7 +1,7 @@
 
 import api from "./api";
 
-// Public: Submit a contact enquiry
+// Public: Submit contact enquiry
 export const createContact = async (contactData) => {
   const response = await api.post(
     "/contact/create-contact",

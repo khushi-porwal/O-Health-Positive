@@ -1,0 +1,39 @@
+
+.about-us-section {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.about-us-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .about-us-section {
+    padding: 12px;
+  }
+
+  .about-us-image {
+    border-radius: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .about-us-section {
+    padding: 8px;
+  }
+
+  .about-us-image {
+    border-radius: 10px;
+  }
+}

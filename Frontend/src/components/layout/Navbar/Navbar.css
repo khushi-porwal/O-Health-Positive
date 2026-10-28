@@ -1,0 +1,164 @@
+
+/* ==============================
+   O POSITIVE HEALTH - TOP BAR
+================================= */
+
+.top-bar {
+  width: 100%;
+  min-height: 47px;
+  padding: 3px 1.5%;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  /* Logo-inspired deep blue */
+  background: #173b78;
+  color: #ffffff;
+}
+
+/* EMAIL AND PHONE */
+
+.top-bar-contact {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  min-width: 0;
+}
+
+.top-bar-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.top-bar-contact a span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.top-bar-contact a:hover {
+  color: #64c58a;
+}
+
+/* SOCIAL MEDIA BUTTONS */
+
+.top-bar-socials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.top-bar-socials a {
+  width: 37px;
+  height: 36px;
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  color: #173b78;
+
+  border: 1px solid #e8edf6;
+  border-radius: 9px;
+
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.top-bar-socials a:hover {
+  background: #168747;
+  color: #ffffff;
+  border-color: #168747;
+  transform: translateY(-1px);
+}
+
+/* TABLET */
+
+@media (max-width: 760px) {
+  .top-bar {
+    padding: 7px 3%;
+    gap: 12px;
+  }
+
+  .top-bar-contact {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .top-bar-contact a {
+    font-size: 13px;
+  }
+
+  .top-bar-socials {
+    gap: 5px;
+  }
+
+  .top-bar-socials a {
+    width: 31px;
+    height: 31px;
+    border-radius: 7px;
+    font-size: 14px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 4%;
+    gap: 10px;
+  }
+
+  .top-bar-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+  }
+
+  .top-bar-contact a {
+    font-size: 13px;
+  }
+
+  .top-bar-socials {
+    gap: 7px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+.top-bar a:focus-visible {
+  outline: 2px solid #64c58a;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-bar a {
+    transition: none;
+  }
+}

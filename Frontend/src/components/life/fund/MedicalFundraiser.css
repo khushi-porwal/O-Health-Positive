@@ -1,0 +1,336 @@
+
+:root {
+  --mf-navy: #123d83;
+  --mf-blue: #087bc1;
+  --mf-green: #168746;
+  --mf-purple: #72259a;
+  --mf-red: #ef4653;
+  --mf-text: #142b49;
+  --mf-muted: #7c8797;
+  --mf-border: #d9dfe7;
+}
+
+.medical-fundraiser-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: stretch;
+  gap: 20px;
+  width: calc(100% - 56px);
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 12px;
+  font-family: inherit;
+  color: var(--mf-text);
+}
+
+/* Left content */
+
+.fundraiser-left {
+  min-width: 0;
+  padding: 22px 0 0 10px;
+}
+
+.fundraiser-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: var(--mf-navy);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.fundraiser-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mf-green);
+}
+
+.fundraiser-left > h2 {
+  margin: 0 0 12px;
+  color: var(--mf-navy);
+  font-size: clamp(23px, 2.1vw, 30px);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+}
+
+.fundraiser-description {
+  max-width: 560px;
+  margin: 0 0 16px;
+  color: var(--mf-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Image card */
+
+.fundraiser-image-card {
+  position: relative;
+  min-height: 250px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: var(--mf-navy);
+  box-shadow: 0 6px 18px rgba(18, 61, 131, 0.1);
+}
+
+.fundraiser-image-card > img {
+  display: block;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.fundraiser-image-caption {
+  position: relative;
+  padding: 15px 13px 16px;
+  background: var(--mf-navy);
+  color: #ffffff;
+}
+
+.fundraiser-image-caption h3 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.fundraiser-image-caption p {
+  margin: 0;
+  color: #e2eafa;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* Form card */
+
+.fundraiser-form-card {
+  position: relative;
+  min-width: 0;
+  align-self: center;
+  padding: 25px 24px;
+  border: 1px solid #f0f2f5;
+  border-radius: 19px;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(18, 61, 131, 0.055);
+}
+
+.fundraiser-form-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 15px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e7ebf0;
+}
+
+.fundraiser-star {
+  color: var(--mf-green);
+  font-size: 20px;
+}
+
+.fundraiser-form-heading h3 {
+  margin: 0;
+  color: var(--mf-navy);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Form inputs */
+
+.fundraiser-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.fundraiser-field label {
+  color: var(--mf-text);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.fundraiser-field input,
+.fundraiser-field select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #cbd2dc;
+  border-radius: 7px;
+  outline: none;
+  background-color: #ffffff;
+  color: var(--mf-text);
+  font: inherit;
+  font-size: 11px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.fundraiser-field input::placeholder {
+  color: #a0a7b1;
+}
+
+.fundraiser-field select:invalid {
+  color: #a0a7b1;
+}
+
+.fundraiser-field input:focus,
+.fundraiser-field select:focus {
+  border-color: var(--mf-blue);
+  box-shadow: 0 0 0 3px rgba(8, 123, 193, 0.1);
+}
+
+.fundraiser-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Activity text */
+
+.fundraiser-activity {
+  margin: 17px 0;
+  color: var(--mf-green);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.fundraiser-activity span {
+  margin-right: 5px;
+  font-size: 8px;
+}
+
+/* Submit button */
+
+.fundraiser-submit-btn {
+  display: inline-flex;
+  min-width: 125px;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: 1px solid var(--mf-red);
+  border-radius: 7px;
+  background: var(--mf-red);
+  box-shadow: 0 4px 0 #b92e3b;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.fundraiser-submit-btn:hover {
+  transform: translateY(-1px);
+  background: #d83242;
+}
+
+.fundraiser-submit-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #b92e3b;
+}
+
+.fundraiser-message {
+  margin: 14px 0 0;
+  color: var(--mf-navy);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.fundraiser-hand-decoration {
+  position: absolute;
+  right: 24px;
+  bottom: 25px;
+  font-size: 27px;
+  pointer-events: none;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .medical-fundraiser-section {
+    width: calc(100% - 32px);
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .fundraiser-left {
+    padding: 10px 4px 0;
+  }
+
+  .fundraiser-image-card > img {
+    height: 320px;
+  }
+
+  .fundraiser-form-card {
+    width: auto;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 560px) {
+  .medical-fundraiser-section {
+    width: calc(100% - 20px);
+    gap: 20px;
+    margin: 24px auto;
+    padding: 4px;
+  }
+
+  .fundraiser-left > h2 {
+    font-size: 24px;
+  }
+
+  .fundraiser-desktop-break {
+    display: none;
+  }
+
+  .fundraiser-description {
+    font-size: 12px;
+  }
+
+  .fundraiser-image-card > img {
+    height: 230px;
+  }
+
+  .fundraiser-form-card {
+    padding: 22px 16px;
+    border-radius: 15px;
+  }
+
+  .fundraiser-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .fundraiser-field input,
+  .fundraiser-field select {
+    height: 43px;
+    font-size: 12px;
+  }
+
+  .fundraiser-hand-decoration {
+    right: 15px;
+    bottom: 20px;
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fundraiser-field input,
+  .fundraiser-field select,
+  .fundraiser-submit-btn {
+    transition: none;
+  }
+}

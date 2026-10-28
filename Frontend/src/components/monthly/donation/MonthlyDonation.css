@@ -1,0 +1,551 @@
+* {
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   MAIN SECTION
+========================= */
+
+.monthly-donation {
+  width: 100%;
+  padding: 55px 5% 35px;
+
+  background: #ffffff;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.donation-header {
+  max-width: 1000px;
+  margin: 0 auto 42px;
+
+  text-align: center;
+}
+
+
+.donation-header h1 {
+  margin: 0 0 16px;
+
+  font-size: 36px;
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  color: #123f91;
+}
+
+
+/* Logo theme */
+
+.donation-header h1 span {
+  background:
+    linear-gradient(
+      90deg,
+      #008b5a,
+      #5b2acb
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.donation-header p {
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  color: #73819a;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================
+   STEPS CONTAINER
+========================= */
+
+.donation-steps {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* =========================
+   STEP CARD
+========================= */
+
+.donation-step {
+  width: 280px;
+
+  min-height: 145px;
+
+  padding: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #dce5ef;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 12px rgba(20, 55, 110, 0.05);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.donation-step:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 8px 25px rgba(20, 55, 110, 0.10);
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+.step-icon {
+  width: 68px;
+
+  height: 68px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 15px;
+
+  font-size: 31px;
+}
+
+
+.step-icon span {
+  font-weight: 700;
+}
+
+
+/* Blue */
+
+.donation-step.blue {
+  border-color: #bdd2ff;
+}
+
+
+.donation-step.blue .step-icon {
+  background: #edf4ff;
+
+  color: #1261d6;
+}
+
+
+.donation-step.blue .step-number {
+  color: #1261d6;
+
+  background: #edf4ff;
+}
+
+
+/* Green */
+
+.donation-step.green {
+  border-color: #bfe3d3;
+}
+
+
+.donation-step.green .step-icon {
+  background: #effaf5;
+
+  color: #008b5a;
+}
+
+
+.donation-step.green .step-number {
+  color: #008b5a;
+
+  background: #effaf5;
+}
+
+
+/* Red */
+
+.donation-step.red {
+  border-color: #f2c4d0;
+}
+
+
+.donation-step.red .step-icon {
+  background: #fff0f3;
+
+  color: #df1745;
+}
+
+
+.donation-step.red .step-number {
+  color: #df1745;
+
+  background: #fff0f3;
+}
+
+
+/* Purple */
+
+.donation-step.purple {
+  border-color: #d5c5f4;
+}
+
+
+.donation-step.purple .step-icon {
+  background: #f4efff;
+
+  color: #6326c9;
+}
+
+
+.donation-step.purple .step-number {
+  color: #6326c9;
+
+  background: #f4efff;
+}
+
+
+/* =========================
+   STEP CONTENT
+========================= */
+
+.step-content {
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.step-number {
+  width: fit-content;
+
+  padding: 5px 11px;
+
+  margin-bottom: 8px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.step-content h3 {
+  margin: 0 0 3px;
+
+  color: #102c68;
+
+  font-size: 15px;
+
+  line-height: 1.4;
+
+  font-weight: 600;
+}
+
+
+.step-content p {
+  margin: 0;
+
+  color: #283d62;
+
+  font-size: 14px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================
+   CONNECTOR
+========================= */
+
+.step-connector {
+  width: 65px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+}
+
+
+.step-connector span {
+  width: 5px;
+
+  height: 5px;
+
+  border-radius: 50%;
+}
+
+
+.connector-0 span {
+  background: #2470dc;
+}
+
+
+.connector-1 span {
+  background: #6c2bd9;
+}
+
+
+.connector-2 span {
+  background: #8b29d5;
+}
+
+
+/* =========================
+   BOTTOM LINE
+========================= */
+
+.monthly-donation::after {
+  content: "";
+
+  display: block;
+
+  width: 94%;
+
+  height: 1px;
+
+  margin: 38px auto 0;
+
+  background: #e3e9f1;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1200px) {
+
+  .monthly-donation {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+
+  .donation-step {
+    width: 245px;
+
+    min-height: 140px;
+
+    padding: 15px;
+
+    gap: 12px;
+  }
+
+
+  .step-icon {
+    width: 58px;
+
+    height: 58px;
+
+    font-size: 27px;
+  }
+
+
+  .step-connector {
+    width: 35px;
+  }
+
+
+  .step-content h3 {
+    font-size: 14px;
+  }
+
+
+  .step-content p {
+    font-size: 13px;
+  }
+
+}
+
+
+/* =========================
+   TABLET / SMALL LAPTOP
+========================= */
+
+@media (max-width: 950px) {
+
+  .donation-steps {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 20px;
+  }
+
+
+  .donation-step {
+    width: 100%;
+  }
+
+
+  .step-connector {
+    display: none;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+  .monthly-donation {
+    padding: 40px 16px 25px;
+  }
+
+
+  .donation-header {
+    margin-bottom: 30px;
+  }
+
+
+  .donation-header h1 {
+    font-size: 27px;
+
+    line-height: 1.3;
+  }
+
+
+  .donation-header p {
+    font-size: 13px;
+
+    line-height: 1.6;
+  }
+
+
+  .donation-steps {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+
+  .donation-step {
+    min-height: auto;
+
+    padding: 16px;
+
+    border-radius: 13px;
+  }
+
+
+  .step-icon {
+    width: 58px;
+
+    height: 58px;
+
+    font-size: 27px;
+  }
+
+
+  .step-content h3 {
+    font-size: 15px;
+  }
+
+
+  .step-content p {
+    font-size: 13px;
+  }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+  .monthly-donation {
+    padding-left: 12px;
+
+    padding-right: 12px;
+  }
+
+
+  .donation-header h1 {
+    font-size: 24px;
+  }
+
+
+  .donation-header p {
+    font-size: 12px;
+  }
+
+
+  .donation-step {
+    padding: 13px;
+
+    gap: 12px;
+  }
+
+
+  .step-icon {
+    width: 52px;
+
+    height: 52px;
+
+    font-size: 24px;
+  }
+
+
+  .step-number {
+    font-size: 11px;
+  }
+
+
+  .step-content h3 {
+    font-size: 14px;
+  }
+
+
+  .step-content p {
+    font-size: 12px;
+  }
+
+}
