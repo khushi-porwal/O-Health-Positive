@@ -1,0 +1,430 @@
+* {
+  box-sizing: border-box;
+}
+
+.refund-page {
+  min-height: 100vh;
+  background: #f5faff;
+  color: #53627d;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 40px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.refund-hero {
+  position: relative;
+  min-height: 190px;
+  margin: 0 10px;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+
+  background:
+    radial-gradient(circle at 8% 30%, #d8f1e5 0, #d8f1e5 55px, transparent 56px),
+    radial-gradient(circle at 92% 25%, #e7dcff 0, #e7dcff 65px, transparent 66px),
+    linear-gradient(100deg, #eff9ff, #f4fbff 50%, #edf9ff);
+
+  border: 1px solid #e1edf7;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+  padding: 34px 20px 30px;
+}
+
+.hero-content h1 {
+  margin: 0;
+  font-size: 43px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: #123fa7;
+}
+
+.hero-content h1 span {
+  color: #16a35a;
+}
+
+.hero-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 16px auto 17px;
+  gap: 0;
+}
+
+.hero-line span:first-child {
+  width: 42px;
+  height: 3px;
+  background: #164fc4;
+}
+
+.hero-line span:last-child {
+  width: 42px;
+  height: 3px;
+  background: #16a35a;
+}
+
+.hero-content p {
+  margin: 0;
+  color: #647593;
+  font-size: 16px;
+}
+
+/* Decorative shapes */
+
+.hero-decoration {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.75;
+}
+
+.hero-left {
+  width: 120px;
+  height: 120px;
+  left: -45px;
+  top: -50px;
+  background: #d7ebff;
+}
+
+.hero-right {
+  width: 150px;
+  height: 150px;
+  right: -60px;
+  top: -55px;
+  background: #e7dcff;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.refund-container {
+  width: 100%;
+  padding: 22px 4%;
+}
+
+.refund-card {
+  position: relative;
+  overflow: hidden;
+
+  max-width: 1420px;
+  margin: 0 auto;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border: 1px solid #e3edf7;
+  border-radius: 22px;
+
+  padding: 25px 28px 18px;
+
+  box-shadow:
+    0 5px 20px rgba(43, 105, 170, 0.06);
+}
+
+.refund-card p {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 22px;
+
+  color: #596782;
+
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.refund-card strong {
+  color: #233c75;
+  font-weight: 700;
+}
+
+/* =========================
+   ORGANIZATION BOX
+========================= */
+
+.organization-box {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 145px;
+
+  margin-top: 5px;
+
+  padding: 20px 25px;
+
+  border: 1px solid #dcecf8;
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      105deg,
+      #f3faff 0%,
+      #f8fcff 65%,
+      #eef8ff 100%
+    );
+}
+
+.organization-info {
+  position: relative;
+  z-index: 3;
+  width: 70%;
+}
+
+.organization-info h2 {
+  margin: 0;
+
+  font-size: 31px;
+  line-height: 1.15;
+
+  color: #1646b0;
+  font-weight: 800;
+}
+
+.organization-info h2 strong {
+  color: #16a15a;
+}
+
+.organization-info h2 span {
+  color: #1646b0;
+}
+
+.title-line {
+  display: flex;
+  margin: 8px 0 15px;
+}
+
+.title-line span:first-child {
+  width: 38px;
+  height: 3px;
+  background: #164fc4;
+}
+
+.title-line span:last-child {
+  width: 25px;
+  height: 3px;
+  background: #16a35a;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 9px;
+}
+
+.contact-row p {
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.4;
+  color: #52627e;
+}
+
+.contact-row a {
+  color: #1653c7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-icon {
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 18px;
+}
+
+.location-icon {
+  background: #e2f0ff;
+}
+
+.phone-icon {
+  background: #e1f7e9;
+}
+
+/* =========================
+   RIGHT SIDE ART
+========================= */
+
+.organization-art {
+  position: absolute;
+
+  right: 20px;
+  bottom: -25px;
+
+  width: 300px;
+  height: 160px;
+
+  opacity: 0.9;
+}
+
+.heart-circle {
+  position: absolute;
+
+  right: 75px;
+  top: 15px;
+
+  width: 95px;
+  height: 95px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  background: #cfe9ff;
+}
+
+.heart-circle::before {
+  content: "♥";
+
+  position: absolute;
+
+  color: #8cc7fa;
+
+  font-size: 67px;
+}
+
+.heart-circle span {
+  position: relative;
+  z-index: 2;
+
+  color: white;
+
+  font-size: 35px;
+  font-weight: bold;
+}
+
+/* Decorative leaves */
+
+.art-leaf {
+  position: absolute;
+
+  width: 18px;
+  height: 45px;
+
+  border-radius: 100% 0 100% 0;
+}
+
+.leaf-one {
+  right: 205px;
+  bottom: 12px;
+  background: #71c996;
+  transform: rotate(-25deg);
+}
+
+.leaf-two {
+  right: 175px;
+  bottom: 5px;
+  background: #9c83ed;
+  transform: rotate(25deg);
+}
+
+.leaf-three {
+  right: 35px;
+  bottom: 8px;
+  background: #79d2a2;
+  transform: rotate(35deg);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .hero-content h1 {
+    font-size: 34px;
+  }
+
+  .refund-container {
+    padding: 18px 3%;
+  }
+
+  .organization-info {
+    width: 100%;
+  }
+
+  .organization-art {
+    opacity: 0.25;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .refund-hero {
+    min-height: 175px;
+    margin: 0 5px;
+  }
+
+  .hero-content {
+    padding: 32px 15px;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .refund-container {
+    padding: 15px 12px;
+  }
+
+  .refund-card {
+    padding: 20px 17px;
+    border-radius: 16px;
+  }
+
+  .refund-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .organization-box {
+    padding: 18px;
+  }
+
+  .organization-info {
+    width: 100%;
+  }
+
+  .organization-info h2 {
+    font-size: 23px;
+  }
+
+  .contact-row {
+    align-items: flex-start;
+  }
+
+  .contact-row p {
+    font-size: 13px;
+  }
+
+  .organization-art {
+    display: none;
+  }
+}

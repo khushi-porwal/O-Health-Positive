@@ -23,6 +23,7 @@ import DonationForm from "./pages/donate/DonateForm";
 import WhatsAppButton from "./components/whatsAppButton/WhatsAppButton";
 import AllMonthlyPrograms from "./pages/AllMonthly/AllMonthlyPrograms";
 import FAQ from "./pages/faq/FAQ";
+import RefundPolicy from "./pages/refund/RefundPolicy";
 
 function App() {
   return (
@@ -59,7 +60,7 @@ function App() {
           path="/vendors/:id/products"
           element={<VendorProducts />}
         />
-
+        <Route path="/refund" element={<RefundPolicy/>} />
         <Route path="/faqs" element={<FAQ />} />
       </Routes>
 

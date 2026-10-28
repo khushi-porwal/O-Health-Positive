@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./FAQ.css";
 import faq from "../../assets/faq.jpeg";
-
+import Footer from "../../components/layout/Footer/Footer";
+import MainHeader from "../../components/layout/Header/Header";
+import Navbar from "../../components/layout/Navbar/Navbar"
 const faqData = {
   Donors: [
     {
@@ -108,6 +110,10 @@ function FAQ() {
   };
 
   return (
+    <>
+    <Navbar/>
+    <MainHeader/>
+
     <section className="faq-section">
       <div className="faq-container">
 
@@ -204,6 +210,8 @@ function FAQ() {
         </div>
       </div>
     </section>
+    <Footer/>
+    </>
   );
 }
 

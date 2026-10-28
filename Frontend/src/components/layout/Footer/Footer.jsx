@@ -34,14 +34,15 @@ function Footer() {
   ];
 
   // Foundation information links
-  const informationLinks = [
-    { label: "About Us", href: "/about" },
-    { label: "Our Life Stories", href: "/life" },
-    { label: "Explore", href: "/explore" },
-    { label: "FAQs", href: "/faqs" },
-    { label: "Documents", href: "/documents" },
-  ];
-
+ // Foundation information links
+const informationLinks = [
+  { label: "About Us", href: "/about" },
+  { label: "Our Life Stories", href: "/life" },
+  { label: "Explore", href: "/explore" },
+  { label: "FAQs", href: "/faqs" },
+  { label: "Documents", href: "/documents" },
+  { label: "Refund Policy", href: "/refund" },
+];
   return (
     <footer className="site-footer">
       {/* Newsletter */}

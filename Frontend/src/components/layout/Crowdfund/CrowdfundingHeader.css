@@ -1,0 +1,231 @@
+
+.crowdfunding-header {
+  width: calc(100% - 32px);
+  min-height: 94px;
+  margin: 14px auto;
+  padding: 18px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #f7f7f7;
+  border: 1px solid #eeeeee;
+  border-radius: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-tagline {
+  margin: 0;
+  color: #202020;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+/* Common button styling */
+.header-donate-btn,
+.header-login-btn {
+  height: 50px;
+  padding: 0 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* O Positive Health theme */
+.header-donate-btn {
+  color: #ffffff;
+  background: #f04452;
+  border-color: #f04452;
+}
+
+.header-donate-btn:hover {
+  background: #d93243;
+  border-color: #d93243;
+  box-shadow: 0 5px 14px rgba(240, 68, 82, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Login/Signup Link */
+.header-login-btn {
+  color: #ffffff;
+  background: #242424;
+  border-color: #242424;
+}
+
+.header-login-btn:hover {
+  color: #ffffff;
+  background: #f04452;
+  border-color: #f04452;
+  box-shadow: 0 5px 14px rgba(240, 68, 82, 0.18);
+  transform: translateY(-1px);
+}
+
+.header-donate-btn:focus-visible,
+.header-login-btn:focus-visible {
+  outline: 3px solid rgba(240, 68, 82, 0.3);
+  outline-offset: 3px;
+}
+
+/* Search bar */
+.header-search {
+  width: 395px;
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 13px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-icon {
+  flex-shrink: 0;
+  color: #777777;
+}
+
+.header-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #252525;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.header-search input::placeholder {
+  color: #666666;
+  opacity: 1;
+}
+
+.header-search:focus-within {
+  border-color: #f04452;
+  box-shadow: 0 0 0 3px rgba(240, 68, 82, 0.1);
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .crowdfunding-header {
+    padding: 18px 20px;
+    gap: 16px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .header-tagline {
+    font-size: 14px;
+    white-space: normal;
+  }
+
+  .header-search {
+    width: 280px;
+  }
+
+  .header-donate-btn,
+  .header-login-btn {
+    padding: 0 18px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .crowdfunding-header {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .header-left {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .header-tagline {
+    flex: 1;
+    min-width: 160px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .header-right {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .header-search {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .header-search input {
+    font-size: 14px;
+  }
+
+  .header-login-btn {
+    width: 100%;
+  }
+
+  .header-donate-btn,
+  .header-login-btn {
+    height: 46px;
+  }
+}
+
+@media (max-width: 380px) {
+  .header-left {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .header-donate-btn {
+    width: 100%;
+  }
+
+  .header-tagline {
+    min-width: 0;
+  }
+
+  .header-search {
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .header-search input {
+    font-size: 12px;
+  }
+}

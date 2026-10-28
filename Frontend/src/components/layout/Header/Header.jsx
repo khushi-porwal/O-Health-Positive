@@ -50,13 +50,7 @@ function MainHeader() {
         <Link to="/contact" onClick={closeMenu}>Contact Us</Link>
         <Link to="/about" onClick={closeMenu}>About Us</Link>
         
-<Link
-  to="/signup"
-  className="header-auth-button"
-  onClick={closeMenu}
->
-  Login / Sign Up
-</Link>
+
 
       </nav>
     </header>
