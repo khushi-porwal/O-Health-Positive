@@ -1,3 +1,4 @@
+
 /* ==============================
    O POSITIVE HEALTH - TOP BAR
 ================================= */
@@ -13,7 +14,6 @@
   justify-content: space-between;
   gap: 16px;
 
-  /* Logo-inspired deep blue */
   background: #173b78;
   color: #ffffff;
 }
@@ -42,17 +42,23 @@
   transition: color 0.2s ease;
 }
 
-/* Icon follows the link's color */
+/* Email and phone icons always remain white */
 .top-bar-contact a svg {
-  color: inherit;
+  color: #ffffff !important;
   flex-shrink: 0;
-  transition: color 0.2s ease;
+  transition: none;
 }
 
-/* Hover on either icon or text */
-.top-bar-contact a:hover,
-.top-bar-contact a:focus-visible {
+/* Only text changes color on hover */
+.top-bar-contact a:hover span,
+.top-bar-contact a:focus-visible span {
   color: #64c58a;
+}
+
+/* Keep icons white on hover and keyboard focus */
+.top-bar-contact a:hover svg,
+.top-bar-contact a:focus-visible svg {
+  color: #ffffff !important;
 }
 
 /* SOCIAL MEDIA BUTTONS */
