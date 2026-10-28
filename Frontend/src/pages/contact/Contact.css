@@ -589,7 +589,7 @@
 
 /* Contact form submission feedback */
 
-```css
+
 .contact-form-message {
   margin-top: 18px;
   padding: 13px 15px;
@@ -616,5 +616,4 @@
   opacity: 0.7;
   cursor: not-allowed;
 }
-```
 
