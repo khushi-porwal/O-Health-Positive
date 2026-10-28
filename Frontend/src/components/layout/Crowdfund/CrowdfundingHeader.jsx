@@ -1,20 +1,32 @@
 
 import React, { useState } from "react";
 import { Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./CrowdfundingHeader.css";
 import DonateNowButton from "../../common/donateButton/DonateNowButton";
 
 const CrowdfundingHeader = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     const value = e.target.value;
-
     setSearchTerm(value);
 
     if (onSearch) {
       onSearch(value);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    const query = searchTerm.trim();
+
+    if (query) {
+      navigate(`/explore?search=${encodeURIComponent(query)}`);
+    } else {
+      navigate("/explore");
     }
   };
 
@@ -29,7 +41,11 @@ const CrowdfundingHeader = ({ onSearch }) => {
       </div>
 
       <div className="header-right">
-        <div className="header-search">
+        <form
+          className="header-search"
+          onSubmit={handleSearchSubmit}
+          role="search"
+        >
           <Search
             size={19}
             className="search-icon"
@@ -43,7 +59,7 @@ const CrowdfundingHeader = ({ onSearch }) => {
             onChange={handleSearch}
             aria-label="Search campaigns or NGO names"
           />
-        </div>
+        </form>
 
         <Link to="/login" className="header-login-btn">
           Login/Signup
