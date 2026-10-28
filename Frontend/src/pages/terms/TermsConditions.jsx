@@ -3,10 +3,12 @@ import "./TermsConditions.css";
 import MainHeader from "../../components/layout/Header/Header";
 import Navbar from "../../components/layout/Navbar/Navbar"
 import Footer from "../../components/layout/Footer/Footer"
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 const TermsConditions = () => {
   return (
     <>
     <Navbar/>
+    <CrowdfundingHeader/>
     <MainHeader/>
     <div className="terms-page">
 

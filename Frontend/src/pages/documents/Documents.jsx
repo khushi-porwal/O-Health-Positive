@@ -11,7 +11,7 @@ import certificate from "../../assets/documents/registeration.pdf";
 import Navbar from "../../components/layout/Navbar/Navbar";
 import MainHeader from "../../components/layout/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
-
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 const documents = [
   {
     title: "Certificate of Incorporation",
@@ -39,6 +39,7 @@ export default function Documents() {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <MainHeader />
 
       <main className="documents-page">

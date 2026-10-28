@@ -1,8 +1,16 @@
 import React from "react";
 import "./RefundPolicy.css";
-
+import Navbar from "../../components/layout/Navbar/Navbar";
+import MainHeader from "../../components/layout/Header/Header";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
+import Footer from "../../components/layout/Footer/Footer"
 const RefundPolicy = () => {
   return (
+    <>
+    <Navbar/>
+    <CrowdfundingHeader/>
+    <MainHeader/>
+    
     <div className="refund-page">
 
       {/* Header */}
@@ -124,6 +132,8 @@ const RefundPolicy = () => {
 
       </section>
     </div>
+    <Footer/>
+    </>
   );
 };
 

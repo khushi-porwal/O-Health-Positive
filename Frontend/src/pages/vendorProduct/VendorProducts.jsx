@@ -7,6 +7,7 @@ import "./VendorProducts.css";
 import Footer from "../../components/layout/Footer/Footer"
 import Navbar from "../../components/layout/Navbar/Navbar"
 import MainHeader from "../../components/layout/Header/Header";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 function VendorProducts() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -111,6 +112,7 @@ function VendorProducts() {
   return (
     <>
     <Navbar/>
+    <CrowdfundingHeader/>
     <MainHeader/>
    
     <main className="vendor-products-page">

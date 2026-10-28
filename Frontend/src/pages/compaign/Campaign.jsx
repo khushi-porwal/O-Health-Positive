@@ -9,6 +9,7 @@ import Footer from "../../components/layout/Footer/Footer";
 
 import campaignImage from "../../assets/news.png";
 import { createCampaign } from "../../services/volunteerService";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 const Campaign = () => {
   const [socialLinks, setSocialLinks] = useState([""]);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -105,6 +106,7 @@ const Campaign = () => {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <MainHeader />
 
       <main className="campaign-page">

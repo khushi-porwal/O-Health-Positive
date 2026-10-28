@@ -7,12 +7,14 @@ import MedicalFundraiser from "../../components/life/fund/MedicalFundraiser";
 import MedicalCategories from "../../components/life/medical/MedicalCategories";
 import CrowdfundingBenefits from "../../components/life/crowd/CrowdfundingBenefits";
 import Testimonials from "../../components/home/testinomial/Testimonials";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
 
 function Life() {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <Header/>
       <main>
         <Hero />

@@ -9,11 +9,13 @@ import VendorNomination from "../../components/vendors/nomination/VendorNominati
 // import VendorCategories from "../../components/vendors/category/VendorCategories";
 import HowWorks from "../../components/vendors/howworks/HowWorks"
 import ImpactScale from "../../components/vendors/scale/ImpactScale";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
 function Vendors() {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <Header/>
       <main> 
         <VendorHero/>

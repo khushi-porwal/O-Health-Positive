@@ -14,6 +14,7 @@ import Footer from "../../components/layout/Footer/Footer";
 import Navbar from "../../components/layout/Navbar/Navbar";
 
 import { createContact } from "../../services/contactService";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -103,6 +104,7 @@ const Contact = () => {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <MainHeader />
 
       <main className="contact-page">

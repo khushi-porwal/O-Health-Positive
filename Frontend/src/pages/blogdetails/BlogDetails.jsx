@@ -7,6 +7,7 @@ import Navbar from "../../components/layout/Navbar/Navbar";
 import MainHeader from "../../components/layout/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
 import { getBlogBySlug } from "../../services/blogService";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
 function BlogDetails() {
   const { slug } = useParams();
@@ -67,6 +68,7 @@ function BlogDetails() {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <MainHeader />
 
       <section className="blog-details-section">

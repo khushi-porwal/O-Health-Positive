@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { donationFormService } from "../../services/donationformservice";
 import logo from "../../assets/logo.jpeg";
 import "./DonateForm.css";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
 export default function DonateForm() {
   const [searchParams] = useSearchParams();
@@ -87,6 +88,7 @@ export default function DonateForm() {
   return (
     <>
     <Navbar/>
+    <CrowdfundingHeader/>
     <MainHeader/>
     <main className="donation-page">
       <div className="donation-layout">

@@ -8,6 +8,7 @@ import MainHeader from "../../components/layout/Header/Header";
 import Navbar from "../../components/layout/Navbar/Navbar";
 import Footer from "../../components/layout/Footer/Footer";
 import { getPublishedBlogs } from "../../services/blogService";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
 function Blog() {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ function Blog() {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <MainHeader />
 
       <section className="blog-section">

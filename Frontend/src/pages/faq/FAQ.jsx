@@ -112,6 +112,7 @@ function FAQ() {
   return (
     <>
     <Navbar/>
+    <CrowdfundingHeader/>
     <MainHeader/>
 
     <section className="faq-section">
