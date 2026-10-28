@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./FAQ.css";
+import faq from "../../assets/faq.jpeg";
 
 const faqData = {
   Donors: [
@@ -131,7 +132,7 @@ function FAQ() {
 
           <div className="faq-image-wrapper">
             <img
-              src="/faq-illustration.png"
+              src={faq}
               alt="FAQ Illustration"
               className="faq-image"
             />

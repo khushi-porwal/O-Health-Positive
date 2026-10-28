@@ -21,21 +21,24 @@ function Footer() {
     setEmail("");
   };
 
+  // Quick navigation links
   const quickLinks = [
-    { label: "Explore Campaigns", href: "/campaigns" },
-    { label: "Monthly Donation", href: "/monthly-donation" },
-    { label: "Start New Campaign", href: "/start-campaign" },
-    { label: "Blogs", href: "/blogs" },
+    { label: "Home", href: "/" },
+    { label: "Explore Campaigns", href: "/campaign" },
+    { label: "Monthly Donation", href: "/donation" },
+    { label: "All Monthly Programs", href: "/monthly-programs" },
+    { label: "Start a Donation", href: "/donate-form" },
+    { label: "Street Vendors", href: "/vendor" },
+    { label: "Blogs", href: "/blog" },
     { label: "Contact Us", href: "/contact" },
   ];
 
+  // Information and foundation links
   const informationLinks = [
     { label: "About Us", href: "/about" },
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms & Conditions", href: "/terms-and-conditions" },
-    { label: "Refund and Cancellation Policy", href: "/refund-policy" },
-    { label: "Return Policy", href: "/return-policy" },
-    { label: "FAQs", href: "/faq" },
+    { label: "Our Life Stories", href: "/life" },
+    { label: "Explore", href: "/explore" },
+    { label: "FAQs", href: "/faqs" },
     { label: "Documents", href: "/documents" },
   ];
 
@@ -43,13 +46,24 @@ function Footer() {
     <footer className="site-footer">
       {/* Newsletter */}
       <div className="newsletter-banner">
-        <span className="newsletter-heart heart-one" aria-hidden="true">
+        <span
+          className="newsletter-heart heart-one"
+          aria-hidden="true"
+        >
           ♥
         </span>
-        <span className="newsletter-heart heart-two" aria-hidden="true">
+
+        <span
+          className="newsletter-heart heart-two"
+          aria-hidden="true"
+        >
           ♥
         </span>
-        <span className="newsletter-heart heart-three" aria-hidden="true">
+
+        <span
+          className="newsletter-heart heart-three"
+          aria-hidden="true"
+        >
           ♥
         </span>
 
@@ -60,6 +74,7 @@ function Footer() {
             className="newsletter-children"
             loading="lazy"
           />
+
           <span className="newsletter-hand" aria-hidden="true">
             ♥
           </span>
@@ -73,7 +88,10 @@ function Footer() {
           <h2>Subscribe to Our Newsletter</h2>
           <p>Join us in spreading hope.</p>
 
-          <form className="newsletter-form" onSubmit={handleSubscribe}>
+          <form
+            className="newsletter-form"
+            onSubmit={handleSubscribe}
+          >
             <label
               className="newsletter-sr-only"
               htmlFor="newsletter-email"
@@ -101,11 +119,19 @@ function Footer() {
         </div>
       </div>
 
-      {/* Footer information */}
+      {/* Main Footer */}
       <div className="footer-main">
+        {/* Foundation Information */}
         <div className="footer-about">
-          <Link to="/" className="footer-logo-link" aria-label="Home">
-            <img src={logo} alt="O Positive Health Foundation" />
+          <Link
+            to="/"
+            className="footer-logo-link"
+            aria-label="O Positive Health Foundation Home"
+          >
+            <img
+              src={logo}
+              alt="O Positive Health Foundation"
+            />
           </Link>
 
           <p>
@@ -114,6 +140,7 @@ function Footer() {
             care, awareness and meaningful support.
           </p>
 
+          {/* Social Media */}
           <div className="footer-socials">
             <a
               href="https://www.facebook.com/"
@@ -144,7 +171,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Quick links */}
+        {/* Quick Links */}
         <div className="footer-links-column">
           <h3>Quick Links</h3>
 
@@ -157,7 +184,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Information links */}
+        {/* Information Links */}
         <div className="footer-links-column footer-information">
           <h3>Information</h3>
 
@@ -170,39 +197,52 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* Contact Information */}
         <div className="footer-contact">
           <h3>Contact Us</h3>
 
           <address>
             <p>
-              <span className="footer-contact-icon" aria-hidden="true">
+              <span
+                className="footer-contact-icon"
+                aria-hidden="true"
+              >
                 ⌖
               </span>
+
               <span>
                 Add your foundation's verified office address here.
               </span>
             </p>
 
             <p>
-              <span className="footer-contact-icon" aria-hidden="true">
+              <span
+                className="footer-contact-icon"
+                aria-hidden="true"
+              >
                 ✉
               </span>
+
               <a href="mailto:contact@yourfoundation.org">
                 Add your official email
               </a>
             </p>
 
             <p>
-              <span className="footer-contact-icon" aria-hidden="true">
+              <span
+                className="footer-contact-icon"
+                aria-hidden="true"
+              >
                 ☎
               </span>
+
               <a href="tel:+910000000000">
                 Add your contact number
               </a>
             </p>
           </address>
 
+          {/* Payment Methods */}
           <div className="footer-payments">
             <h3>We Accept</h3>
 

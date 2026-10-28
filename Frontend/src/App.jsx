@@ -1,8 +1,9 @@
 
 import { Routes, Route } from "react-router-dom";
+
 import VendorProducts from "./pages/vendorProduct/VendorProducts";
 import Home from "./pages/home/Home";
-import ManageVendors from "./pages/admin/vendor/ManageVendors"
+import ManageVendors from "./pages/admin/vendor/ManageVendors";
 import Login from "./pages/auth/login/Login";
 import Signup from "./pages/auth/signup/Signup";
 import Contact from "./pages/contact/Contact";
@@ -21,10 +22,7 @@ import Blog from "./pages/blog/Blog";
 import DonationForm from "./pages/donate/DonateForm";
 import WhatsAppButton from "./components/whatsAppButton/WhatsAppButton";
 import AllMonthlyPrograms from "./pages/AllMonthly/AllMonthlyPrograms";
-import FAQ from "./pages/faq/FAQ"
-// import Volunteer from "./pages/volunteer/Volunteer";
-// import Insurance from "./pages/assistance/insuranceAssistance/Insurance";
-// import Surgical from "./pages/assistance/surgicalCoordination/Surgical";
+import FAQ from "./pages/faq/FAQ";
 
 function App() {
   return (
@@ -37,13 +35,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/explore" element={<Explore />} />
+
         <Route path="/admin/vendors" element={<ManageVendors />} />
-        <Route
-          path="/admin/dashboard"
-          element={<AdminDashboard />}
-        />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/faq" element={<FAQ/>}/>
 
         <Route path="/donation" element={<Donation />} />
         <Route path="/vendor" element={<Vendors />} />
@@ -51,20 +46,21 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
         <Route
-  path="/monthly-programs"
-  element={<AllMonthlyPrograms />}
-/>
+          path="/monthly-programs"
+          element={<AllMonthlyPrograms />}
+        />
+
         <Route path="/donate-form" element={<DonationForm />} />
         <Route path="/documents" element={<Documents />} />
+
         <Route
-  path="/vendors/:id/products"
-  element={<VendorProducts />}
-/>
-        {/* Future routes */}
-        {/* <Route path="/volunteer" element={<Volunteer />} /> */}
-        {/* <Route path="/assistance/surgical" element={<Surgical />} /> */}
-        {/* <Route path="/assistance/insurance" element={<Insurance />} /> */}
+          path="/vendors/:id/products"
+          element={<VendorProducts />}
+        />
+
+        <Route path="/faqs" element={<FAQ />} />
       </Routes>
 
       <WhatsAppButton />
