@@ -1,0 +1,315 @@
+
+/* ================================
+   IMPACT STATISTICS ADMIN
+================================ */
+
+.impact-admin {
+  width: 100%;
+  min-height: 100%;
+  padding: 32px;
+  color: #263c4d;
+  background: #fffaf5;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.impact-admin *,
+.impact-admin *::before,
+.impact-admin *::after {
+  box-sizing: border-box;
+}
+
+/* Header */
+
+.impact-admin-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.impact-admin-eyebrow {
+  display: inline-block;
+  color: #5a777f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.impact-admin-header h1 {
+  margin: 10px 0 12px;
+  color: #243e50;
+  font-size: clamp(25px, 3vw, 32px);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.impact-admin-header p,
+.impact-admin-form-heading p {
+  margin: 0;
+  color: #697b85;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Buttons */
+
+.impact-admin-refresh,
+.impact-admin-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.impact-admin-refresh {
+  flex-shrink: 0;
+  color: #345d68;
+  background: #eaf1f1;
+  border: 1px solid #d8e5e5;
+}
+
+.impact-admin-refresh:hover {
+  background: #dce9e9;
+}
+
+.impact-admin-save {
+  min-width: 170px;
+  color: #fff;
+  background: #315d52;
+  box-shadow: 0 5px 14px rgba(49, 93, 82, 0.15);
+}
+
+.impact-admin-save:hover {
+  background: #244b42;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(49, 93, 82, 0.2);
+}
+
+.impact-admin-save:disabled,
+.impact-admin-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Form Card */
+
+.impact-admin-form {
+  width: 100%;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e9e8e1;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(36, 62, 80, 0.06);
+}
+
+.impact-admin-form-heading {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #edf0ed;
+}
+
+.impact-admin-form-heading h2 {
+  margin: 0 0 9px;
+  color: #263f50;
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+/* Input Grid */
+
+.impact-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px 28px;
+  width: 100%;
+}
+
+.impact-admin-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+  color: #334b58;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.impact-admin-field input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  padding: 12px 14px;
+  color: #263c4d;
+  background: #fff;
+  border: 1px solid #d8e1e3;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.impact-admin-field input:hover {
+  border-color: #aebfc1;
+}
+
+.impact-admin-field input:focus {
+  border-color: #527b75;
+  box-shadow: 0 0 0 3px rgba(82, 123, 117, 0.12);
+}
+
+.impact-admin-field small {
+  color: #829097;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Actions */
+
+.impact-admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #edf0ed;
+}
+
+/* Error and Success Messages */
+
+.impact-admin-error,
+.impact-admin-success {
+  margin-top: 20px;
+  padding: 13px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.impact-admin-error {
+  color: #a52c2c;
+  background: #fff0ef;
+  border: 1px solid #f5d1ce;
+}
+
+.impact-admin-success {
+  color: #267348;
+  background: #edf8f0;
+  border: 1px solid #cce9d4;
+}
+
+/* Loading / Empty State */
+
+.impact-admin-state {
+  padding: 28px;
+  color: #697b85;
+  background: #fff;
+  border: 1px solid #e9e8e1;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 900px) {
+  .impact-admin {
+    padding: 24px;
+  }
+
+  .impact-admin-form {
+    padding: 24px;
+  }
+
+  .impact-admin-grid {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .impact-admin {
+    padding: 18px 14px;
+  }
+
+  .impact-admin-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .impact-admin-header h1 {
+    font-size: 25px;
+  }
+
+  .impact-admin-refresh {
+    align-self: flex-start;
+  }
+
+  .impact-admin-form {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .impact-admin-form-heading {
+    margin-bottom: 22px;
+    padding-bottom: 17px;
+  }
+
+  .impact-admin-form-heading h2 {
+    font-size: 19px;
+  }
+
+  .impact-admin-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .impact-admin-field input {
+    height: 46px;
+  }
+
+  .impact-admin-actions {
+    justify-content: stretch;
+  }
+
+  .impact-admin-save {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .impact-admin {
+    padding: 14px 10px;
+  }
+
+  .impact-admin-form {
+    padding: 16px 12px;
+  }
+}

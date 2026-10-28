@@ -12,7 +12,7 @@ import VendorNominations from "./vendor/vendorNomination/VendorNomination"
 import AdminCampaigns from "./campaign/AdminCampaign";
 import VolunteersSection from "./Voluenteer/Voluenteer";
 import ManageVendors from "./vendor/ManageVendors";
-
+import ImpactStatistics from "./impact/ImpactStatistics"
 import "./AdminDashboard.css";
 
 const STATUSES = ["Pending", "In Progress", "Resolved"];
@@ -334,6 +334,17 @@ function AdminDashboard() {
   Monthly Programs
 </button>
 
+<button
+  type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "impact-statistics" ? "active" : ""
+  }`}
+  onClick={() => setActiveSection("impact-statistics")}
+>
+  <span aria-hidden="true">↗</span>
+  Impact Statistics
+</button>
+
 
                 <div className="dashboard-sidebar-bottom">
                     <div className="dashboard-admin-avatar">
@@ -374,6 +385,9 @@ function AdminDashboard() {
 )}
 {activeSection === "monthly-programs" && (
   <MonthyPrograms />
+)}
+{activeSection === "impact-statistics" && (
+  <ImpactStatistics />
 )}
 
                 {activeSection === "blogs" && <BlogManagement />}

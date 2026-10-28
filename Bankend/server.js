@@ -30,6 +30,7 @@ const rateLimit = require("express-rate-limit");
 const connectionDB = require("./config/db");
 const vendorRoutes = require("./routes/vendor/vendorRoutes");
 const volunteerRoutes = require("./routes/volunteer/VolunteerRoutes");
+const impactRoutes = require("./routes/stat/impactRoutes")
 const adminRoute = require("./routes/admin/adminRoute");
 const campaignRoutes = require("./routes/campaign/campaignRoutes")
 const contactRoute = require("./routes/contact/contactRoute");
@@ -41,7 +42,7 @@ const app = express()
 
 //Allow request from frontend 
 const allowedOrigins = [
-  
+  "http://localhost:5173",
   "https://o-health-positive-x3ej-seven.vercel.app"
 ];
 
@@ -92,6 +93,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/vendors", vendorRoutes);
+app.use("/api", impactRoutes);
 //port
 const PORT = process.env.PORT;
 

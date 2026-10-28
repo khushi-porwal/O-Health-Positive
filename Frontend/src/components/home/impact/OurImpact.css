@@ -363,3 +363,62 @@
     transition: none;
   }
 }
+/* TEXT HOVER EFFECT */
+
+/* Number hover */
+.impact-modern-number {
+  transition: color 0.25s ease;
+  cursor: pointer;
+}
+
+.impact-modern-number.green:hover {
+  color: #087bc1;
+}
+
+.impact-modern-number.blue:hover {
+  color: #168746;
+}
+
+.impact-modern-number.purple:hover {
+  color: #ef4653;
+}
+
+.impact-modern-number.red:hover {
+  color: #72259a;
+}
+
+/* Label text hover */
+.impact-modern-card > p {
+  transition: color 0.25s ease;
+  cursor: pointer;
+}
+
+.impact-modern-card > p:hover {
+  color: #087bc1;
+}
+/* OUR DIFFERENCE - TEXT HOVER EFFECT */
+
+.impact-kicker {
+  transition: color 0.25s ease;
+  cursor: pointer;
+}
+
+.impact-kicker:hover {
+  color: var(--impact-green);
+}
+
+.impact-modern-heading h2 {
+  transition: color 0.25s ease;
+}
+
+.impact-modern-heading h2:hover {
+  color: var(--impact-blue);
+}
+
+.impact-modern-heading h2 span {
+  transition: color 0.25s ease;
+}
+
+.impact-modern-heading h2 span:hover {
+  color: var(--impact-green);
+}
