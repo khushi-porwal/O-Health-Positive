@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import "./CrowdfundingHeader.css";
+import DonateNowButton from "../../common/donateButton/DonateNowButton";
 
 const CrowdfundingHeader = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,12 +29,7 @@ const CrowdfundingHeader = ({ onSearch }) => {
           India's Most Trusted Crowdfunding Platform
         </p>
 
-        <button
-          className="header-donate-btn"
-          onClick={handleDonate}
-        >
-          Donate Now
-        </button>
+        <DonateNowButton/>
       </div>
 
       <div className="header-right">
