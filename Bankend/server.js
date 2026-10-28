@@ -41,7 +41,7 @@ const app = express()
 
 //Allow request from frontend 
 const allowedOrigins = [
-  "http://localhost:5173",
+  
   "https://o-health-positive-x3ej-seven.vercel.app"
 ];
 
