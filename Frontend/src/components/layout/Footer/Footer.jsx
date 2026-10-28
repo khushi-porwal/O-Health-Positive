@@ -42,6 +42,7 @@ const informationLinks = [
   { label: "FAQs", href: "/faqs" },
   { label: "Documents", href: "/documents" },
   { label: "Refund Policy", href: "/refund" },
+  { label: "Terms and Conditions", href: "/terms" },
   { label: "Refund Policy and Cancellation", href: "/refundPolicy" },
 ];
   return (
