@@ -8,10 +8,12 @@ import SuccessStories from "../../components/home/testinomial/Testimonials";
 import Footer from "../../components/layout/Footer/Footer";
 import OurImpact from "../../components/home/monthly/MonthlyDonation"
 import LiveDonations from "../../components/home/live/LiveDonation";
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 function Home() {
   return (
     <>
       <Navbar />
+      <CrowdfundingHeader/>
       <Header/>
       <main>
         <Hero />
