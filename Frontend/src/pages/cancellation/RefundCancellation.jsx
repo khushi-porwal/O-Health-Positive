@@ -1,8 +1,13 @@
 import React from "react";
 import "./RefundCancellation.css";
-
+import Footer from "../../components/layout/Footer/Footer"
+import Navbar from "../../components/layout/Navbar/Navbar"
+import MainHeader from "../../components/layout/Header/Header"
 const RefundCancellation = () => {
   return (
+    <>
+    <Navbar/>
+    <MainHeader/>
     <div className="refund-page">
 
       {/* Header */}
@@ -184,6 +189,8 @@ const RefundCancellation = () => {
       </div>
 
     </div>
+    <Footer/>
+    </>
   );
 };
 
