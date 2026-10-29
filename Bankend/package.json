@@ -12,6 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^2.30.0",
+    "@phonepe-pg/pg-sdk-node": "^2.0.6",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -22,7 +23,8 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.11.2",
     "nodemailer": "^10.1.7",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "razorpay": "^2.9.8"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

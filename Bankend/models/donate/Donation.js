@@ -29,10 +29,10 @@ const donationSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: true,
-      min: 500,
+      min: 99,
       validate: {
-        validator: Number.isInteger,
-        message: "Donation amount must be an integer.",
+        validator: Number.isSafeInteger,
+        message: "Donation amount must be a whole number.",
       },
     },
 
@@ -46,15 +46,54 @@ const donationSchema = new mongoose.Schema(
       type: String,
       enum: ["pending", "completed", "failed"],
       default: "pending",
+      index: true,
     },
 
+    // Payment gateway
     paymentProvider: {
       type: String,
+      enum: ["phonepe", "razorpay", null],
       default: null,
     },
 
+    // Unique merchant order ID sent to PhonePe
+    paymentOrderId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+
+    // PhonePe transaction ID after payment processing
     paymentReference: {
       type: String,
+      unique: true,
+      sparse: true,
+    },
+
+    // PhonePe merchant order ID, if stored separately
+    merchantOrderId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+
+    // Prevent duplicate order creation on retries
+    idempotencyKey: {
+      type: String,
+      trim: true,
+      unique: true,
+      sparse: true,
+      select: false,
+    },
+
+    currency: {
+      type: String,
+      default: "INR",
+      enum: ["INR"],
+    },
+
+    paidAt: {
+      type: Date,
       default: null,
     },
   },

@@ -1,4 +1,6 @@
 
+
+
 // const Donation = require("../../models/donate/Donation");
 
 // const createDonation = async (req, res) => {
@@ -11,15 +13,22 @@
 //       donationType,
 //     } = req.body;
 
-//     // Required fields validation
-//     if (!donorName || !email || amount === undefined || !donationType) {
+//     // 1. Required fields validation
+//     if (
+//       !donorName ||
+//       !email ||
+//       amount === undefined ||
+//       amount === null ||
+//       !donationType
+//     ) {
 //       return res.status(400).json({
 //         success: false,
-//         message: "Name, email, amount and donation type are required.",
+//         message:
+//           "Name, email, amount and donation type are required.",
 //       });
 //     }
 
-//     // Validate donor name
+//     // 2. Validate donor name
 //     if (
 //       typeof donorName !== "string" ||
 //       donorName.trim().length < 2 ||
@@ -31,7 +40,7 @@
 //       });
 //     }
 
-//     // Validate email
+//     // 3. Validate email
 //     if (
 //       typeof email !== "string" ||
 //       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
@@ -42,7 +51,26 @@
 //       });
 //     }
 
-//     // Validate amount: integer and minimum ₹500
+//     // 4. Validate phone (optional)
+//     if (
+//       phone !== undefined &&
+//       phone !== null &&
+//       typeof phone !== "string"
+//     ) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Please enter a valid phone number.",
+//       });
+//     }
+
+//     if (typeof phone === "string" && phone.trim().length > 20) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Phone number cannot exceed 20 characters.",
+//       });
+//     }
+
+//     // 5. Validate donation amount
 //     if (
 //       typeof amount !== "number" ||
 //       !Number.isSafeInteger(amount) ||
@@ -54,7 +82,7 @@
 //       });
 //     }
 
-//     // Validate donation frequency
+//     // 6. Validate donation type
 //     if (!["once", "monthly"].includes(donationType)) {
 //       return res.status(400).json({
 //         success: false,
@@ -62,7 +90,8 @@
 //       });
 //     }
 
-//     // Create a pending donation record
+//     // 7. Save donation request
+//     // Payment integration will be added later.
 //     const donation = await Donation.create({
 //       donorName: donorName.trim(),
 //       email: email.trim().toLowerCase(),
@@ -72,12 +101,18 @@
 //       status: "pending",
 //     });
 
+//     // 8. Send response
 //     return res.status(201).json({
 //       success: true,
-//       message: "Donation record created. Payment is not processed yet.",
+//       message:
+//         donationType === "monthly"
+//           ? "Monthly donation request saved successfully. Payment is pending."
+//           : "Donation request saved successfully. Payment is pending.",
 //       donation: {
 //         id: donation._id,
 //         donorName: donation.donorName,
+//         email: donation.email,
+//         phone: donation.phone,
 //         amount: donation.amount,
 //         donationType: donation.donationType,
 //         status: donation.status,
@@ -105,6 +140,7 @@
 
 
 
+
 const Donation = require("../../models/donate/Donation");
 
 const createDonation = async (req, res) => {
@@ -112,12 +148,12 @@ const createDonation = async (req, res) => {
     const {
       donorName,
       email,
-      phone,
+      phone = "",
       amount,
       donationType,
     } = req.body;
 
-    // 1. Required fields validation
+    // 1. Required fields
     if (
       !donorName ||
       !email ||
@@ -127,12 +163,11 @@ const createDonation = async (req, res) => {
     ) {
       return res.status(400).json({
         success: false,
-        message:
-          "Name, email, amount and donation type are required.",
+        message: "Name, email, amount and donation type are required.",
       });
     }
 
-    // 2. Validate donor name
+    // 2. Validate name
     if (
       typeof donorName !== "string" ||
       donorName.trim().length < 2 ||
@@ -155,11 +190,10 @@ const createDonation = async (req, res) => {
       });
     }
 
-    // 4. Validate phone (optional)
+    // 4. Validate optional phone
     if (
-      phone !== undefined &&
-      phone !== null &&
-      typeof phone !== "string"
+      typeof phone !== "string" ||
+      phone.trim().length > 20
     ) {
       return res.status(400).json({
         success: false,
@@ -167,22 +201,15 @@ const createDonation = async (req, res) => {
       });
     }
 
-    if (typeof phone === "string" && phone.trim().length > 20) {
-      return res.status(400).json({
-        success: false,
-        message: "Phone number cannot exceed 20 characters.",
-      });
-    }
-
-    // 5. Validate donation amount
+    // 5. Validate amount: minimum ₹99
     if (
       typeof amount !== "number" ||
       !Number.isSafeInteger(amount) ||
-      amount < 500
+      amount < 99
     ) {
       return res.status(400).json({
         success: false,
-        message: "Donation amount must be an integer of at least ₹500.",
+        message: "Donation amount must be a whole number of at least ₹99.",
       });
     }
 
@@ -194,29 +221,25 @@ const createDonation = async (req, res) => {
       });
     }
 
-    // 7. Save donation request
-    // Payment integration will be added later.
+    // 7. Save as pending only.
+    // Payment order creation and verification will be handled
+    // by the dedicated payment controller.
     const donation = await Donation.create({
       donorName: donorName.trim(),
       email: email.trim().toLowerCase(),
-      phone: typeof phone === "string" ? phone.trim() : "",
+      phone: phone.trim(),
       amount,
       donationType,
       status: "pending",
     });
 
-    // 8. Send response
     return res.status(201).json({
       success: true,
-      message:
-        donationType === "monthly"
-          ? "Monthly donation request saved successfully. Payment is pending."
-          : "Donation request saved successfully. Payment is pending.",
+      message: "Donation record created. Payment is still pending.",
       donation: {
         id: donation._id,
         donorName: donation.donorName,
         email: donation.email,
-        phone: donation.phone,
         amount: donation.amount,
         donationType: donation.donationType,
         status: donation.status,
