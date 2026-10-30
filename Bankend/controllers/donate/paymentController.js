@@ -5,38 +5,52 @@ const Donation = require("../../models/donate/Donation");
 let phonePeClientPromise;
 
 const getPhonePeClient = async () => {
-  const clientId = process.env.PHONEPE_CLIENT_ID;
-  const clientSecret = process.env.PHONEPE_CLIENT_SECRET;
-  const clientVersion = Number(process.env.PHONEPE_CLIENT_VERSION);
-  const environment = process.env.PHONEPE_ENV || "SANDBOX";
+  if (!phonePeClientPromise) {
+    phonePeClientPromise = (async () => {
+      const clientId = process.env.PHONEPE_CLIENT_ID;
+      const clientSecret = process.env.PHONEPE_CLIENT_SECRET;
+      const clientVersion = Number(
+        process.env.PHONEPE_CLIENT_VERSION
+      );
 
-  if (
-    !clientId ||
-    !clientSecret ||
-    !Number.isInteger(clientVersion) ||
-    clientVersion <= 0
-  ) {
-    throw new Error("PhonePe credentials or client version are missing.");
+      const { StandardCheckoutClient, Env } = await import(
+        "@phonepe-pg/pg-sdk-node"
+      );
+
+      if (
+        !clientId ||
+        !clientSecret ||
+        !Number.isInteger(clientVersion) ||
+        clientVersion <= 0
+      ) {
+        throw new Error("PhonePe configuration is incomplete.");
+      }
+
+      const environment =
+        process.env.PHONEPE_ENV === "PRODUCTION"
+          ? Env.PRODUCTION
+          : Env.SANDBOX;
+
+      return StandardCheckoutClient.getInstance(
+        clientId,
+        clientSecret,
+        clientVersion,
+        environment
+      );
+    })().catch((error) => {
+      phonePeClientPromise = null;
+      throw error;
+    });
   }
 
-  const { StandardCheckoutClient, Env } = await import(
-    "@phonepe-pg/pg-sdk-node"
-  );
-
-  const env =
-    environment === "PRODUCTION" ? Env.PRODUCTION : Env.SANDBOX;
-
-  return StandardCheckoutClient.getInstance(
-    clientId,
-    clientSecret,
-    clientVersion,
-    env
-  );
+  return phonePeClientPromise;
 };
-
 // Initiate PhonePe checkout and save a pending donation.
+
 const createOrder = async (req, res) => {
-  let donation;
+
+   console.log("🔥 PHONEPE CREATE ORDER CONTROLLER CALLED");
+  let donation = null;
 
   try {
     const {
@@ -49,6 +63,7 @@ const createOrder = async (req, res) => {
 
     const idempotencyKey = req.get("Idempotency-Key");
 
+    // Idempotency key validation
     if (
       typeof idempotencyKey !== "string" ||
       idempotencyKey.length < 8 ||
@@ -60,6 +75,7 @@ const createOrder = async (req, res) => {
       });
     }
 
+    // Name validation
     if (
       typeof donorName !== "string" ||
       donorName.trim().length < 2 ||
@@ -71,6 +87,7 @@ const createOrder = async (req, res) => {
       });
     }
 
+    // Email validation
     if (
       typeof email !== "string" ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
@@ -81,6 +98,7 @@ const createOrder = async (req, res) => {
       });
     }
 
+    // Phone validation
     if (
       typeof phone !== "string" ||
       phone.trim().length > 20
@@ -91,6 +109,7 @@ const createOrder = async (req, res) => {
       });
     }
 
+    // Amount validation
     if (
       typeof amount !== "number" ||
       !Number.isSafeInteger(amount) ||
@@ -102,7 +121,7 @@ const createOrder = async (req, res) => {
       });
     }
 
-    // Recurring payments require a separate AutoPay setup.
+    // Only one-time donations are supported
     if (donationType !== "once") {
       return res.status(400).json({
         success: false,
@@ -111,7 +130,7 @@ const createOrder = async (req, res) => {
       });
     }
 
-    // Prevent duplicate donation creation for a repeated request.
+    // Check duplicate request
     const existing = await Donation.findOne({ idempotencyKey });
 
     if (existing) {
@@ -124,23 +143,28 @@ const createOrder = async (req, res) => {
       });
     }
 
-    const client = await getPhonePeClient();
-
+    // Frontend URL
     const frontendUrl = process.env.CLIENT_URL;
-    const redirectPath =
-      process.env.PHONEPE_REDIRECT_PATH || "/donation/payment-result";
 
     if (!frontendUrl) {
-      throw new Error("FRONTEND_URL is not configured.");
+      throw new Error("CLIENT_URL is not configured.");
     }
 
-    // Unique merchant order ID generated on the server.
-    const merchantOrderId = `DON_${crypto.randomUUID()}`;
+    const redirectPath =
+      process.env.PHONEPE_REDIRECT_PATH ||
+      "/donation/payment-result";
 
     const redirectUrl = new URL(redirectPath, frontendUrl);
-    redirectUrl.searchParams.set("merchantOrderId", merchantOrderId);
 
-    // Store the donation before contacting the gateway.
+    // Generate unique merchant order ID
+    const merchantOrderId = `DON_${crypto.randomUUID()}`;
+
+    redirectUrl.searchParams.set(
+      "merchantOrderId",
+      merchantOrderId
+    );
+
+    // Save donation before contacting PhonePe
     donation = await Donation.create({
       donorName: donorName.trim(),
       email: email.trim().toLowerCase(),
@@ -155,11 +179,14 @@ const createOrder = async (req, res) => {
       idempotencyKey,
     });
 
+    // Initialize PhonePe client
+    const client = await getPhonePeClient();
+
     const { StandardCheckoutPayRequest } = await import(
       "@phonepe-pg/pg-sdk-node"
     );
 
-    // PhonePe expects the amount in paise, not rupees.
+    // Create PhonePe checkout request (amount in paise)
     const request = StandardCheckoutPayRequest.builder()
       .merchantOrderId(merchantOrderId)
       .amount(amount * 100)
@@ -168,7 +195,7 @@ const createOrder = async (req, res) => {
 
     const paymentResponse = await client.pay(request);
 
-    if (!paymentResponse || !paymentResponse.redirectUrl) {
+    if (!paymentResponse?.redirectUrl) {
       throw new Error("PhonePe did not return a checkout URL.");
     }
 
@@ -182,31 +209,53 @@ const createOrder = async (req, res) => {
       amount: donation.amount,
       currency: "INR",
     });
-  } catch (error) {
-    console.error("PhonePe create order error:", error.message);
 
+  } catch (error) {
+    console.error(
+      "PhonePe create order error:",
+      error.message
+    );
+
+    // Duplicate key handling
     if (error.code === 11000) {
       return res.status(409).json({
         success: false,
-        message:
-          "This donation request already exists. Please retry with a new payment attempt.",
+        message: "This request has already been processed.",
       });
     }
 
-    // Do not leave an unusable pending record if initiation failed.
-    // A network error can be ambiguous, so check PhonePe status before
-    // retrying a payment if the order may have been created.
-    if (donation && donation.paymentOrderId) {
+    // Reconcile order if donation was already created
+    if (donation?.merchantOrderId) {
       try {
         const client = await getPhonePeClient();
+
         const status = await client.getOrderStatus(
-          donation.paymentOrderId
+          donation.merchantOrderId
         );
 
-        if (status.state === "COMPLETED") {
+        const state = String(
+          status?.state || ""
+        ).toUpperCase();
+
+        if (state === "COMPLETED") {
           console.error(
-            "PhonePe order may have completed; reconcile donation:",
+            "Payment completed. Reconciliation required:",
             donation._id.toString()
+          );
+        } else if (state === "FAILED") {
+          await Donation.updateOne(
+            {
+              _id: donation._id,
+              status: "pending",
+            },
+            {
+              $set: { status: "failed" },
+            }
+          );
+        } else {
+          console.log(
+            "PhonePe order is still processing:",
+            donation.merchantOrderId
           );
         }
       } catch (statusError) {
@@ -219,18 +268,20 @@ const createOrder = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message:
-        "Unable to initiate payment. Check the payment status before retrying.",
+      message: "Unable to initiate payment. Please try again.",
     });
   }
 };
 
+
 // Verify payment using PhonePe's server-side order status.
+
 const verifyPayment = async (req, res) => {
   try {
     const merchantOrderId =
       req.body.merchantOrderId || req.body.orderId;
 
+    // Validate merchant order ID
     if (
       typeof merchantOrderId !== "string" ||
       !/^DON_[a-f0-9-]{36}$/i.test(merchantOrderId)
@@ -241,11 +292,9 @@ const verifyPayment = async (req, res) => {
       });
     }
 
+    // Find donation
     const donation = await Donation.findOne({
-      $or: [
-        { merchantOrderId },
-        { paymentOrderId: merchantOrderId },
-      ],
+      merchantOrderId,
       paymentProvider: "phonepe",
     });
 
@@ -256,45 +305,77 @@ const verifyPayment = async (req, res) => {
       });
     }
 
-    // Check PhonePe directly; do not trust the browser's success message.
+    // Already completed
+    if (donation.status === "completed") {
+      return res.status(200).json({
+        success: true,
+        message: "Payment was already verified.",
+        donationId: donation._id,
+        status: "completed",
+      });
+    }
+
+    if (donation.status !== "pending") {
+      return res.status(409).json({
+        success: false,
+        message: "Donation is not awaiting payment.",
+        status: donation.status,
+      });
+    }
+
+    // Verify directly with PhonePe
     const client = await getPhonePeClient();
-    const orderStatus = await client.getOrderStatus(merchantOrderId);
 
-    const state = String(orderStatus.state || "").toUpperCase();
+    const orderStatus = await client.getOrderStatus(
+      merchantOrderId
+    );
 
+    const state = String(
+      orderStatus?.state || ""
+    ).toUpperCase();
+
+    // COMPLETED PAYMENT
     if (state === "COMPLETED") {
-      // Check the amount if PhonePe returns it.
+      const expectedAmount = donation.amount * 100;
+
+      // Amount must be present and must match
       if (
-        orderStatus.amount != null &&
-        Number(orderStatus.amount) !== donation.amount * 100
+        orderStatus.amount == null ||
+        Number(orderStatus.amount) !== expectedAmount
       ) {
+        console.error(
+          "PhonePe amount verification failed:",
+          merchantOrderId
+        );
+
         return res.status(400).json({
           success: false,
-          message: "Payment amount does not match the donation.",
+          message: "Payment amount verification failed.",
         });
       }
 
-      if (donation.status === "completed") {
-        return res.status(200).json({
-          success: true,
-          message: "Payment was already verified.",
-          donationId: donation._id,
-          status: "completed",
-        });
-      }
-
-      if (donation.status !== "pending") {
-        return res.status(409).json({
-          success: false,
-          message: "Donation is not awaiting payment.",
-          status: donation.status,
-        });
-      }
+      // Find a completed transaction detail
+      const completedPayment =
+        orderStatus.paymentDetails?.find(
+          (item) =>
+            String(item.state || "").toUpperCase() ===
+              "COMPLETED" &&
+            item.transactionId
+        );
 
       const transactionId =
-        orderStatus.paymentDetails?.find(
-          (item) => item.transactionId
-        )?.transactionId || merchantOrderId;
+        completedPayment?.transactionId;
+
+      // Update only if donation is still pending
+      const updateFields = {
+        status: "completed",
+        paidAt: new Date(),
+      };
+
+      // Store actual PhonePe transaction ID only
+      if (transactionId) {
+        updateFields.paymentReference = transactionId;
+      }
 
       const updated = await Donation.findOneAndUpdate(
         {
@@ -303,11 +384,7 @@ const verifyPayment = async (req, res) => {
           paymentProvider: "phonepe",
         },
         {
-          $set: {
-            status: "completed",
-            paymentReference: transactionId,
-            paidAt: new Date(),
-          },
+          $set: updateFields,
         },
         {
           new: true,
@@ -315,27 +392,32 @@ const verifyPayment = async (req, res) => {
         }
       );
 
+      // Handle webhook / verification race condition
       if (!updated) {
-        const current = await Donation.findById(donation._id);
+        const current = await Donation.findById(
+          donation._id
+        );
 
         if (current?.status === "completed") {
           return res.status(200).json({
             success: true,
             message: "Payment was already verified.",
             donationId: current._id,
-            status: current.status,
+            status: "completed",
           });
         }
 
         return res.status(409).json({
           success: false,
           message: "Donation status changed. Please check again.",
+          status: current?.status,
         });
       }
 
       return res.status(200).json({
         success: true,
-        message: "Payment verified successfully. Thank you for donating!",
+        message:
+          "Payment verified successfully. Thank you for donating!",
         donationId: updated._id,
         amount: updated.amount,
         status: updated.status,
@@ -343,40 +425,57 @@ const verifyPayment = async (req, res) => {
       });
     }
 
+    // FAILED PAYMENT
     if (state === "FAILED") {
-      // Never overwrite a completed donation with a failed status.
-      if (donation.status === "completed") {
+      await Donation.updateOne(
+        {
+          _id: donation._id,
+          status: "pending",
+        },
+        {
+          $set: {
+            status: "failed",
+          },
+        }
+      );
+
+      // Check latest status in case webhook updated it
+      const current = await Donation.findById(
+        donation._id
+      );
+
+      if (current?.status === "completed") {
         return res.status(200).json({
           success: true,
           message: "Payment was already completed.",
-          donationId: donation._id,
+          donationId: current._id,
           status: "completed",
         });
       }
 
-      await Donation.updateOne(
-        { _id: donation._id, status: "pending" },
-        { $set: { status: "failed" } }
-      );
-
       return res.status(200).json({
         success: false,
         message: "PhonePe reports that the payment failed.",
-        donationId: donation._id,
-        status: "failed",
+        donationId: current._id,
+        status: current.status,
       });
     }
 
-    // PENDING or any unrecognized state must not be marked successful.
+    // PENDING / UNKNOWN
     return res.status(202).json({
       success: false,
-      message: "Payment is still being processed. Please check again.",
+      message:
+        "Payment is still being processed. Please check again.",
       donationId: donation._id,
       status: "pending",
       paymentState: state || "UNKNOWN",
     });
+
   } catch (error) {
-    console.error("PhonePe verify payment error:", error.message);
+    console.error(
+      "PhonePe verify payment error:",
+      error.message
+    );
 
     return res.status(500).json({
       success: false,

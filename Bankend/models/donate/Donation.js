@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const donationSchema = new mongoose.Schema(
   {
+    // Donor Information
     donorName: {
       type: String,
       required: true,
@@ -26,6 +27,7 @@ const donationSchema = new mongoose.Schema(
       maxlength: 20,
     },
 
+    // Donation Amount (INR)
     amount: {
       type: Number,
       required: true,
@@ -36,12 +38,14 @@ const donationSchema = new mongoose.Schema(
       },
     },
 
+    // Donation Type
     donationType: {
       type: String,
       enum: ["once", "monthly"],
       required: true,
     },
 
+    // Donation Status
     status: {
       type: String,
       enum: ["pending", "completed", "failed"],
@@ -49,35 +53,35 @@ const donationSchema = new mongoose.Schema(
       index: true,
     },
 
-    // Payment gateway
+    // Payment Provider
     paymentProvider: {
       type: String,
       enum: ["phonepe", "razorpay", null],
       default: null,
     },
 
-    // Unique merchant order ID sent to PhonePe
+    // Payment Order ID
     paymentOrderId: {
       type: String,
       unique: true,
       sparse: true,
     },
 
-    // PhonePe transaction ID after payment processing
+    // Actual Gateway Transaction Reference
     paymentReference: {
       type: String,
       unique: true,
       sparse: true,
     },
 
-    // PhonePe merchant order ID, if stored separately
+    // PhonePe Merchant Order ID
     merchantOrderId: {
       type: String,
       unique: true,
       sparse: true,
     },
 
-    // Prevent duplicate order creation on retries
+    // Prevent Duplicate Payment Requests
     idempotencyKey: {
       type: String,
       trim: true,
@@ -86,12 +90,14 @@ const donationSchema = new mongoose.Schema(
       select: false,
     },
 
+    // Currency
     currency: {
       type: String,
       default: "INR",
       enum: ["INR"],
     },
 
+    // Successful Payment Date
     paidAt: {
       type: Date,
       default: null,
