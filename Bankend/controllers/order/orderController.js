@@ -266,6 +266,7 @@ async function createCheckout(req, res) {
   }
 }
 
+
 async function verifyOrderPayment(req, res) {
   try {
     const userId = getUserId(req);
@@ -295,9 +296,32 @@ async function verifyOrderPayment(req, res) {
       });
     }
 
-    // Never downgrade a previously verified paid order.
+    // Remove only the products included in this order.
+    // Safe to retry if a previous cart-clearing attempt failed.
+    const clearPurchasedItems = async () => {
+      if (!order.items?.length) return;
+
+      await Cart.updateOne(
+        { userId: order.userId },
+        {
+          $pull: {
+            items: {
+              $or: order.items.map((item) => ({
+                vendorId: item.vendorId,
+                itemId: item.itemId,
+              })),
+            },
+          },
+        }
+      );
+    };
+
+    // Already paid: retry cart clearing if necessary.
     if (order.status === "paid") {
-      return res.json({
+      await clearPurchasedItems();
+
+      return res.status(200).json({
+        success: true,
         orderId: order._id,
         merchantOrderId: order.merchantOrderId,
         status: "paid",
@@ -316,70 +340,171 @@ async function verifyOrderPayment(req, res) {
     const paymentStatus =
       await getPhonePeOrderStatus(merchantOrderId);
 
-    const state = String(paymentStatus.state || "").toUpperCase();
-    const expectedAmountPaise = Math.round(order.totalAmount * 100);
-    const actualAmountPaise = Number(paymentStatus.amount);
+    const state = String(
+      paymentStatus?.state || ""
+    ).toUpperCase();
 
-    // Only trust a completed status with the exact expected amount.
+    const expectedAmountPaise = Math.round(
+      order.totalAmount * 100
+    );
+
+    const actualAmountPaise = Number(paymentStatus?.amount);
+
+    // SUCCESSFUL PAYMENT
     if (state === "COMPLETED") {
       if (
         !Number.isSafeInteger(actualAmountPaise) ||
         actualAmountPaise !== expectedAmountPaise
       ) {
-        console.error("PhonePe amount mismatch for order:", merchantOrderId);
+        console.error(
+          "PhonePe amount mismatch:",
+          merchantOrderId
+        );
 
         return res.status(409).json({
-          message:
-            "Payment amount could not be verified. Please contact support.",
+          message: "Payment amount could not be verified.",
           status: order.status,
         });
       }
 
-      order.status = "paid";
-      order.paidAt = new Date();
-
-      const payment = Array.isArray(paymentStatus.paymentDetails)
+      const completedPayment = Array.isArray(
+        paymentStatus.paymentDetails
+      )
         ? paymentStatus.paymentDetails.find(
-            (entry) => entry && entry.transactionId
+            (entry) =>
+              entry &&
+              String(entry.state || "").toUpperCase() === "COMPLETED" &&
+              entry.transactionId
           )
         : null;
 
-      order.paymentReference = payment?.transactionId || "";
+      // Atomic update: only one request can change pending to paid.
+      const updatedOrder = await Order.findOneAndUpdate(
+        {
+          _id: order._id,
+          status: "pending",
+        },
+        {
+          $set: {
+            status: "paid",
+            paidAt: new Date(),
+            paymentReference:
+              completedPayment?.transactionId || "",
+            "paymentDetails.verifiedState": state,
+            "paymentDetails.verifiedAt": new Date(),
+          },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
-      order.paymentDetails = {
-        ...getPaymentDetails(order),
-        verifiedState: state,
-        verifiedAt: new Date(),
-      };
+      // Handle simultaneous verification requests.
+      if (!updatedOrder) {
+        const currentOrder = await Order.findById(order._id);
 
-      await order.save();
-    } else if (state === "FAILED") {
-      order.status = "failed";
+        if (currentOrder?.status !== "paid") {
+          return res.status(409).json({
+            message: "Order status changed. Please check again.",
+            status: currentOrder?.status,
+          });
+        }
 
-      order.paymentDetails = {
-        ...getPaymentDetails(order),
-        verifiedState: state,
-        verifiedAt: new Date(),
-      };
+        await clearPurchasedItems();
 
-      await order.save();
+        return res.status(200).json({
+          success: true,
+          orderId: currentOrder._id,
+          merchantOrderId: currentOrder.merchantOrderId,
+          status: "paid",
+          totalAmount: currentOrder.totalAmount,
+          currency: currentOrder.currency,
+        });
+      }
+
+      // Clear cart only after payment is verified and order is paid.
+      await clearPurchasedItems();
+
+      return res.status(200).json({
+        success: true,
+        message: "Payment verified and order confirmed.",
+        orderId: updatedOrder._id,
+        merchantOrderId: updatedOrder.merchantOrderId,
+        status: updatedOrder.status,
+        totalAmount: updatedOrder.totalAmount,
+        currency: updatedOrder.currency,
+        paidAt: updatedOrder.paidAt,
+      });
     }
 
-    return res.json({
+    // FAILED PAYMENT
+    if (state === "FAILED") {
+      const updatedOrder = await Order.findOneAndUpdate(
+        {
+          _id: order._id,
+          status: "pending",
+        },
+        {
+          $set: {
+            status: "failed",
+            "paymentDetails.verifiedState": state,
+            "paymentDetails.verifiedAt": new Date(),
+          },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+
+      const currentOrder =
+        updatedOrder || await Order.findById(order._id);
+
+      // Never report failure if another request confirmed payment.
+      if (currentOrder?.status === "paid") {
+        await clearPurchasedItems();
+
+        return res.status(200).json({
+          success: true,
+          status: "paid",
+          orderId: currentOrder._id,
+          merchantOrderId: currentOrder.merchantOrderId,
+          totalAmount: currentOrder.totalAmount,
+          currency: currentOrder.currency,
+        });
+      }
+
+      return res.status(200).json({
+        success: false,
+        message: "PhonePe reports that the payment failed.",
+        orderId: currentOrder?._id,
+        status: currentOrder?.status,
+      });
+    }
+
+    // PENDING / UNKNOWN
+    return res.status(202).json({
+      success: false,
+      message: "Payment is still being processed. Please check again.",
       orderId: order._id,
-      merchantOrderId: order.merchantOrderId,
-      status: order.status,
-      totalAmount: order.totalAmount,
-      currency: order.currency,
+      merchantOrderId,
+      status: "pending",
+      paymentState: state || "UNKNOWN",
     });
+
   } catch (error) {
-    console.error("Verify payment error:", error.message);
+    console.error(
+      "Verify order payment error:",
+      error.message
+    );
 
     return res.status(502).json({
       message: "Unable to verify payment right now. Please retry shortly.",
     });
   }
 }
+
 
 module.exports = {
   createCheckout,
