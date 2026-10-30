@@ -168,6 +168,10 @@ const createOrder = async (req, res) => {
       merchantOrderId
     );
 
+    console.log(
+  "FINAL PHONEPE REDIRECT URL:",
+  redirectUrl.toString()
+);
     // Save donation before contacting PhonePe
     donation = await Donation.create({
       donorName: donorName.trim(),
