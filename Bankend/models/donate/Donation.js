@@ -24,14 +24,14 @@ const donationSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: "",
-      maxlength: 20,
+      maxlength: 10,
     },
 
     // Donation Amount (INR)
     amount: {
       type: Number,
       required: true,
-      min: 99,
+      min: 1,
       validate: {
         validator: Number.isSafeInteger,
         message: "Donation amount must be a whole number.",

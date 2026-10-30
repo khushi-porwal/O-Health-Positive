@@ -113,11 +113,11 @@ const createOrder = async (req, res) => {
     if (
       typeof amount !== "number" ||
       !Number.isSafeInteger(amount) ||
-      amount < 99
+      amount < 1
     ) {
       return res.status(400).json({
         success: false,
-        message: "Minimum donation is ₹99 in whole rupees.",
+        message: "Minimum donation is ₹1 in whole rupees.",
       });
     }
 
