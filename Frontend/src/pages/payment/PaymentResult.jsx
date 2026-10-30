@@ -80,7 +80,7 @@ const PaymentResult = () => {
           </button>
         )}
 
-        <Link to="/donate" className="payment-result-link">
+        <Link to="/donate-form" className="payment-result-link">
           Back to Donations
         </Link>
       </section>
