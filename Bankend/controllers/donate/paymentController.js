@@ -113,11 +113,11 @@ const createOrder = async (req, res) => {
     if (
       typeof amount !== "number" ||
       !Number.isSafeInteger(amount) ||
-      amount < 1
+      amount < 99
     ) {
       return res.status(400).json({
         success: false,
-        message: "Minimum donation is ₹1 in whole rupees.",
+        message: "Minimum donation is ₹99 in whole rupees.",
       });
     }
 
@@ -156,6 +156,10 @@ const createOrder = async (req, res) => {
 
     const redirectUrl = new URL(redirectPath, frontendUrl);
 
+    console.log(
+  "PHONEPE RETURN REDIRECT URL:",
+  redirectUrl.toString()
+);
     // Generate unique merchant order ID
     const merchantOrderId = `DON_${crypto.randomUUID()}`;
 

@@ -31,7 +31,7 @@ const donationSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: true,
-      min: 1,
+      min: 99,
       validate: {
         validator: Number.isSafeInteger,
         message: "Donation amount must be a whole number.",
