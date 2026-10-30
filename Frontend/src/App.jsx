@@ -6,8 +6,10 @@ import Home from "./pages/home/Home";
 import ManageVendors from "./pages/admin/vendor/ManageVendors";
 import Login from "./pages/auth/login/Login";
 import Signup from "./pages/auth/signup/Signup";
+import OrderPaymentResult from "./pages/orderPaymentResult/OrderPaymentResult"
 import Contact from "./pages/contact/Contact";
 import AdminLogin from "./pages/admin/AdminLogin";
+import Checkout from "./pages/checkout/Checkout"
 import BlogDetails from "./pages/blogdetails/BlogDetails";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Chatbot from "./components/common/chatbot/Chatbot";
@@ -37,7 +39,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/explore" element={<Explore />} />
-
+        <Route
+  path="/payment-result"
+  element={<OrderPaymentResult />}
+/>
         <Route path="/admin/vendors" element={<ManageVendors />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -56,6 +61,7 @@ function App() {
           element={<AllMonthlyPrograms />}
         />
 
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/donate-form" element={<DonationForm />} />
         <Route path="/documents" element={<Documents />} />
 
@@ -70,6 +76,7 @@ function App() {
         <Route
   path="/donation/payment-result"
   element={<PaymentResult />}
+
 />
       </Routes>
 
