@@ -7,6 +7,9 @@ dotenv.config({
 });
 
 const express = require("express");
+
+
+
 const cors = require("cors");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
@@ -32,6 +35,9 @@ const blogRoutes = require("./routes/blog/BlogRoutes");
 const monthlyDonation = require("./routes/monthly/monthlyRoutes");
 
 const app = express();
+
+// Trust Render proxy
+app.set("trust proxy", 1);
 
 // ========================================
 // SECURITY
