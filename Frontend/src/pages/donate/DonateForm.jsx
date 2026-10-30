@@ -1,121 +1,275 @@
-import Navbar from "../../components/layout/Navbar/Navbar"
-import MainHeader from "../../components/layout/Header/Header"
-import Footer from "../../components/layout/Footer/Footer"
-import { useState } from "react";
+
+import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { donationFormService } from "../../services/donationformservice";
-import logo from "../../assets/logo.jpeg";
-import "./DonateForm.css";
+
+import Navbar from "../../components/layout/Navbar/Navbar";
+import MainHeader from "../../components/layout/Header/Header";
+import Footer from "../../components/layout/Footer/Footer";
 import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 
-export default function DonateForm() {
+import logo from "../../assets/logo.jpeg";
+import "./DonateForm.css";
+
+import { createPaymentOrder } from "../../services/paymentService";
+
+const MIN_AMOUNT = 99;
+const PRESET_AMOUNTS = [500, 1000, 2000, 5000];
+
+const initialAmount = (searchParams) => {
+  const amountFromUrl = Number(searchParams.get("amount"));
+
+  return Number.isSafeInteger(amountFromUrl) &&
+    amountFromUrl >= MIN_AMOUNT
+    ? amountFromUrl
+    : 5000;
+};
+
+const DonateForm = () => {
   const [searchParams] = useSearchParams();
-  const initialAmount = Number(searchParams.get("amount")) || 5000;
 
   const [form, setForm] = useState({
     donorName: "",
     email: "",
     phone: "",
-    amount: initialAmount,
+    amount: initialAmount(searchParams),
     donationType: "once",
   });
 
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(false);
+  const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Reuse the key for a retry of the same donation.
+  const idempotencyKeyRef = useRef("");
 
   const amount = Number(form.amount);
-  const validAmount = Number.isSafeInteger(amount) && amount >= 500;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+  const isValidAmount =
+    Number.isSafeInteger(amount) && amount >= MIN_AMOUNT;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setForm((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+
+    // A changed form represents a new donation attempt.
+    idempotencyKeyRef.current = "";
     setMessage("");
+    setMessageType("");
   };
 
-  const handleAmountSelect = (value) => {
-    setForm((prev) => ({ ...prev, amount: value }));
+  const handleAmountSelect = (selectedAmount) => {
+    setForm((previous) => ({
+      ...previous,
+      amount: selectedAmount,
+    }));
+
+    idempotencyKeyRef.current = "";
     setMessage("");
+    setMessageType("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
-    setError(false);
+  const showMessage = (text, type = "error") => {
+    setMessage(text);
+    setMessageType(type);
+  };
 
-    if (!validAmount) {
-      setError(true);
-      setMessage("Minimum donation amount is ₹500 (whole rupees only).");
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   if (loading) return;
+
+  //   const donorName = form.donorName.trim();
+  //   const email = form.email.trim().toLowerCase();
+  //   const phone = form.phone.trim();
+
+  //   if (donorName.length < 2 || donorName.length > 100) {
+  //     showMessage("Please enter your full name.");
+  //     return;
+  //   }
+
+  //   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  //     showMessage("Please enter a valid email address.");
+  //     return;
+  //   }
+
+  //   if (!isValidAmount) {
+  //     showMessage(`Minimum donation amount is ₹${MIN_AMOUNT}.`);
+  //     return;
+  //   }
+
+  //   if (phone && !/^[0-9+\-\s()]{7,20}$/.test(phone)) {
+  //     showMessage("Please enter a valid phone number.");
+  //     return;
+  //   }
+
+  //   setLoading(true);
+  //   setMessage("");
+  //   setMessageType("");
+
+  //   try {
+  //     if (!idempotencyKeyRef.current) {
+  //       idempotencyKeyRef.current =
+  //         window.crypto?.randomUUID?.() ||
+  //         `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  //     }
+
+  //     // Create a pending donation and initiate PhonePe checkout.
+  //     const orderResponse = await createPaymentOrder(
+  //       {
+  //         donorName,
+  //         email,
+  //         phone,
+  //         amount,
+  //         donationType: "once",
+  //       },
+  //       idempotencyKeyRef.current
+  //     );
+
+  //     if (!orderResponse?.success || !orderResponse?.checkoutUrl) {
+  //       throw new Error(
+  //         orderResponse?.message ||
+  //           "Unable to start PhonePe checkout."
+  //       );
+  //     }
+
+  //     // Redirect the donor to the PhonePe checkout page.
+  //     window.location.assign(orderResponse.checkoutUrl);
+  //   } catch (error) {
+  //     console.error("PhonePe checkout error:", error);
+
+  //     showMessage(
+  //       error.response?.data?.message ||
+  //         error.message ||
+  //         "Unable to start payment. Please try again.",
+  //       "error"
+  //     );
+
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  if (loading) return;
+
+  const donorName = form.donorName.trim();
+  const email = form.email.trim().toLowerCase();
+  const phone = form.phone.trim();
+  const amount = Number(form.amount);
+
+  if (donorName.length < 2 || donorName.length > 100) {
+    showMessage("Please enter your full name.");
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showMessage("Please enter a valid email address.");
+    return;
+  }
+
+  if (!Number.isSafeInteger(amount) || amount < MIN_AMOUNT) {
+    showMessage(`Minimum donation amount is ₹${MIN_AMOUNT}.`);
+    return;
+  }
+
+  if (phone && !/^[0-9+\-\s()]{7,20}$/.test(phone)) {
+    showMessage("Please enter a valid phone number.");
+    return;
+  }
+
+  setLoading(true);
+  setMessage("");
+  setMessageType("");
+
+  try {
+    // Reuse the same key for this attempt.
+    if (!idempotencyKeyRef.current) {
+      idempotencyKeyRef.current =
+        window.crypto?.randomUUID?.() ||
+        `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
+
+    const donationPayload = {
+      donorName,
+      email,
+      phone,
+      amount,
+      donationType: "once",
+    };
+
+    const orderResponse = await createPaymentOrder(
+      donationPayload,
+      idempotencyKeyRef.current
+    );
+
+    if (!orderResponse?.success || !orderResponse?.checkoutUrl) {
+      showMessage(
+        orderResponse?.message || "Unable to start PhonePe checkout."
+      );
       return;
     }
 
-    try {
-      setLoading(true);
+    // Redirect only after the backend returns a checkout URL.
+    window.location.assign(orderResponse.checkoutUrl);
+  } catch (error) {
+    console.error("PhonePe checkout error:", {
+      status: error.response?.status,
+      response: error.response?.data,
+      message: error.message,
+    });
 
-      const data = await donationFormService({
-        ...form,
-        amount,
-      });
+    const status = error.response?.status;
+    const response = error.response?.data;
 
-      if (!data.success) {
-        throw new Error(data.message || "Unable to save donation.");
-      }
-
-      setMessage(
-        `Donation details saved successfully! Reference ID: ${
-          data.donation?.id || "Created"
-        }. Payment has not been processed.`
+    if (status === 409) {
+      showMessage(
+        "A donation attempt already exists and is pending. Please check its PhonePe payment status before starting another payment."
       );
-
-      setForm((prev) => ({
-        ...prev,
-        donorName: "",
-        email: "",
-        phone: "",
-      }));
-    } catch (err) {
-      setError(true);
-      setMessage(
-        err.response?.data?.message ||
-          err.message ||
-          "Something went wrong. Please try again."
+    } else {
+      showMessage(
+        response?.message ||
+          "Unable to start payment. Please check the server logs and try again."
       );
-    } finally {
-      setLoading(false);
     }
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  const handleMonthlyClick = () => {
+    showMessage(
+      "Monthly donations will be available once PhonePe recurring payments are configured.",
+      "info"
+    );
   };
 
   return (
     <>
-    <Navbar/>
-    <CrowdfundingHeader/>
-    <MainHeader/>
-    <main className="donation-page">
-      <div className="donation-layout">
-        {/* LEFT IMPACT PANEL */}
-        <aside className="donation-impact">
-          <div className="impact-decoration impact-decoration-top">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
+      <Navbar />
+      <MainHeader />
+      <CrowdfundingHeader />
 
-          <div className="impact-dots" aria-hidden="true">
-            {Array.from({ length: 12 }, (_, i) => (
-              <span key={i} />
-            ))}
-          </div>
-
-          <div className="impact-content">
+      <section className="donate-form-section">
+        <div className="donate-form-container">
+          {/* Left information panel */}
+          <div className="donate-form-left">
             <img
               src={logo}
-              alt="O Positive Health Foundation"
-              className="impact-logo"
+              alt="O Positive Health"
+              className="donate-form-logo"
             />
 
-            <p className="impact-eyebrow">O POSITIVE HEALTH FOUNDATION</p>
-            <span className="impact-line" />
+            <p className="donate-form-eyebrow">
+              O POSITIVE HEALTH · CARE BEFORE CURE
+            </p>
 
             <h1>
               Small Donations.
@@ -123,238 +277,211 @@ export default function DonateForm() {
               Big Changes.
             </h1>
 
-            <p className="impact-description">
-              Your kindness can bring healthcare, hope and a better tomorrow
-              to people who need it most.
+            <p className="donate-form-description">
+              Your contribution can help people access healthcare,
+              treatment and support when they need it most.
             </p>
 
-            <div className="impact-message">
-              <span className="impact-heart" aria-hidden="true">♡</span>
-              <p>Every act of care makes a difference.</p>
-            </div>
-          </div>
+            <div className="donate-form-impact">
+              <div className="donate-impact-item">
+                <span className="donate-impact-icon">❤️</span>
+                <div>
+                  <h3>Your Support Matters</h3>
+                  <p>Every contribution can make a difference.</p>
+                </div>
+              </div>
 
-          <div className="impact-bottom-art" aria-hidden="true">
-            <div className="impact-orbit orbit-one" />
-            <div className="impact-orbit orbit-two" />
-            <div className="impact-orbit orbit-three" />
+              <div className="donate-impact-item">
+                <span className="donate-impact-icon">🤝</span>
+                <div>
+                  <h3>Help People in Need</h3>
+                  <p>Support healthcare initiatives and communities.</p>
+                </div>
+              </div>
 
-            <div className="impact-stat">
-              <span className="impact-stat-icon">✚</span>
-              <div>
-                <strong>Care Before Cure</strong>
-                <small>Compassion in every contribution</small>
+              <div className="donate-impact-item">
+                <span className="donate-impact-icon">🔒</span>
+                <div>
+                  <h3>Secure Checkout</h3>
+                  <p>Payments are processed through PhonePe.</p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="impact-decoration impact-decoration-bottom">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-        </aside>
-
-        {/* RIGHT DONATION FORM */}
-        <section className="donation-form-panel">
-          <header className="form-header">
-            <div className="form-kicker">
-              <span className="form-kicker-icon">✦</span>
-              <span>MAKE A DONATION</span>
+          {/* Right donation form */}
+          <div className="donate-form-right">
+            <div className="donate-form-heading">
+              <h2>Make a Donation</h2>
+              <p>Choose an amount and enter your details below.</p>
             </div>
 
-            <h2>Your kindness matters!</h2>
+            <form onSubmit={handleSubmit}>
+              {/* Donation frequency */}
+              <div className="donate-frequency">
+                <button
+                  type="button"
+                  className="donate-frequency-btn active"
+                  aria-pressed="true"
+                >
+                  Give Once
+                </button>
 
-            <p>
-              Your contribution supports our mission to make healthcare and
-              hope accessible to those in need.
-            </p>
-          </header>
-
-          <form className="donation-form" onSubmit={handleSubmit}>
-            {/* DONATION FREQUENCY */}
-            <div className="frequency-switch">
-              <button
-                type="button"
-                className={
-                  form.donationType === "once" ? "frequency-active" : ""
-                }
-                onClick={() => {
-                  setForm((prev) => ({ ...prev, donationType: "once" }));
-                  setMessage("");
-                }}
-              >
-                Give Once
-              </button>
-
-              <button
-                type="button"
-                className={
-                  form.donationType === "monthly" ? "frequency-active" : ""
-                }
-                onClick={() => {
-                  setForm((prev) => ({ ...prev, donationType: "monthly" }));
-                  setMessage("");
-                }}
-              >
-                Give Monthly
-              </button>
-            </div>
-
-            {/* AMOUNT */}
-            <div className="donation-field">
-              <label htmlFor="amount">Choose your donation amount</label>
-
-              <div className="amount-presets">
-                {[500, 1000, 2000, 5000].map((value) => (
-                  <button
-                    type="button"
-                    key={value}
-                    className={
-                      Number(form.amount) === value ? "amount-selected" : ""
-                    }
-                    onClick={() => handleAmountSelect(value)}
-                  >
-                    ₹{value.toLocaleString("en-IN")}
-                  </button>
-                ))}
+                <button
+                  type="button"
+                  className="donate-frequency-btn"
+                  onClick={handleMonthlyClick}
+                  aria-pressed="false"
+                >
+                  Give Monthly
+                </button>
               </div>
 
-              <div className="amount-input-wrap">
-                <span>₹ INR</span>
-                <input
-                  id="amount"
-                  type="number"
-                  name="amount"
-                  value={form.amount}
-                  onChange={handleChange}
-                  min="500"
-                  step="1"
-                  required
-                  aria-describedby="amount-hint"
-                />
-              </div>
-
-              <small id="amount-hint" className="field-hint">
-                Minimum donation: ₹500
-              </small>
-            </div>
-
-            {/* DONATION SUMMARY */}
-            <div className="donation-summary">
-              <div>
-                <span>Donation amount</span>
-                <strong>
-                  ₹{(Number.isFinite(amount) && amount >= 0
-                    ? amount
-                    : 0
-                  ).toLocaleString("en-IN")}
-                </strong>
-              </div>
-
-              <div className="summary-total">
-                <span>Total amount</span>
-                <strong>
-                  ₹{(Number.isFinite(amount) && amount >= 0
-                    ? amount
-                    : 0
-                  ).toLocaleString("en-IN")}
-                </strong>
-              </div>
-            </div>
-
-            {/* DONOR DETAILS */}
-            <div className="donor-details-heading">
-              <h3>Your details</h3>
-              <p>Please enter your contact information.</p>
-            </div>
-
-            <div className="donor-fields-grid">
-              <div className="donation-field">
-                <label htmlFor="donorName">
-                  Full name <span>*</span>
+              {/* Amount presets */}
+              <div className="donate-amount-section">
+                <label className="donate-field-label">
+                  Select Donation Amount
                 </label>
+
+                <div className="donate-amount-options">
+                  {PRESET_AMOUNTS.map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      className={`donate-amount-option ${
+                        amount === preset ? "active" : ""
+                      }`}
+                      onClick={() => handleAmountSelect(preset)}
+                    >
+                      ₹{preset.toLocaleString("en-IN")}
+                    </button>
+                  ))}
+                </div>
+
+                <label
+                  htmlFor="donation-amount"
+                  className="donate-field-label"
+                >
+                  Or enter a custom amount (minimum ₹99)
+                </label>
+
+                <div className="donate-amount-input-wrap">
+                  <span>₹</span>
+
+                  <input
+                    id="donation-amount"
+                    type="number"
+                    name="amount"
+                    min={MIN_AMOUNT}
+                    step="1"
+                    value={form.amount}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Donation summary */}
+              <div className="donate-summary">
+                <span>Your donation</span>
+                <strong>
+                  ₹
+                  {(
+                    Number.isFinite(amount) && amount >= 0 ? amount : 0
+                  ).toLocaleString("en-IN")}
+                </strong>
+              </div>
+
+              {/* Donor information */}
+              <div className="donate-personal-details">
+                <label
+                  htmlFor="donorName"
+                  className="donate-field-label"
+                >
+                  Full Name
+                </label>
+
                 <input
                   id="donorName"
+                  type="text"
                   name="donorName"
+                  placeholder="Enter your full name"
                   value={form.donorName}
                   onChange={handleChange}
-                  placeholder="Enter your full name"
                   minLength={2}
                   maxLength={100}
                   autoComplete="name"
                   required
                 />
-              </div>
 
-              <div className="donation-field">
-                <label htmlFor="email">
-                  Email address <span>*</span>
+                <label htmlFor="email" className="donate-field-label">
+                  Email Address
                 </label>
+
                 <input
                   id="email"
                   type="email"
                   name="email"
+                  placeholder="Enter your email address"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="Enter your email"
                   autoComplete="email"
                   required
                 />
-              </div>
 
-              <div className="donation-field full-width-field">
-                <label htmlFor="phone">Phone number</label>
+                <label htmlFor="phone" className="donate-field-label">
+                  Phone Number (Optional)
+                </label>
+
                 <input
                   id="phone"
                   type="tel"
                   name="phone"
+                  placeholder="Enter your phone number"
                   value={form.phone}
                   onChange={handleChange}
-                  placeholder="Enter your phone number"
+                  maxLength={20}
                   autoComplete="tel"
-                  maxLength={15}
                 />
               </div>
-            </div>
 
-            <p className="donation-privacy">
-              Your information will be used to manage your donation record.
-            </p>
+              {/* Status message */}
+              {message && (
+                <div
+                  className={`donate-message ${messageType}`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {message}
+                </div>
+              )}
 
-            <button
-              type="submit"
-              className="donation-submit"
-              disabled={loading}
-            >
-              {loading
-                ? "Submitting..."
-                : `Continue with ₹${(
-                    Number.isFinite(amount) && amount >= 0 ? amount : 0
-                  ).toLocaleString("en-IN")}`}
-              {!loading && <span aria-hidden="true">→</span>}
-            </button>
-
-            {message && (
-              <div
-                className={error ? "donation-message error" : "donation-message success"}
-                role="status"
-                aria-live="polite"
+              <button
+                type="submit"
+                className="donate-submit-btn"
+                disabled={loading || !isValidAmount}
               >
-                {message}
-              </div>
-            )}
+                {loading
+                  ? "Redirecting to PhonePe..."
+                  : `Donate ₹${
+                      Number.isFinite(amount) && amount >= 0
+                        ? amount.toLocaleString("en-IN")
+                        : "0"
+                    }`}
+              </button>
 
-            <p className="donation-payment-note">
-              <span aria-hidden="true">ⓘ</span>
-              No payment will be collected at this stage.
-            </p>
-          </form>
-        </section>
-      </div>
-    </main>
-    <Footer/>
+              <p className="donate-secure-note">
+                <span>🔒</span> Secure payment powered by PhonePe.
+                Your payment will be verified by our server.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </>
   );
-}
+};
+
+export default DonateForm;

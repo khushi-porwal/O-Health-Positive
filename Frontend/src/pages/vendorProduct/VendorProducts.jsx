@@ -7,6 +7,7 @@ import "./VendorProducts.css";
 import Footer from "../../components/layout/Footer/Footer"
 import Navbar from "../../components/layout/Navbar/Navbar"
 import MainHeader from "../../components/layout/Header/Header";
+import { addToCart } from "../../services/cartService";
 import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
 function VendorProducts() {
   const { id } = useParams();
@@ -16,6 +17,7 @@ function VendorProducts() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [addingProductId, setAddingProductId] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -109,6 +111,34 @@ function VendorProducts() {
     );
   }
 
+  
+
+
+const handleAddToCart = async (item) => {
+  if (Number(item.stock) <= 0) {
+    alert("This product is out of stock.");
+    return;
+  }
+
+  try {
+    setAddingProductId(item._id);
+
+    await addToCart({
+      vendorId: vendor._id || id,
+      itemId: item._id,
+      quantity: 1,
+    });
+
+    navigate("/cart");
+  } catch (error) {
+    alert(
+      error.response?.data?.message ||
+        "Unable to add product to cart. Please try again."
+    );
+  } finally {
+    setAddingProductId(null);
+  }
+};
   return (
     <>
     <Navbar/>
@@ -232,6 +262,22 @@ function VendorProducts() {
                         </span>
                       </div>
                     </div>
+
+
+<button
+  className="vp-buy-now-btn"
+  type="button"
+  disabled={!inStock || addingProductId === item._id}
+  onClick={() => handleAddToCart(item)}
+>
+  {!inStock
+    ? "Out of Stock"
+    : addingProductId === item._id
+    ? "Adding..."
+    : "Buy Now"}
+</button>
+
+
                   </article>
                 );
               })}

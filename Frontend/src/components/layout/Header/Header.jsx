@@ -41,7 +41,7 @@ function MainHeader() {
           Monthly Donation
         </Link>
         <Link to="/vendor" onClick={closeMenu}>
-          Small Vendors
+          NGO Vendors
         </Link>
         <Link to="/campaign" onClick={closeMenu}>
           Start New Campaigns
@@ -55,7 +55,7 @@ function MainHeader() {
                   className="header-login-btn"
                 >
                   Login/Signup
-                </Link> */}
+         </Link> */}
 
       </nav>
     </header>

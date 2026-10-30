@@ -334,3 +334,28 @@
     padding: 17px;
   }
 }
+
+.vp-buy-now-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #173b78;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.vp-buy-now-btn:hover:not(:disabled) {
+  background: #102b59;
+  transform: translateY(-2px);
+}
+
+.vp-buy-now-btn:disabled {
+  background: #b8b8b8;
+  cursor: not-allowed;
+  transform: none;
+}

@@ -1,6 +1,6 @@
 
 import { Routes, Route } from "react-router-dom";
-
+import Cart from "./pages/cart/Cart";
 import VendorProducts from "./pages/vendorProduct/VendorProducts";
 import Home from "./pages/home/Home";
 import ManageVendors from "./pages/admin/vendor/ManageVendors";
@@ -23,6 +23,7 @@ import DonationForm from "./pages/donate/DonateForm";
 import WhatsAppButton from "./components/whatsAppButton/WhatsAppButton";
 import AllMonthlyPrograms from "./pages/AllMonthly/AllMonthlyPrograms";
 import FAQ from "./pages/faq/FAQ";
+import PaymentResult from "./pages/payment/PaymentResult";
 import RefundCancellation from "./pages/cancellation/RefundCancellation";
 import TermsConditions from "./pages/terms/TermsConditions";
 function App() {
@@ -45,6 +46,8 @@ function App() {
         <Route path="/vendor" element={<Vendors />} />
         <Route path="/blog" element={<Blog />} />
 
+        <Route path="/cart" element={<Cart />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -64,6 +67,10 @@ function App() {
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/refundPolicy" element={<RefundCancellation/>}/>
         <Route path="/terms" element={<TermsConditions/>}/> 
+        <Route
+  path="/donation/payment-result"
+  element={<PaymentResult />}
+/>
       </Routes>
 
       <WhatsAppButton />
