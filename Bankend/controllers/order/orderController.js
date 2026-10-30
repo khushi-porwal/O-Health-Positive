@@ -204,7 +204,7 @@ async function createCheckout(req, res) {
       },
     });
 
-    const frontendUrl = process.env.FRONTEND_URL;
+    const frontendUrl = process.env.CLIENT_URL;
 
     if (!frontendUrl) {
       throw new Error("FRONTEND_URL is not configured");
