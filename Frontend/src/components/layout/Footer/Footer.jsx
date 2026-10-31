@@ -29,6 +29,7 @@ function Footer() {
     { label: "All Monthly Programs", href: "/monthly-programs" },
     { label: "Start a Donation", href: "/donate-form" },
     { label: "Street Vendors", href: "/vendor" },
+    { label: "My Orders", href: "/my-orders" },
     { label: "Blogs", href: "/blog" },
     { label: "Contact Us", href: "/contact" },
   ];

@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMyOrders } from "../../services/orderService";
 import "./MyOrders.css";
-
+import CrowdfundingHeader from "../../components/layout/Crowdfund/CrowdfundingHeader";
+import Footer from "../../components/layout/Footer/Footer"
+import MainHeader from "../../components/layout/Header/Header";
+import Navbar from "../../components/layout/Navbar/Navbar";
 const formatStatus = (status = "") =>
   status.replaceAll("_", " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
@@ -63,17 +66,28 @@ export default function MyOrders() {
   }
 
   return (
+    <>
+     <Navbar />
+      <CrowdfundingHeader />
+      <MainHeader />
+   
     <main className="my-orders-page">
       <header className="my-orders-header">
-        <div>
-          <h1>My Orders</h1>
-          <p>View your purchases and check their delivery status.</p>
-        </div>
+  <div>
+    <h1>My Orders</h1>
+    <p>View your purchases and check their delivery status.</p>
+  </div>
 
-        <button type="button" onClick={loadOrders}>
-          Refresh
-        </button>
-      </header>
+  <div className="my-orders-header-actions">
+    <button type="button" onClick={loadOrders}>
+      Refresh
+    </button>
+
+    <Link className="my-orders-shop-link" to="/vendor">
+      Continue Shopping
+    </Link>
+  </div>
+</header>
 
       {orders.length === 0 ? (
         <section className="my-orders-empty">
@@ -145,5 +159,7 @@ export default function MyOrders() {
         </section>
       )}
     </main>
+    <Footer/>
+     </>
   );
 }

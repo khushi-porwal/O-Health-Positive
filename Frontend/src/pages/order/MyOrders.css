@@ -194,3 +194,30 @@
     box-sizing: border-box;
   }
 }
+.my-orders-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.my-orders-shop-link {
+  display: inline-block;
+  padding: 11px 18px;
+  border-radius: 8px;
+  background: #176b55;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+}
+
+.my-orders-shop-link:hover {
+  background: #105440;
+}
+
+@media (max-width: 600px) {
+  .my-orders-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
