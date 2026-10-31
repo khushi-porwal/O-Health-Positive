@@ -137,11 +137,11 @@ function OrderPaymentResult() {
               )}
 
               <button
-                type="button"
-                onClick={() => navigate("/vendor")}
-              >
-                Continue Shopping
-              </button>
+  type="button"
+  onClick={() => navigate("/my-orders")}
+>
+  View My Orders
+</button>
             </>
           )}
 

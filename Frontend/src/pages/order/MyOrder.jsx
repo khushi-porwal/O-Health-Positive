@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getMyOrderById } from "../services/orderService";
+import { getMyOrderById } from "../../services/orderService";
 import "./MyOrder.css";
 
 const formatStatus = (status = "") =>
