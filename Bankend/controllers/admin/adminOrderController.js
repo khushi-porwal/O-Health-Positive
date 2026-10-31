@@ -170,13 +170,14 @@ exports.updateOrderStatus = async (req, res) => {
       });
     }
 
-    const statusFlow = {
-      confirmed: ["processing"],
-      processing: ["shipped"],
-      shipped: ["out_for_delivery"],
-      out_for_delivery: ["delivered"],
-      delivered: [],
-    };
+   const statusFlow = {
+  pending: ["confirmed", "processing"],
+  confirmed: ["processing"],
+  processing: ["shipped"],
+  shipped: ["out_for_delivery"],
+  out_for_delivery: ["delivered"],
+  delivered: [],
+};
 
     const currentStatus = order.orderStatus || "confirmed";
 
