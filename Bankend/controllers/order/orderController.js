@@ -594,7 +594,69 @@ async function verifyOrderPayment(req, res) {
 }
 
 
+const getMyOrders = async (req, res) => {
+  try {
+    const userId = req.user?._id || req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Please login first",
+      });
+    }
+
+    const orders = await Order.find({ userId })
+      .sort({ createdAt: -1 });
+
+    return res.json({ success: true, orders });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Unable to fetch your orders",
+    });
+  }
+};
+
+const getMyOrderById = async (req, res) => {
+  try {
+    const userId = req.user?._id || req.user?.id;
+    const { id } = req.params;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Please login first",
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid order ID",
+      });
+    }
+
+    // userId check ensures users can only view their own order
+    const order = await Order.findOne({ _id: id, userId });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    return res.json({ success: true, order });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Unable to fetch order details",
+    });
+  }
+};
 module.exports = {
+  getMyOrders,
+  getMyOrderById,
   createCheckout,
   verifyOrderPayment,
 };

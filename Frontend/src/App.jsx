@@ -5,6 +5,7 @@ import VendorProducts from "./pages/vendorProduct/VendorProducts";
 import Home from "./pages/home/Home";
 import ManageVendors from "./pages/admin/vendor/ManageVendors";
 import Login from "./pages/auth/login/Login";
+import MyOrder from "./pages/order/MyOrder"
 import Signup from "./pages/auth/signup/Signup";
 import OrderPaymentResult from "./pages/orderPaymentResult/OrderPaymentResult"
 import Contact from "./pages/contact/Contact";
@@ -15,6 +16,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Chatbot from "./components/common/chatbot/Chatbot";
 import About from "./pages/about/About";
 import Life from "./pages/life/Life";
+import MyOrders from "./pages/order/MyOrders";
 import Campaign from "./pages/compaign/Campaign";
 import Explore from "./pages/explore/Explore";
 import Documents from "./pages/documents/Documents";
@@ -78,6 +80,8 @@ function App() {
   element={<PaymentResult />}
 
 />
+<Route path="/my-orders" element={<MyOrders />} />
+ <Route path="/my-orders/:id" element={<MyOrder />} />
       </Routes>
 
       <WhatsAppButton />

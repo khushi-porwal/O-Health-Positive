@@ -348,8 +348,12 @@ function AdminDashboard() {
 
 <button
   type="button"
+  className={`dashboard-nav-item ${
+    activeSection === "orders" ? "active" : ""
+  }`}
   onClick={() => setActiveSection("orders")}
 >
+    <span aria-hidden="true">↗</span>
   Manage Orders
 </button>
 
