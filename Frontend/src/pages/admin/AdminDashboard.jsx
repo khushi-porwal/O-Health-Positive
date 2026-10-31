@@ -8,6 +8,7 @@ import {
     deleteContact,
 } from "../../services/contactService";
 import MonthyPrograms from "./monthly/MonthlyPrograms"
+import ManageOrders from "./manageOrders/ManageOrders";
 import VendorNominations from "./vendor/vendorNomination/VendorNomination"
 import AdminCampaigns from "./campaign/AdminCampaign";
 import VolunteersSection from "./Voluenteer/Voluenteer";
@@ -345,6 +346,13 @@ function AdminDashboard() {
   Impact Statistics
 </button>
 
+<button
+  type="button"
+  onClick={() => setActiveSection("orders")}
+>
+  Manage Orders
+</button>
+
 
                 <div className="dashboard-sidebar-bottom">
                     <div className="dashboard-admin-avatar">
@@ -389,6 +397,8 @@ function AdminDashboard() {
 {activeSection === "impact-statistics" && (
   <ImpactStatistics />
 )}
+
+{activeSection === "orders" && <ManageOrders />}
 
                 {activeSection === "blogs" && <BlogManagement />}
                 {activeSection === "enquiries" && (

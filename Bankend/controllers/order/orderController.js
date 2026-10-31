@@ -267,7 +267,10 @@ async function createCheckout(req, res) {
 }
 
 
+
 async function verifyOrderPayment(req, res) {
+  let session;
+
   try {
     const userId = getUserId(req);
     const merchantOrderId = getString(req.params.merchantOrderId);
@@ -296,8 +299,9 @@ async function verifyOrderPayment(req, res) {
       });
     }
 
-    // Remove only the products included in this order.
-    // Safe to retry if a previous cart-clearing attempt failed.
+    // Remove only matching purchased quantities.
+    // If the customer changed the quantity during payment,
+    // the updated cart quantity will be preserved.
     const clearPurchasedItems = async () => {
       if (!order.items?.length) return;
 
@@ -309,6 +313,7 @@ async function verifyOrderPayment(req, res) {
               $or: order.items.map((item) => ({
                 vendorId: item.vendorId,
                 itemId: item.itemId,
+                quantity: item.quantity,
               })),
             },
           },
@@ -316,7 +321,7 @@ async function verifyOrderPayment(req, res) {
       );
     };
 
-    // Already paid: retry cart clearing if necessary.
+    // Already paid: never deduct stock again.
     if (order.status === "paid") {
       await clearPurchasedItems();
 
@@ -325,6 +330,7 @@ async function verifyOrderPayment(req, res) {
         orderId: order._id,
         merchantOrderId: order.merchantOrderId,
         status: "paid",
+        orderStatus: order.orderStatus,
         totalAmount: order.totalAmount,
         currency: order.currency,
       });
@@ -350,7 +356,9 @@ async function verifyOrderPayment(req, res) {
 
     const actualAmountPaise = Number(paymentStatus?.amount);
 
+    // -----------------------------------------
     // SUCCESSFUL PAYMENT
+    // -----------------------------------------
     if (state === "COMPLETED") {
       if (
         !Number.isSafeInteger(actualAmountPaise) ||
@@ -378,67 +386,123 @@ async function verifyOrderPayment(req, res) {
           )
         : null;
 
-      // Atomic update: only one request can change pending to paid.
-      const updatedOrder = await Order.findOneAndUpdate(
-        {
+      const transactionReference =
+        completedPayment?.transactionId || "";
+
+      // Stock deduction and payment confirmation must succeed
+      // together. MongoDB transaction prevents partial updates.
+      session = await mongoose.startSession();
+
+      let finalOrder = null;
+
+      await session.withTransaction(async () => {
+        const currentOrder = await Order.findOne({
           _id: order._id,
-          status: "pending",
-        },
-        {
-          $set: {
-            status: "paid",
-            paidAt: new Date(),
-            paymentReference:
-              completedPayment?.transactionId || "",
-            "paymentDetails.verifiedState": state,
-            "paymentDetails.verifiedAt": new Date(),
+          userId,
+        }).session(session);
+
+        if (!currentOrder) {
+          throw new Error("ORDER_NOT_FOUND");
+        }
+
+        // Another verification request may have completed payment.
+        if (currentOrder.status === "paid") {
+          finalOrder = currentOrder;
+          return;
+        }
+
+        if (currentOrder.status !== "pending") {
+          throw new Error("ORDER_STATUS_CHANGED");
+        }
+
+        // Deduct stock atomically for every purchased product.
+        for (const item of currentOrder.items) {
+          const stockUpdate = await Vendor.updateOne(
+            {
+              _id: item.vendorId,
+              status: "approved",
+              items: {
+                $elemMatch: {
+                  _id: item.itemId,
+                  stock: { $gte: item.quantity },
+                },
+              },
+            },
+            {
+              $inc: {
+                "items.$.stock": -item.quantity,
+              },
+            },
+            { session }
+          );
+
+          if (stockUpdate.modifiedCount !== 1) {
+            throw new Error(
+              `INSUFFICIENT_STOCK:${item.productName}`
+            );
+          }
+        }
+
+        // Confirm payment and initialize delivery tracking.
+        const updatedOrder = await Order.findOneAndUpdate(
+          {
+            _id: currentOrder._id,
+            status: "pending",
           },
-        },
-        {
-          new: true,
-          runValidators: true,
+          {
+            $set: {
+              status: "paid",
+              paidAt: new Date(),
+              paymentReference: transactionReference,
+              orderStatus: "confirmed",
+              "paymentDetails.verifiedState": state,
+              "paymentDetails.verifiedAt": new Date(),
+            },
+            $push: {
+              trackingHistory: {
+                status: "confirmed",
+                message: "Payment received. Your order is confirmed.",
+                updatedAt: new Date(),
+              },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+            session,
+          }
+        );
+
+        if (!updatedOrder) {
+          throw new Error("ORDER_CONFIRMATION_FAILED");
         }
-      );
 
-      // Handle simultaneous verification requests.
-      if (!updatedOrder) {
-        const currentOrder = await Order.findById(order._id);
+        finalOrder = updatedOrder;
+      });
 
-        if (currentOrder?.status !== "paid") {
-          return res.status(409).json({
-            message: "Order status changed. Please check again.",
-            status: currentOrder?.status,
-          });
-        }
-
-        await clearPurchasedItems();
-
-        return res.status(200).json({
-          success: true,
-          orderId: currentOrder._id,
-          merchantOrderId: currentOrder.merchantOrderId,
-          status: "paid",
-          totalAmount: currentOrder.totalAmount,
-          currency: currentOrder.currency,
-        });
+      if (!finalOrder) {
+        throw new Error("ORDER_CONFIRMATION_FAILED");
       }
 
-      // Clear cart only after payment is verified and order is paid.
+      // Clear cart after the transaction commits.
       await clearPurchasedItems();
 
       return res.status(200).json({
         success: true,
         message: "Payment verified and order confirmed.",
-        orderId: updatedOrder._id,
-        merchantOrderId: updatedOrder.merchantOrderId,
-        status: updatedOrder.status,
-        totalAmount: updatedOrder.totalAmount,
-        currency: updatedOrder.currency,
-        paidAt: updatedOrder.paidAt,
+        orderId: finalOrder._id,
+        merchantOrderId: finalOrder.merchantOrderId,
+        status: finalOrder.status,
+        orderStatus: finalOrder.orderStatus,
+        totalAmount: finalOrder.totalAmount,
+        currency: finalOrder.currency,
+        paidAt: finalOrder.paidAt,
       });
     }
 
+    // -----------------------------------------
     // FAILED PAYMENT
+    // -----------------------------------------
     if (state === "FAILED") {
       const updatedOrder = await Order.findOneAndUpdate(
         {
@@ -461,7 +525,6 @@ async function verifyOrderPayment(req, res) {
       const currentOrder =
         updatedOrder || await Order.findById(order._id);
 
-      // Never report failure if another request confirmed payment.
       if (currentOrder?.status === "paid") {
         await clearPurchasedItems();
 
@@ -483,7 +546,9 @@ async function verifyOrderPayment(req, res) {
       });
     }
 
+    // -----------------------------------------
     // PENDING / UNKNOWN
+    // -----------------------------------------
     return res.status(202).json({
       success: false,
       message: "Payment is still being processed. Please check again.",
@@ -499,9 +564,32 @@ async function verifyOrderPayment(req, res) {
       error.message
     );
 
+    if (error.message.startsWith("INSUFFICIENT_STOCK:")) {
+      return res.status(409).json({
+        success: false,
+        message:
+          "Payment was received, but product stock could not be confirmed. Please contact support for order resolution.",
+        inventoryIssue: true,
+      });
+    }
+
+    if (
+      error.message === "ORDER_STATUS_CHANGED" ||
+      error.message === "ORDER_CONFIRMATION_FAILED"
+    ) {
+      return res.status(409).json({
+        message: "Order status changed. Please check again.",
+      });
+    }
+
     return res.status(502).json({
       message: "Unable to verify payment right now. Please retry shortly.",
     });
+
+  } finally {
+    if (session) {
+      await session.endSession();
+    }
   }
 }
 

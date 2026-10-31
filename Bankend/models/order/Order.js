@@ -89,10 +89,37 @@ const deliveryDetailsSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// Order tracking history
+const trackingHistorySchema = new mongoose.Schema(
+  {
+    status: {
+      type: String,
+      enum: [
+        "confirmed",
+        "processing",
+        "shipped",
+        "out_for_delivery",
+        "delivered",
+        "cancelled",
+      ],
+      required: true,
+    },
+    message: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { _id: false }
+);
+
 // Main order schema
 const orderSchema = new mongoose.Schema(
   {
-    // User who placed the order
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -100,13 +127,11 @@ const orderSchema = new mongoose.Schema(
       index: true,
     },
 
-    // Delivery address and contact details
     deliveryDetails: {
       type: deliveryDetailsSchema,
       required: true,
     },
 
-    // Products purchased
     items: {
       type: [orderItemSchema],
       required: true,
@@ -117,7 +142,6 @@ const orderSchema = new mongoose.Schema(
       },
     },
 
-    // Final order amount in INR
     totalAmount: {
       type: Number,
       required: true,
@@ -130,7 +154,7 @@ const orderSchema = new mongoose.Schema(
       enum: ["INR"],
     },
 
-    // Order/payment lifecycle
+    // Payment status - keep separate from delivery status
     status: {
       type: String,
       enum: [
@@ -149,29 +173,82 @@ const orderSchema = new mongoose.Schema(
       default: "phonepe",
     },
 
-    // Our unique merchant order reference
     merchantOrderId: {
       type: String,
       unique: true,
       sparse: true,
     },
 
-    // PhonePe transaction reference, when verified
     paymentReference: {
       type: String,
       default: "",
     },
 
-    // Non-secret payment metadata only
     paymentDetails: {
       type: mongoose.Schema.Types.Mixed,
       default: {},
     },
 
-    // Set only after successful payment verification
     paidAt: {
       type: Date,
       default: null,
+    },
+
+    // --------------------------------
+    // ORDER DELIVERY TRACKING
+    // --------------------------------
+
+    orderStatus: {
+      type: String,
+      enum: [
+        "pending",
+        "confirmed",
+        "processing",
+        "shipped",
+        "out_for_delivery",
+        "delivered",
+        "cancelled",
+      ],
+      default: "pending",
+      index: true,
+    },
+
+    estimatedDeliveryDate: {
+      type: Date,
+      default: null,
+    },
+
+    courierName: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    trackingNumber: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    trackingUrl: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    shippedAt: {
+      type: Date,
+      default: null,
+    },
+
+    deliveredAt: {
+      type: Date,
+      default: null,
+    },
+
+    trackingHistory: {
+      type: [trackingHistorySchema],
+      default: [],
     },
   },
   { timestamps: true }
